@@ -3,19 +3,18 @@ class B2Tools < Formula
 
   desc "B2 Cloud Storage Command-Line Tools"
   homepage "https://github.com/Backblaze/B2_Command_Line_Tool"
-  url "https://files.pythonhosted.org/packages/0a/12/623f37900c1e9725901564819a11bab20ebf6dae5ecf206672a664c38031/b2-3.15.0.tar.gz"
-  sha256 "d74736cdd7402f2efe086c618d40bab4c2d0719dd698b7916356cd296ba7032b"
+  url "https://files.pythonhosted.org/packages/07/31/93cdccc67ed94d250db1a540781dab5b9fc1c7495ce1d3676df8b1a09477/b2-3.16.1.tar.gz"
+  sha256 "b81e31ef2930236adb8b81dd80567d79e2985fa58d436a5ae9c7b650e44d9095"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1b6f774db58fda84900fa5c9267402df47df7e0ec1b710f170fdcea2c1bd78e9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "012aabe45552c0fdc4099c3bfb57da346c6b5fca052385c207cdfac9b706d800"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf05bbed39036ffb82d7960c4ba5169dd1242b5eb743ceb79350f9a9f2cf877d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "17ac8a53a6bfb451fbfe400a2d0ee4a6586e5f373f99c56cba874b341854e35d"
-    sha256 cellar: :any_skip_relocation, ventura:        "85a9f7429bdae640136d07fbf48d4d634352af0fec19ab0ee3ca2301a2e7f4c9"
-    sha256 cellar: :any_skip_relocation, monterey:       "6ea82ec66dbefa0593d0d710c199d0ee48119e9a56026f1927574194f8acfb6e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ece25d1e86fe10d9d623ca92a28d5de29ea433ce2756a5a0e597cc9ccdfe2ef"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "184da3d6ad4977df11c59059f7550eb092f72d2be50f307b090c44e80146e0c5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "26b51687490d5562a1313e29f64a584fe82f8d41c5ca06c08799aca602025c97"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "29d5b44a452402563ec98d8965fee0d8de4023a2a49f9357c340fc1a66633d30"
+    sha256 cellar: :any_skip_relocation, sonoma:         "18945192f462754947f3245fa9a912ccd933f60d2cf001e60b35dd8409d93fc6"
+    sha256 cellar: :any_skip_relocation, ventura:        "4dd987ca2c438e52922ed71763c42250dbf748cb8c3c5b2566c57cf000b9ea92"
+    sha256 cellar: :any_skip_relocation, monterey:       "8f4cab2e7fe201e5b75a5b41b53cd1b9ac7dfcb59698538f14e77cc191a5a69d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d9d29638123f94eb0d706842a98e0f132fbda40c54d2e11c354101aca5670de3"
   end
 
   depends_on "python-certifi"
@@ -34,8 +33,8 @@ class B2Tools < Formula
   end
 
   resource "b2sdk" do
-    url "https://files.pythonhosted.org/packages/24/0c/cf4705f98ca0edff0f29e3f7407a1cd2265fa6920c27be74ee172cdb37e1/b2sdk-1.30.1.tar.gz"
-    sha256 "9217c30bfb5891e468c726aae2aace996e628411885752437bdf0d4b8a3ba29d"
+    url "https://files.pythonhosted.org/packages/62/07/77dc84bdf8da0ba5bbd1302ea2d1b4a697b05e5be373ed00ee40edc315ad/b2sdk-1.32.0.tar.gz"
+    sha256 "46321bccdd9a295af52cb05d98b5df9771bddf8dcdf68afe3a9fdf7dda156b32"
   end
 
   resource "charset-normalizer" do
@@ -89,8 +88,8 @@ class B2Tools < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/c9/3d/74c56f1c9efd7353807f8f5fa22adccdba99dc72f34311c30a69627a0fad/setuptools-69.1.0.tar.gz"
-    sha256 "850894c4195f09c4ed30dba56213bf7c3f21d86ed6bdaafb5df5972593bfc401"
+    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
+    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
   end
 
   resource "six" do
@@ -104,8 +103,8 @@ class B2Tools < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/06/04/e65e7f457ce9a2e338366a3a873ec6994e081cf4f99becb59ab6ce19e4b5/tqdm-4.65.2.tar.gz"
-    sha256 "5f7d8b4ac76016ce9d51a7f0ea30d30984888d97c474fdc4a4148abfb5ee76aa"
+    url "https://files.pythonhosted.org/packages/ea/85/3ce0f9f7d3f596e7ea57f4e5ce8c18cb44e4a9daa58ddb46ee0d13d6bff8/tqdm-4.66.2.tar.gz"
+    sha256 "6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531"
   end
 
   resource "types-python-dateutil" do
@@ -123,7 +122,6 @@ class B2Tools < Formula
 
     system bin/"b2", "install-autocomplete", "--shell", "bash"
     bash_completion.install "#{Dir.home}/.bash_completion.d/b2"
-    pkgshare.install (buildpath/"contrib").children
   end
 
   test do
