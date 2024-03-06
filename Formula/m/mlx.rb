@@ -3,14 +3,14 @@ class Mlx < Formula
 
   desc "Array framework for Apple silicon"
   homepage "https://github.com/ml-explore/mlx"
-  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.4.0.tar.gz"
-  sha256 "36ef8aaec328ae93869f9e2906aba3bf1cfee6e4bc134215e0294b9a24a889f1"
+  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.5.1.tar.gz"
+  sha256 "db21d9c09f6dec25d8afe9efd2c077a1c20b86e663ecb064ccce32398eee7f18"
   license "MIT"
   head "https://github.com/ml-explore/mlx.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:  "eaa9bd9c7017b4a1f6c23bc3a74927d5ba1423b3e38a294cec3eca9232134ed3"
-    sha256 cellar: :any, arm64_ventura: "e512248d8fa6baa6f14a500b2fd08caa64c11d71c379c5cbe553e56ffeacb029"
+    sha256 cellar: :any, arm64_sonoma:  "6abe8d8264d6c6ec19cfe6f587f5e9fb03a3ab3e49b7db4fdc1b9e70baf63d5b"
+    sha256 cellar: :any, arm64_ventura: "52ae42694341153626afabaffad0f222f8cb33dffcac1938cf10716bce15d94a"
   end
 
   depends_on "cmake" => :build
@@ -21,8 +21,8 @@ class Mlx < Formula
   depends_on "python@3.12"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/c9/3d/74c56f1c9efd7353807f8f5fa22adccdba99dc72f34311c30a69627a0fad/setuptools-69.1.0.tar.gz"
-    sha256 "850894c4195f09c4ed30dba56213bf7c3f21d86ed6bdaafb5df5972593bfc401"
+    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
+    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
   end
 
   def python3

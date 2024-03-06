@@ -3,27 +3,23 @@ class Codelimit < Formula
 
   desc "Your Refactoring Alarm"
   homepage "https://github.com/getcodelimit/codelimit"
-  url "https://files.pythonhosted.org/packages/a7/fc/e921e7f4bde2293dfa7b4339cf9f05e035b63c8da9fe7813658395e3c943/codelimit-0.8.0.tar.gz"
-  sha256 "6e22114ead670096bea7d902789aad66f390adbab73a29ce2cc96f53eace2d09"
+  url "https://files.pythonhosted.org/packages/a1/ae/0048c31a0185e78cd16504c119b6d3e009c0ffe8932bd9a6b7a449164db5/codelimit-0.8.1.tar.gz"
+  sha256 "fbf565e061461ed8e78829b56db083b352b916010c1fbf7e7ca97f1857eaa788"
   license "ISC"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "ab77b5a465b4ffedd49df2b33287cb17da6b934642f58564b4088f777e5fdc62"
-    sha256 cellar: :any,                 arm64_ventura:  "7c9f12bfd6e889fb1d1e2c32fb24874a9ae7b353272371a77e67cc6629d9308c"
-    sha256 cellar: :any,                 arm64_monterey: "9dacfcfd4ce84ad19210a5302020986271a64b75d336cbdd1047f0cac16f7739"
-    sha256 cellar: :any,                 sonoma:         "05bf1c74c4015e09eae96d7428d2d251057b43024374a5049c28d1cd82cd7465"
-    sha256 cellar: :any,                 ventura:        "bb92157bea5e2c4774b70ba2d69d6aeb423749269b43f0eb98d4a0efb2427221"
-    sha256 cellar: :any,                 monterey:       "95d7a08ffae9fc5fb5bf8491f88cecbe4e0de4375c56fe13a859a4d3f23d6232"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33ff12df6e14556960d574273d7e57851d60a15fb0852ca8d9914b122da5b873"
+    sha256 cellar: :any,                 arm64_sonoma:   "76d89256fdf039571b6221da922006e713a99e3ae4d21dd8efa04701253a83e3"
+    sha256 cellar: :any,                 arm64_ventura:  "fd80ffaba3a211499e069069c83f18bd7ba05fc4bc6d0a031c26d17d7014aa8e"
+    sha256 cellar: :any,                 arm64_monterey: "92ae99cd541858f4413f968d53d37d02d5005b5757cc3ee28219341b22e7b8cb"
+    sha256 cellar: :any,                 sonoma:         "e852b5ab8e77a8b5c929ad7b880a281d6dee11acf91eba363fa233bf26d4a4b7"
+    sha256 cellar: :any,                 ventura:        "e7ce4c56f0c07a9d398d3e204f486735c0670fbec4d1a028e1cb08161875886a"
+    sha256 cellar: :any,                 monterey:       "cebc3483b89385461c271f20df0077cc64387dc42d58523075a32ae8ddd6d829"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "04086cde11d3e9e8c7e9ef4bc91bd3754d4877cfd13eb46273bc39d253549a4f"
   end
 
   depends_on "libyaml"
-  depends_on "pygments"
   depends_on "python-certifi"
-  depends_on "python-click"
-  depends_on "python-typing-extensions"
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "aiohttp" do
     url "https://files.pythonhosted.org/packages/18/93/1f005bbe044471a0444a82cdd7356f5120b9cf94fe2c50c0cdbf28f1258b/aiohttp-3.9.3.tar.gz"
@@ -43,6 +39,11 @@ class Codelimit < Formula
   resource "charset-normalizer" do
     url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
     sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "colorama" do
@@ -105,6 +106,11 @@ class Codelimit < Formula
     sha256 "319a287baabeb8576a711995f973a2eba631c887aa6b0f33ab016f12c50ffebe"
   end
 
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
   resource "pyyaml" do
     url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
     sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
@@ -116,8 +122,13 @@ class Codelimit < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/a7/ec/4a7d80728bd429f7c0d4d51245287158a1516315cadbb146012439403a9d/rich-13.7.0.tar.gz"
-    sha256 "5cb5123b5cf9ee70584244246816e9114227e0b98ad9176eede6ad54bf5403fa"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "spinners" do
@@ -140,6 +151,11 @@ class Codelimit < Formula
     sha256 "50922fd79aea2f4751a8e0408ff10d2662bd0c8bbfa84755a699f3bada2978b2"
   end
 
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/16/3a/0d26ce356c7465a19c9ea8814b960f8a36c3b0d07c323176620b7b483e44/typing_extensions-4.10.0.tar.gz"
+    sha256 "b0abd7c89e8fb96f98db18d86106ff1d90ab692004eb746cf6eda2682f91b3cb"
+  end
+
   resource "uc-micro-py" do
     url "https://files.pythonhosted.org/packages/91/7a/146a99696aee0609e3712f2b44c6274566bc368dfe8375191278045186b8/uc-micro-py-1.0.3.tar.gz"
     sha256 "d321b92cff673ec58027c04015fcaa8bb1e005478643ff4a500882eaab88c48a"
@@ -160,9 +176,6 @@ class Codelimit < Formula
     sha256 "84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"
   end
 
-  # upstream py3.12 patch PR, https://github.com/getcodelimit/codelimit/pull/28
-  patch :DATA
-
   def install
     virtualenv_install_with_resources
   end
@@ -176,31 +189,3 @@ class Codelimit < Formula
     assert_includes shell_output("#{bin}/codelimit check #{testpath}/test.py"), "Refactoring not necessary"
   end
 end
-
-__END__
-diff --git a/PKG-INFO b/PKG-INFO
-index 46c660d..a76844c 100644
---- a/PKG-INFO
-+++ b/PKG-INFO
-@@ -4,7 +4,7 @@ Version: 0.8.0
- Summary: 
- Author: Rob van der Leek
- Author-email: robvanderleek@gmail.com
--Requires-Python: >=3.9,<=3.12
-+Requires-Python: >=3.9,<3.13
- Classifier: Programming Language :: Python :: 3
- Classifier: Programming Language :: Python :: 3.9
- Classifier: Programming Language :: Python :: 3.10
-diff --git a/pyproject.toml b/pyproject.toml
-index 1d807a1..0cbf49e 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -9,7 +9,7 @@ readme = "README.md"
- codelimit = "codelimit.__main__:cli"
- 
- [tool.poetry.dependencies]
--python = ">=3.9,<=3.12"
-+python = ">=3.9,<3.13"
- halo = "^0.0.31"
- plotext = "^5.2.8"
- pygments = "^2.13.0"

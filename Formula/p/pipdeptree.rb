@@ -3,18 +3,18 @@ class Pipdeptree < Formula
 
   desc "CLI to display dependency tree of the installed Python packages"
   homepage "https://github.com/tox-dev/pipdeptree"
-  url "https://files.pythonhosted.org/packages/bc/82/85062537b750f733bef0592c93cc204754f611f7cba388e279e23a2223e4/pipdeptree-2.15.1.tar.gz"
-  sha256 "e4ae44fc9d0c747125316981804d7786e9d97bf59c128249b8ea272a7cbdecc4"
+  url "https://files.pythonhosted.org/packages/9d/3a/cded13c8690905c592bc8f39ac4d8d03e26caf3b27cdf0d5f26ae4051de3/pipdeptree-2.16.1.tar.gz"
+  sha256 "f1ca64ce4aff9373613711048b9c4e8106ad955dea0dd962b7974fa168d7650a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2f0565d189ab862865633467723550c1ccff44aa8d4235bd48064861e981b2c3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "18cd47f1467526611437ffa692e4657cf3eca8647f2df33b393d6d90c54d6fee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2bc2c7eb1b8e5f9c86a43e458d6338a6afe0159cf4a867f850b201a0f7b8fd2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5829e9dfe7f4483b91424a019eb114620568a666fbf351708a2a741e3631e30e"
-    sha256 cellar: :any_skip_relocation, ventura:        "41961bbc63f1b75ed829a7bf1b53e629ebe47c303c1346aeead8ac59942f58ad"
-    sha256 cellar: :any_skip_relocation, monterey:       "d18de5c5a366733be8ef30a3d4ea61369be28f3952d9460517d8c29ab930d482"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1cd0dbf09ca3ed953c07500d2a4338bfb12d83aa593de5f30acc5c23f7c34d22"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f746ad662f4718ca962a782c0ef965e3b31d1552e033519614bb93b27b789193"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2844adb32f9c4897ae5c48939d6db17cd3479b41f2ecd3f14360bd680b97f958"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "00c41a65978e85c50b7c721e27e032e78726401cb27327ff25edd2c759ba8d1a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2cad9f3a3b95464b2c0b7b243d20189e86bb63a44d8225ce383a59d32120be9f"
+    sha256 cellar: :any_skip_relocation, ventura:        "2a2b931a38db53ca119d320aa4821eacc81ca5382ec787238142a623d02c21c0"
+    sha256 cellar: :any_skip_relocation, monterey:       "55b6d9f26389bf752ca1f44a74ce41bf027bef01b88916e97de21a0fcd3457ed"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59793c5102220b9a47741c2570148ee71e246df64218d50239116e3f2188f2c6"
   end
 
   depends_on "python@3.12"

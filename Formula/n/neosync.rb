@@ -1,19 +1,19 @@
 class Neosync < Formula
   desc "CLI for interfacing with Neosync"
   homepage "https://www.neosync.dev/"
-  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.3.44.tar.gz"
-  sha256 "033cda097e23d25c8af0986194c861ad6e305adaa15ab128b7457e71d189ecab"
+  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.3.53.tar.gz"
+  sha256 "d035bbc44e36bec3ebcde2cfee2d1fb152807ac0811dee1c7acfcb17a5eee67b"
   license "MIT"
   head "https://github.com/nucleuscloud/neosync.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1f272e03133bd99fef61202fc9d5ce267957461772ccbabf2a7cfd3f487a64ce"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7a41fab4d48b0839b3f945dd205de9f890f0736f651c924c77f59475bfebe87c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4838879c68073748186ceec01b2d285fff93a7187d872b3c754d809274060364"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4fa31d517938a5fa2c55726669de347df418af3421cab6073b1c751a3ddab045"
-    sha256 cellar: :any_skip_relocation, ventura:        "ba060ee5d7108df47fab4639626a9b8b625dab0ed8ea04ebf0012b9e2e63baf6"
-    sha256 cellar: :any_skip_relocation, monterey:       "8e15236c1f82808b3e6269b4eb66b676d97b8f1514c04b97f75511e44b91b9d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b947be73ba261fc6744eb2c586778ccdd7fee635c44aae370cb9fcedbcf8f5d2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6db4e727e8ea243fa1f0e82cc13696220310a191f5f9109a9a014251b6ac65f3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9e4fd204c655b4f3caac8c3cf5e8c48c2769d1a3856376fec47ede886af4a995"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3cf3032b7963fd39e8fc2332ed476a72e203c6cd23a6a8b653ed35044867f59e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f1264f8e6ea85496dbe494f91191055e0991d9378c9ad0fbeb199d1f3965434a"
+    sha256 cellar: :any_skip_relocation, ventura:        "36d94b6b594b5fe9b5ed8aade609daf6a9846cf441473307939500cc2856b52b"
+    sha256 cellar: :any_skip_relocation, monterey:       "771f7fed32ae7046759cdf130103362c57f9740d1c07f0b1b0dfc61f88d31351"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "044ba1c315fbe30526ebbdf53a926c5ce9669ab2a6cbd5955e64fe1f036e6d1e"
   end
 
   depends_on "go" => :build

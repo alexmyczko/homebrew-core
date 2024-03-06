@@ -3,18 +3,18 @@ class Dolphie < Formula
 
   desc "Feature-rich top tool for monitoring MySQL"
   homepage "https://github.com/charles-001/dolphie"
-  url "https://files.pythonhosted.org/packages/1d/e8/0db250170b3ca7750a9c8716e827de75a0c478d2203e1003a2d8f3e7e0d6/dolphie-4.3.0.tar.gz"
-  sha256 "9617c2b4d36c2d4f3ad462ebcc3b7c8e41251372627ac21ee5f8382011189329"
+  url "https://files.pythonhosted.org/packages/bb/1e/b27080ad810502b01e101a830986bf37ba734c8370c30f2141222bdc41dd/dolphie-4.3.2.tar.gz"
+  sha256 "4cf6f6d55465a0ad26b992942fcf0bf029c23fe922af2c8e0b40d1090e3ac73e"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c67d6d1a97a79c683b76c4cec540bce8b56d6dce273b7c0135702876991572b2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4455d75463291090c96e48db5a29a608df89fdcf21a9ed40a3b76d60774115ee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc1d272aeac6d741777e2adae3369c18e8f7fbfcd4648d343bf8ab6d2d1f53f8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "79ec4cde8a3e03146504ff3631f371f70a414d6dbd88c5b574df9a934c05ed52"
-    sha256 cellar: :any_skip_relocation, ventura:        "3beeea56f0c4150b20e3d87ea9b4e4740678c1cfb54e6ad74d4f63a36416a8a7"
-    sha256 cellar: :any_skip_relocation, monterey:       "53eb1fc7d787e444a47f9570dcda3f45f3847b6229770e54500797d37184a548"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4db9b968afda77f7fd04c99d61329a9f9e2581ea09405180188ac45283821bb2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "71f96a11bb723b12d484de76484e8aaadcb157fe3a6d7bfaa04c22183614cec0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dd73e2ed5ed888099ff30349f1aeb1bae6adde49cc4366884c19cb5c4073337e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e076644c35f995be92e2350b9a141f185e26447eb8c456e09358c06364d72b9a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "34452ccdff6a73f16f5b6d2ffd33c3b87c1b6f02eeb7f5d2a7ca4cb369593600"
+    sha256 cellar: :any_skip_relocation, ventura:        "c398a161d836b22992dfeb6390533ebdff345510d845f4f7cd0affd4bd09ad7c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a1b7e0e96525848280ff9398ce5ac835dc74a4d11475afac064ac3707dd28d39"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4df4b93e047c3470b08c3534087c99fd0bb9975f02a75fbe6e84749077dbafe"
   end
 
   depends_on "python-certifi"
@@ -82,8 +82,8 @@ class Dolphie < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/a7/ec/4a7d80728bd429f7c0d4d51245287158a1516315cadbb146012439403a9d/rich-13.7.0.tar.gz"
-    sha256 "5cb5123b5cf9ee70584244246816e9114227e0b98ad9176eede6ad54bf5403fa"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
   end
 
   resource "sqlparse" do
