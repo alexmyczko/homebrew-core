@@ -26,6 +26,6 @@ class Ruptime < Formula
   end
 
   test do
-    system "false"
+    assert_match "SERVER=", shell_output("/usr/bin/defaults read ch.aiei.ruptime")
   end
 end
