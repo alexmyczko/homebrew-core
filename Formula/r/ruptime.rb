@@ -23,6 +23,9 @@ class Ruptime < Formula
     bin.install_symlink "ruptime" => "rwho"
     man1.install "man/ruptime.1"
     #man8.install "man/ruptimed.8"
+    system "/usr/bin/defaults write ch.aiei.ruptime SERVER bananas.debian.net"
+    system "/usr/bin/defaults write ch.aiei.ruptime PORT 51300"
+    system "/usr/bin/defaults write ch.aiei.ruptime KEY PUBLICINTERNETRUPTIMEKEYNOTSUITABLEFORPRIVATEDATAYOUHAVEBEENWARNED"
   end
 
   test do
