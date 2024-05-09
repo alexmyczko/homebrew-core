@@ -1,8 +1,8 @@
 class JpegXl < Formula
   desc "New file format for still image compression"
   homepage "https://jpeg.org/jpegxl/index.html"
-  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.1.tar.gz"
-  sha256 "91b9a83a230d608b5d35d2ab5068bd0ec7028797575e3013211be5928028c8cd"
+  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz"
+  sha256 "95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,14 @@ class JpegXl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "bb6ef9768ecf5a59ff9a25507f46e040d14261a8da6e5f943caf286e4bee1ffd"
-    sha256 cellar: :any,                 arm64_ventura:  "d75498b5adccc226e94fef183cce058d2e7c81c6193e6959ee4cba0ce6e2097b"
-    sha256 cellar: :any,                 arm64_monterey: "4892e8d3cc4fa0c52ca95337592e3dc008dcc1197267c2db7c89af0cf051ef93"
-    sha256 cellar: :any,                 sonoma:         "7732aea9d3110b61bf18b598362f3e6849550b5aaa012136f04a5c6520022405"
-    sha256 cellar: :any,                 ventura:        "21268bc3870c597b3d6932ca463e995f011382d93e18947ba701ee63304bf710"
-    sha256 cellar: :any,                 monterey:       "993af6a93eb460fb8766c9da82fcafbc797b5d300989fb5d994a910b226441e5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2cd0d9944eded139932a31b011b412ec8684c1b4f028081a588d613ab0ccb374"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "436eb06c81b1c2d812b571570a91e546f002e213c8b00badbf717e366cd68e4e"
+    sha256 cellar: :any,                 arm64_ventura:  "834b2ded08dd0df929eb26802da73d7a1566872450122db6da53098b5899d3b8"
+    sha256 cellar: :any,                 arm64_monterey: "f57984afc191c960b52714bac03ce5ddb4c7f6f34d9a390083560208c1511ced"
+    sha256 cellar: :any,                 sonoma:         "ac73a83204e84ffa4fea0bc1f4822c28e5790f0212ff14f23200b016a951c507"
+    sha256 cellar: :any,                 ventura:        "6b22ba67bfcafe41e5d82e41d62d41b7b18598d97b9593e4ffb0b9465a1676b9"
+    sha256 cellar: :any,                 monterey:       "d0e69905eb08fc5a9db6b233eb4261b99b4329f5ec486500b3f2321fecfc95eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "770513514db0021af965aefe191926cd144134df3af32c2774e6bcbbd61706ce"
   end
 
   depends_on "asciidoc" => :build
@@ -58,6 +59,7 @@ class JpegXl < Formula
                     "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON",
                     "-DJPEGXL_FORCE_SYSTEM_LCMS2=ON",
                     "-DJPEGXL_FORCE_SYSTEM_HWY=ON",
+                    "-DJPEGXL_ENABLE_DEVTOOLS=ON",
                     "-DJPEGXL_ENABLE_JNI=OFF",
                     "-DJPEGXL_ENABLE_JPEGLI=OFF",
                     "-DJPEGXL_ENABLE_SKCMS=OFF",

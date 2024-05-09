@@ -1,19 +1,19 @@
 class Syft < Formula
   desc "CLI for generating a Software Bill of Materials from container images"
   homepage "https://github.com/anchore/syft"
-  url "https://github.com/anchore/syft/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "c0929183f1771546907b2c874f528ca8609ce4c27319091dd485004f6d3ccdfb"
+  url "https://github.com/anchore/syft/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "6916cb0d38c4dc56efe2171bd343b4c9a9fa19a34b46ecedcd209d6e298643b6"
   license "Apache-2.0"
   head "https://github.com/anchore/syft.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "52eba589a0dec039e8d3f27048cf405583687d6032efe2bca32ff816e9aa35a6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "facf4a6e642e39427e653f5c78a583d181949a5e7875eea1275c9467b00d06e0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc595211dbd17199241fb7169f9c5e1c4de5b2b8ffb4bd3b02e70e2277ed77b2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bd701854f94ee4594845cb2b03ef7a9b28023227625141dbef384fd83ec7a55f"
-    sha256 cellar: :any_skip_relocation, ventura:        "b32fc00f1864c777ace6ca49665b1843cf41a4526481c91de75b13e712267fd7"
-    sha256 cellar: :any_skip_relocation, monterey:       "a537bee8c3b0a7956b0442760a1d6bc2b14f0314ead435710c8ef59626b12aa6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16272b3ea0c6d68af607b91e9ea15c1a38e02c8dae21cd075911c8ceca975a55"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f6cff4484ec70e0914a450c73950e676aafd4030d6d1ad1eed25d7ee2a1eccc4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8933fc47328614785e87fa05a69f7a153ea657effa1f75da6c3cd124a0daa7a2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1cbf198c58f2e2c2698eb4c0ad43d0c394e37f6f3be21f352e9ec308033f4c24"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b5940a72638906638966d53ffe405c613df0d3fece8dab22747e676c2e5565a1"
+    sha256 cellar: :any_skip_relocation, ventura:        "262d24ca6ee6d98bcbce1396b3b01b769be3f8e9eeced686e567fcecd29a01f5"
+    sha256 cellar: :any_skip_relocation, monterey:       "e4b3fbf52c9ae4f76f9d5bff1a9e4227fa5b0fb3c5e747b41eb0fd779945603e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "393b94a3d0809246c03ed18e17bdcf614c85f18b9901e72190ed8f80c5c33437"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class Syft < Formula
       -X main.buildDate=#{time.iso8601}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/syft"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/syft"
 
     generate_completions_from_executable(bin/"syft", "completion")
   end

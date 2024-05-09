@@ -1,19 +1,19 @@
 class Infracost < Formula
   desc "Cost estimates for Terraform"
   homepage "https://www.infracost.io/docs/"
-  url "https://github.com/infracost/infracost/archive/refs/tags/v0.10.33.tar.gz"
-  sha256 "8150557209c71452c1aabf138f912fa78f0e07650d28804480c16d1affc1570a"
+  url "https://github.com/infracost/infracost/archive/refs/tags/v0.10.36.tar.gz"
+  sha256 "7dfc849a8e91cbb81933664f8989a688365c4b627444342d15831052c976a569"
   license "Apache-2.0"
   head "https://github.com/infracost/infracost.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3235d65a66e41dfa32df531a221a9632c5c94082ccba9488518e69c377358dea"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3235d65a66e41dfa32df531a221a9632c5c94082ccba9488518e69c377358dea"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3235d65a66e41dfa32df531a221a9632c5c94082ccba9488518e69c377358dea"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2b90bd7b842fe4234712cb9e523597a2dd12a4e1758e6605b274457591f93fbf"
-    sha256 cellar: :any_skip_relocation, ventura:        "2b90bd7b842fe4234712cb9e523597a2dd12a4e1758e6605b274457591f93fbf"
-    sha256 cellar: :any_skip_relocation, monterey:       "2b90bd7b842fe4234712cb9e523597a2dd12a4e1758e6605b274457591f93fbf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0a631026d2cffda264888355742b627e586930ff7014ef06ed99e7ee70133cf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "db5a47a7e1bf057db763cb81a6cfaff909f744671a7ab78cfa04573fb4650ece"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "db5a47a7e1bf057db763cb81a6cfaff909f744671a7ab78cfa04573fb4650ece"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "db5a47a7e1bf057db763cb81a6cfaff909f744671a7ab78cfa04573fb4650ece"
+    sha256 cellar: :any_skip_relocation, sonoma:         "47175eba20f8136719b08df0e4ef32b0b58a9f45b24008dd98d9774f3df440a8"
+    sha256 cellar: :any_skip_relocation, ventura:        "47175eba20f8136719b08df0e4ef32b0b58a9f45b24008dd98d9774f3df440a8"
+    sha256 cellar: :any_skip_relocation, monterey:       "47175eba20f8136719b08df0e4ef32b0b58a9f45b24008dd98d9774f3df440a8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d636ae45305a447a15d3440fa3058a6033dc77d982c7660b481001432f32644e"
   end
 
   depends_on "go" => :build
@@ -21,7 +21,7 @@ class Infracost < Formula
   def install
     ENV["CGO_ENABLED"] = "0"
     ldflags = "-X github.com/infracost/infracost/internal/version.Version=v#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/infracost"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/infracost"
 
     generate_completions_from_executable(bin/"infracost", "completion", "--shell")
   end
@@ -30,6 +30,6 @@ class Infracost < Formula
     assert_match "v#{version}", shell_output("#{bin}/infracost --version 2>&1")
 
     output = shell_output("#{bin}/infracost breakdown --no-color 2>&1", 1)
-    assert_match "No INFRACOST_API_KEY environment variable is set.", output
+    assert_match "Error: INFRACOST_API_KEY is not set but is required", output
   end
 end

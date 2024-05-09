@@ -2,11 +2,10 @@ class PhpAT82 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.16.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.16.tar.xz"
-  sha256 "28cdc995b7d5421711c7044294885fcde4390c9f67504a994b4cf9bc1b5cc593"
+  url "https://www.php.net/distributions/php-8.2.18.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.18.tar.xz"
+  sha256 "44b306fc021e56441f691da6c3108788bd9e450f293b3bc70fcd64b08dd41a50"
   license "PHP-3.01"
-  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -14,21 +13,20 @@ class PhpAT82 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "991bf5d8033627dc6063345322450937bd1d49f5c7d3ffe5f20286ce0edf1fcb"
-    sha256 arm64_ventura:  "acab3ec955be5a37a5496712c1a6d482fe758fce26f5edbabdfe43ba6e586031"
-    sha256 arm64_monterey: "786a968e39e303c993390e991e0d124206b7342ad84d6c3f245bdc698410da8e"
-    sha256 sonoma:         "7758371889b62a3c89ded5ec2e3efcb060a3f88a41df196d0deaf4be57d4ce70"
-    sha256 ventura:        "8630b5f9e31920af1df2e9a9210bf724cafeb0efd4cac9e640aa8ac9d7639646"
-    sha256 monterey:       "1f8627690f47398b84aec2b2f2836fa85f41aea84676e7bae76a00a5fa30a7d7"
-    sha256 x86_64_linux:   "805a152b830075f04ebeb5c495369f5562bdc8c467ae805abf1281cf27f6e3b4"
+    sha256 arm64_sonoma:   "f0055ab58b236b6d2489ffbe8a4d2b3f2a0768be4c76df96103a0dfe41b27ee5"
+    sha256 arm64_ventura:  "da39c97b5131fe63a95a0b64e70e5da68a986233abc20ec3a50620c9b6ff4f1b"
+    sha256 arm64_monterey: "857d7f0df88c2b119ebdb947e1f45bb90adbb0b98ff0f54243ab68ce795f002d"
+    sha256 sonoma:         "3dd8bc3885cf2b33c3f66cbf5e631eb9f43d2726f2b140c8f4b123a6731cd119"
+    sha256 ventura:        "ca6873015c71e67165470abf564be04ca841752aefbc88f73585c98970211929"
+    sha256 monterey:       "fafdac19c36464f85c06cf15803673ddb457711d95f157519b8e72b9f11cc3af"
+    sha256 x86_64_linux:   "65ff6877485cdb90f071c5fe445023cea87007f76664da6bd1b7f25469e0f648"
   end
 
   keg_only :versioned_formula
 
-  # Security Support Until Dec 08 2025
+  # Security Support Until 31 Dec 2026
   # https://www.php.net/supported-versions.php
-  deprecate! date: "2025-12-08", because: :unsupported
+  deprecate! date: "2026-12-31", because: :unsupported
 
   depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build

@@ -1,8 +1,8 @@
 class Kubescape < Formula
   desc "Kubernetes testing according to Hardening Guidance by NSA and CISA"
   homepage "https://kubescape.io"
-  url "https://github.com/kubescape/kubescape/archive/refs/tags/v3.0.4.tar.gz"
-  sha256 "bcff7876531c7726095ecf6dff144bc352f9936c915df105f5b803769c2a0aeb"
+  url "https://github.com/kubescape/kubescape/archive/refs/tags/v3.0.10.tar.gz"
+  sha256 "ec05caf87b552568cac7b8677a676c7d75cea3f16f659d17aace1c402b2d688f"
   license "Apache-2.0"
   head "https://github.com/kubescape/kubescape.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Kubescape < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "66af254c8cf08ffdc89a14edc2bfd6d4cbc16eb4e74d93129e8398ee2eb0579f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9a4f4c2ee570552ff5cedcaa1c3c10f9cade68b4649fcb798c3c6e752c283422"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "120c2c0b603f63aa72d087c4c97da3b20a63a408978eb3e42acba1c3b80cd9e0"
-    sha256 cellar: :any_skip_relocation, sonoma:         "94fdb8a8678c3153a4a40fb65118575df5aa7d200d91824f0c522573a3220fcf"
-    sha256 cellar: :any_skip_relocation, ventura:        "a1f3943a52b0895f0039c85d0e05ec788b45c1b6063cab902679dac4933bc690"
-    sha256 cellar: :any_skip_relocation, monterey:       "d09505f5fe7c24e5a1fc223eba3285275b57b7ddc5f9e7ea9b6c1583c3f73f01"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3f13bec16f3ef874cb0eff2ca5b1ece64890026503d287dd35a7b2cb22917d56"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "31010b3816c68e1debb0366b147cde5d81c2f84e6b16bd912200624ff6f9d4e5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eda0ecccc6af80590633cfd106ad6fdae42a91aa1008ad1b69c82012c26bd1da"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0674645eeba95ff3118ff48a3fbc51c94a65ec395422c0549a770fbf2c1f76cd"
+    sha256 cellar: :any_skip_relocation, sonoma:         "763bb86817a908f6cf25ec1d04a18b52b0615548046327afced2702434e31d3a"
+    sha256 cellar: :any_skip_relocation, ventura:        "17aee1be03d92e3533d5da41bc912286df8d5158ba5c1d24232943f697bc1de1"
+    sha256 cellar: :any_skip_relocation, monterey:       "cfa6da426c2ece84f43af36247d5cb6e8524088c72b980e8b0b4b93d7f2d9c6d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bca1a5271fb40759adfdd64c33f38acab89e35683690390b2c5d9efe72e0ed01"
   end
 
   depends_on "go" => :build
@@ -29,7 +29,7 @@ class Kubescape < Formula
       -X github.com/kubescape/kubescape/v3/core/cautils.BuildNumber=v#{version}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"kubescape", "completion")
   end

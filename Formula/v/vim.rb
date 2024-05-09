@@ -2,28 +2,36 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0150.tar.gz"
-  sha256 "a650d21f627cbb50ea6cb08e566cfc2fd565635583513d78c000cf7dcb667ec0"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0400.tar.gz"
+  sha256 "99cf952936aab2493f287c93aff2b0efadf903bdc8bd76d5010ac33bce854975"
   license "Vim"
   head "https://github.com/vim/vim.git", branch: "master"
 
   # The Vim repository contains thousands of tags and the `Git` strategy isn't
   # ideal in this context. This is an exceptional situation, so this checks the
-  # first page of tags on GitHub (to minimize data transfer).
+  # first 50 tags using the GitHub API (to minimize data transfer).
   livecheck do
-    url "https://github.com/vim/vim/tags"
-    regex(%r{href=["']?[^"' >]*?/tag/v?(\d+(?:\.\d+)+)["' >]}i)
-    strategy :page_match
+    url "https://api.github.com/repos/vim/vim/tags?per_page=50"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :json do |json, regex|
+      json.map do |tag|
+        match = tag["name"]&.match(regex)
+        next if match.blank?
+
+        match[1]
+      end
+    end
+    throttle 50
   end
 
   bottle do
-    sha256 arm64_sonoma:   "80e87c79ddaa5ee73fe57e9fe12020e755bb4ef927b6c317340ded3a102f3b30"
-    sha256 arm64_ventura:  "a3aeae2754cfb7ffbbdbf00bb25a03cf9e12f040e355cfce5edfaa33894e64a4"
-    sha256 arm64_monterey: "124262d119609f1fefa4117a870859d3cc83ec65f698f8efdf369a6a0e414caf"
-    sha256 sonoma:         "4ead12e1fe20113c214e722272a899e40fb92941918fdf112b5b826b9938c43a"
-    sha256 ventura:        "86ac65a10834d85bb99a8c4c1dee7dc11bff11a1e5c24a54ce94eb7a9d7be3af"
-    sha256 monterey:       "58fe2f211e476dadf4bc110908c7ce79abc53d4697fe11af557c8a73aca279dc"
-    sha256 x86_64_linux:   "e3a16695b8515830d21208ec0aa8b1a9eaa60770447dfb27a500b7b120b5ebec"
+    sha256 arm64_sonoma:   "6eee9d18322480374360408c67aefdb55da985d2e2ae8b00f23ff3b398c643d6"
+    sha256 arm64_ventura:  "b0e37d3068d9a071886c9abad223d18ea4c4995d3f7dbfecc0f8648699336496"
+    sha256 arm64_monterey: "8bc6ea4a60637f252d9d287a57488bfd2b4d95451c2154af26a09d9b5661d18f"
+    sha256 sonoma:         "5693239d5b95e05a3d37f100cce6775f08fc87ca62f60c04f724650aed0cfeef"
+    sha256 ventura:        "4c116caa80e02278b25840d3213bd8a8ac659f86a5442108e27816b17bfad65b"
+    sha256 monterey:       "b8b75dddfadafbbe734afc36c6fd3b34803f3c6f3db09286869b9d5f16154cda"
+    sha256 x86_64_linux:   "90b01e6af8e252cc149c4db1e6acd2f383b64e9835145e4866b5666d7604292d"
   end
 
   depends_on "gettext"

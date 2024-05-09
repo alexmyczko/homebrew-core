@@ -10,37 +10,31 @@ class Luajit < Formula
   # Get the latest commit with:
   #   `git ls-remote --heads https://github.com/LuaJIT/LuaJIT.git v2.1`
   # This is a rolling release model so take care not to ignore CI failures that may be regressions.
-  url "https://github.com/LuaJIT/LuaJIT/archive/c525bcb9024510cad9e170e12b6209aedb330f83.tar.gz"
+  url "https://github.com/LuaJIT/LuaJIT/archive/5790d253972c9d78a0c2aece527eda5b134bbbf7.tar.gz"
   # Use the version scheme `2.1.timestamp` where `timestamp` is the Unix timestamp of the
   # latest commit at the time of updating.
   # `brew livecheck luajit` will generate the correct version for you automatically.
-  version "2.1.1703358377"
-  sha256 "eb20affc70a9e97a8a0e1e0b10456f220fca7637a198e4a937b5fc827dd1ef95"
+  version "2.1.1713773202"
+  sha256 "a299cd389c4568cff4c900e9e86fb56b1f422bf38497a695f6a96e37607a6645"
   license "MIT"
   head "https://luajit.org/git/luajit.git", branch: "v2.1"
 
   livecheck do
-    url "https://github.com/LuaJIT/LuaJIT/commits/v2.1"
+    url "https://api.github.com/repos/LuaJIT/LuaJIT/branches/v2.1"
     strategy :json do |json|
-      json.dig("payload", "commitGroups")&.map do |group|
-        group["commits"]&.map do |commit|
-          date = commit["committedDate"]
-          next if date.blank?
-
-          "2.1.#{DateTime.parse(date).strftime("%s")}"
-        end
-      end&.flatten
+      date = json.dig("commit", "commit", "author", "date")
+      "2.1.#{DateTime.parse(date).strftime("%s")}"
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0a32867b316e92b56c8599f18850c840741a3f4ce50643e05fed42931ff0704b"
-    sha256 cellar: :any,                 arm64_ventura:  "1bbe3bc2ff08b75ff17b91fd3898f2f46e73222d7eb0b51de40cb4fc03141987"
-    sha256 cellar: :any,                 arm64_monterey: "e093bd65496957e4689f058412574b1a9babf896773126d0478ea72dd6b7bae8"
-    sha256 cellar: :any,                 sonoma:         "2f4d98d4898f9aa39853e39f149026d76a4377ad8381260ca7f7898c620fe133"
-    sha256 cellar: :any,                 ventura:        "3ea6d00c0e65f1099d0cb2ceadb31e41a064405b8e8a589a4267292253813a2c"
-    sha256 cellar: :any,                 monterey:       "786ffed5b23502f661fce82e039a4c36f3d067a2402521210db1d3f3c0ce2f80"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "12f8b0b7bc94f680802e161d05dbadbe7bd5b5440701638e77cbd595e0ebcfe9"
+    sha256 cellar: :any,                 arm64_sonoma:   "ea5b2ffdde0f892de9a43e56474d29d372c623a65c9d6ffc119d620edaebc311"
+    sha256 cellar: :any,                 arm64_ventura:  "66b06e9c8a6235cbbed14209f35604fa854b103e53be73298471b4dc297040ed"
+    sha256 cellar: :any,                 arm64_monterey: "929fcc5fa8eb5c24649390c028c1bfc24aab62b0d18d378872bac8bc8bcf1818"
+    sha256 cellar: :any,                 sonoma:         "179c9556982b0e25089d85ba23a6779954ae86503b40c0ff5d0e4c04c5d7c7e1"
+    sha256 cellar: :any,                 ventura:        "860a48516a49c09762ba2e741121a7043131db371438d3b3ade91f556d1b7c89"
+    sha256 cellar: :any,                 monterey:       "f47883e44cd91a9cc091b4b4ff329706df6c2de483501009adfc00dfd71e884c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d27f0a5cbba8cf7ad861220b49ced90f9d6a62927b4116120d77054218ea89e8"
   end
 
   def install
@@ -84,7 +78,7 @@ class Luajit < Formula
   end
 
   test do
-    assert_includes shell_output("#{bin}/luajit -v"), " #{version} "
+    assert_includes shell_output("#{bin}/luajit -v"), " #{version} " if stable?
 
     system bin/"luajit", "-e", <<~EOS
       local ffi = require("ffi")
@@ -94,18 +88,16 @@ class Luajit < Formula
 
     # Check that LuaJIT can find its own `jit.*` modules
     touch "empty.lua"
-    system bin/"luajit", "-b", "-o", "osx", "-a", "arm64", "empty.lua", "empty.o"
+    system bin/"luajit", "-b", "-o", "osx", "empty.lua", "empty.o"
     assert_predicate testpath/"empty.o", :exist?
 
     # Check that we're not affected by LuaJIT/LuaJIT/issues/865.
     require "macho"
     machobj = MachO.open("empty.o")
-    assert_kind_of MachO::FatFile, machobj
+    # always generate 64 bit non-FAT Mach-O object files
+    # per https://github.com/LuaJIT/LuaJIT/commit/7110b935672489afd6ba3eef3e5139d2f3bd05b6
+    assert_kind_of MachO::MachOFile, machobj
     assert_predicate machobj, :object?
-
-    cputypes = machobj.machos.map(&:cputype)
-    assert_includes cputypes, :arm64
-    assert_includes cputypes, :x86_64
-    assert_equal 2, cputypes.length
+    assert_equal Hardware::CPU.arch, machobj.cputype
   end
 end

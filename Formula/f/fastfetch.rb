@@ -1,8 +1,8 @@
 class Fastfetch < Formula
   desc "Like neofetch, but much faster because written mostly in C"
   homepage "https://github.com/fastfetch-cli/fastfetch"
-  url "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/2.8.7.tar.gz"
-  sha256 "d5382b12a0df30afaa99f17b284a151009b0e15a5ad73d13f140a3b8a460fd9c"
+  url "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/2.11.5.tar.gz"
+  sha256 "83b7699d0aee3aa1683721fe4b82d667c88e97e257d48e9efe586b0e830f8a64"
   license "MIT"
   head "https://github.com/fastfetch-cli/fastfetch.git", branch: "dev"
 
@@ -12,13 +12,13 @@ class Fastfetch < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "809502f7bf2c44fd9ca16c10dd7590b25e1d9547a47da2d65786c9991cea61b4"
-    sha256 arm64_ventura:  "115d3b4d7cbf3d6a74608c2ad4b5981c6948f3d6516cb91186fad7c8d05c363b"
-    sha256 arm64_monterey: "7f997c8f73e2dac87664e032fe60ac8ac7d61aeecb7d3f8d874dadf70522a8be"
-    sha256 sonoma:         "1b7b35047fe734c018ea1e8643eb2ad0923b6905beea41ca79687d3986be80bc"
-    sha256 ventura:        "da0ad725d4cd45023d5bc646b90a2292113100af040e372554ef53022866cd24"
-    sha256 monterey:       "37bbe130ad180b4e44bf75fa1fbc1256319c8a377a78db2e51d13721a213940f"
-    sha256 x86_64_linux:   "3cf9a969f3f590b73b35b66e7263a04194be6253edc56a7a59629ff684999f81"
+    sha256 arm64_sonoma:   "de0df2b9e129d1946f55852e2b34aaa621b817df284cbf0878014510a73d87fb"
+    sha256 arm64_ventura:  "afd49e9dad0e30bcc3dcf2c2880aead6de9cb430b8041d50ac51b5f8aebd7440"
+    sha256 arm64_monterey: "8194a5e274c2343adaad25136ac36ca3f4b0411d3a89783686d3a8250cd02494"
+    sha256 sonoma:         "5fcd654c044a5667f942446822f000dd1f197aabd236e7853050277eb4c8a2a2"
+    sha256 ventura:        "5b4295872f7c9f9f4b2e0f70ee57c170925dcf2c230419afcb46ac9365150576"
+    sha256 monterey:       "241f6f1bb138f9621871c7078406af74d44641b0e69d1651a9853eccdde03c72"
+    sha256 x86_64_linux:   "f5a247ed4bcafc26a741d43a4003b19dcea510c789172f0974a4e23d63feee15"
   end
 
   depends_on "chafa" => :build
@@ -39,6 +39,7 @@ class Fastfetch < Formula
     depends_on "libx11" => :build
     depends_on "libxcb" => :build
     depends_on "libxrandr" => :build
+    depends_on "linux-headers@5.15" => :build
     depends_on "mesa" => :build
     depends_on "opencl-icd-loader" => :build
     depends_on "pciutils" => :build

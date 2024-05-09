@@ -1,19 +1,19 @@
 class QalculateQt < Formula
   desc "Multi-purpose desktop calculator"
   homepage "https://qalculate.github.io/"
-  url "https://github.com/Qalculate/qalculate-qt/releases/download/v4.9.0/qalculate-qt-4.9.0.tar.gz"
-  sha256 "d3d2a054ed73c005fe2e64dc1882a0fe2f9aef817d59f30898efe4a80edf1330"
+  url "https://github.com/Qalculate/qalculate-qt/releases/download/v5.1.0/qalculate-qt-5.1.0.tar.gz"
+  sha256 "b6571fc85bde7f2b1422f215a5c4176bc1013726e2971d4c27770078be659a7b"
   license "GPL-2.0-or-later"
   head "https://github.com/Qalculate/qalculate-qt.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6d0386df8c7c5ecf28e4387505878c9daa63786f44ff473a7d090456edb37414"
-    sha256 cellar: :any,                 arm64_ventura:  "7fee478b64c0b5d5668204de4448162e52bac3f871ff646f82c4fe7185f3b181"
-    sha256 cellar: :any,                 arm64_monterey: "408a7c0cc1055fa2bd9465805a72341bcad7b346d52289bd27b3822d3ff1ae15"
-    sha256 cellar: :any,                 sonoma:         "ed68cee845c3553d5a281404f12dd4613fd97590422c3a82c568c480c01c96f5"
-    sha256 cellar: :any,                 ventura:        "31d2f6f6aefd47bf56bb3ef4ddfa3947afa3ba2d81048d141b9e67315594d53a"
-    sha256 cellar: :any,                 monterey:       "09996cdb9d080787095f24b6f74a418b5c7292a691c0bc971e88150e644bbbbd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b59d248381341b06de88f5b41ec812269ec7dc3615feaa390b13b217c3d23d2c"
+    sha256 cellar: :any,                 arm64_sonoma:   "b4e6fdf6a19b94fcfcdb5323153d9d91f98e492bccfb911eae95829a090a1e90"
+    sha256 cellar: :any,                 arm64_ventura:  "8454ca3e6ba1f7431251aff4b366fd117f7d0e25a9d34bbb9a17235b1154e83e"
+    sha256 cellar: :any,                 arm64_monterey: "4c516b46259cd1db7df29d42801a806797a1d26ca7989d59d8ceef9afaa6b009"
+    sha256 cellar: :any,                 sonoma:         "d32ada1fdd78334acfed407902d25496fc3392b18383a216529cc7a68b49c48e"
+    sha256 cellar: :any,                 ventura:        "edcee51dd3a5f2e4c3e4f4653c7b2c4e833d578e7359b0d6e65eeda8abc8a4c7"
+    sha256 cellar: :any,                 monterey:       "a475a46ca546e84e3bd7dee4e03824b806952e372d9fbb1b0bff7022ff4d300f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ca45004d08ab0aded020bd169e6866cb2edf9cefb345144e0fd1b488756e19f"
   end
 
   depends_on "pkg-config" => :build

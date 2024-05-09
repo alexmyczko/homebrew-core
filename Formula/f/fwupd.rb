@@ -3,19 +3,20 @@ class Fwupd < Formula
 
   desc "Firmware update daemon"
   homepage "https://github.com/fwupd/fwupd"
-  url "https://github.com/fwupd/fwupd/releases/download/1.9.14/fwupd-1.9.14.tar.xz"
-  sha256 "b16cbb9480c9a957735d15cfc1e876198b3c607b08e92958f9fc098e31613279"
+  url "https://github.com/fwupd/fwupd/releases/download/1.9.19/fwupd-1.9.19.tar.xz"
+  sha256 "29d599277d10376a39733cb8978223512f1ce573face51a788649b9b2f47d146"
   license "LGPL-2.1-or-later"
+  revision 1
   head "https://github.com/fwupd/fwupd.git", branch: "main"
 
   bottle do
-    sha256 arm64_sonoma:   "e8420a57f1869e440dd78cb9658953443486cea1c7efa0bb6b722d062d4cc82b"
-    sha256 arm64_ventura:  "f393c5276ff11532284ee80c92671990817fc7b789d9c6a124bce41076b1de63"
-    sha256 arm64_monterey: "8198dba34857a51a9ef4c33b5461d23b9faaf38443002d7e4e312add36778786"
-    sha256 sonoma:         "06b59d32eb998c485ac01384836db67bc0890d0421a9696810bdd6b52f2a2cc1"
-    sha256 ventura:        "bae1e8380bfae048edf5447727317fda7949aec9353c021b89238b7ba7c4763b"
-    sha256 monterey:       "b86c30816926065af71789c4cd0d054762c9c2c99c53607ed77136d6a462387d"
-    sha256 x86_64_linux:   "14da0c1cd3fe034fca1a03516ac8d31254b1f2269bc279acf5ad69f6fba31f71"
+    sha256 arm64_sonoma:   "554be22b786b71d3e55a73e07fa67df7032685f4a96ee6e828d4b905c264d26a"
+    sha256 arm64_ventura:  "edc9317e4a569dbde5d15f74662c9f2dde9d867ced68f7639a0d848662ca4b02"
+    sha256 arm64_monterey: "7e26e8ca921869ef01844ec223a36365ed10a972ee299e69cdd6d970d4729b9e"
+    sha256 sonoma:         "e88a49b9cfcab94db98de7516b6ea36435da54b7fa3fc658c76420867c181f20"
+    sha256 ventura:        "066fd4bace52cc8c7934390d28152e5e397be33ed862f839001b1f417a449e53"
+    sha256 monterey:       "ce58ef1ffce2ff9a793e2c5d1b1db636bbd0e0f733e848005cb9a9bf231ee4f1"
+    sha256 x86_64_linux:   "334a8751a60bcd23e7f715464fcebfbef6e892e2e8ffbdab60808c1db579dd9a"
   end
 
   depends_on "gi-docgen" => :build
@@ -41,8 +42,8 @@ class Fwupd < Formula
   uses_from_macos "sqlite"
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do

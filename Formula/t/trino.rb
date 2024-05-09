@@ -3,8 +3,8 @@ class Trino < Formula
 
   desc "Distributed SQL query engine for big data"
   homepage "https://trino.io"
-  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/439/trino-server-439.tar.gz", using: :nounzip
-  sha256 "dfcc108e3a13044bd0365108de9e16438dceec1e3fdeab2146874686516f40a4"
+  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/447/trino-server-447.tar.gz", using: :nounzip
+  sha256 "d4b2eee7efdc258017089ab92b464bdafe0c2e46cf352252542bad6f2c96b98d"
   license "Apache-2.0"
 
   livecheck do
@@ -13,7 +13,13 @@ class Trino < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "cae24722e81bf44e20477a5fd9a291a67f2b724a8ec597768dafc63cf792b010"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bf10b56113c8562541cc0855221eb103b4ff255f3c6709a9384ac165c636af50"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2b0377fe44258a3d0e74073e271e0c34b8a24412e8bed36270308738e94280a4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f77718237b332be5b433aaca0cc77108a94916cc29bfd296e89ed880accdff2b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6c823fd1bba0716991605b8f5c616c9102ab6035037f705ee59a614e7efaecc1"
+    sha256 cellar: :any_skip_relocation, ventura:        "cd22500aa09f3eb4a6d4e5f8e8d028d31f4f09390e03f4a5042b2d516d2cff0b"
+    sha256 cellar: :any_skip_relocation, monterey:       "7c570daf94e99768b5dcb5c98cea701c1cc1f9d493fcb77a52fddb8534081cf9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fbf077627e2e951620da6b11853eb6cb52b5609e548086cc2f88af7742d4c23a"
   end
 
   depends_on "gnu-tar" => :build
@@ -21,16 +27,19 @@ class Trino < Formula
   depends_on "python@3.12"
 
   resource "trino-src" do
-    url "https://github.com/trinodb/trino/archive/refs/tags/439.tar.gz", using: :nounzip
-    sha256 "4a46e8d7dfe8c8972122d61e3b9f1498201793571ca5473535780f3901487e71"
+    url "https://github.com/trinodb/trino/archive/refs/tags/447.tar.gz", using: :nounzip
+    sha256 "ece238954733520ed893825399437ba833e56552ab79b224c74f2ffc7701a12d"
   end
 
   resource "trino-cli" do
-    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/439/trino-cli-439-executable.jar"
-    sha256 "00daefdfe869467d34cc502ee851e5b64eac790e253f67ac0c886c26b72d7d8d"
+    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/447/trino-cli-447-executable.jar"
+    sha256 "e033ddea0f4c57091fea08525a94e9c88140781585483087d5a84359f51a9c57"
   end
 
   def install
+    odie "trino-src resource needs to be updated" if version != resource("trino-src").version
+    odie "trino-cli resource needs to be updated" if version != resource("trino-cli").version
+
     # Manually extract tarball to avoid losing hardlinks which increases bottle
     # size from MBs to GBs. Remove once Homebrew is able to preserve hardlinks.
     # Ref: https://github.com/Homebrew/brew/pull/13154

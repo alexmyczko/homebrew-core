@@ -3,19 +3,19 @@ require "language/node"
 class GitlabCiLocal < Formula
   desc "Run gitlab pipelines locally as shell executor or docker executor"
   homepage "https://github.com/firecow/gitlab-ci-local"
-  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.46.1.tgz"
-  sha256 "ac55131153df206b558a0d4fad8f9c3588433fca24ad41bafd7cd8e9174d9ef0"
+  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.48.2.tgz"
+  sha256 "3eefb079c1abe9e79c0d1a3466921d5a08375ead27fffa7e392e6fcb6d2eb1dd"
   license "MIT"
   head "https://github.com/firecow/gitlab-ci-local.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a4b3d2fd1116c3918fcc34857ddbc55bcef307c06f99a3ff6bca2df1fa154004"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4b3d2fd1116c3918fcc34857ddbc55bcef307c06f99a3ff6bca2df1fa154004"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a4b3d2fd1116c3918fcc34857ddbc55bcef307c06f99a3ff6bca2df1fa154004"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f07ffc208b3b550d8b5bf3dc66cdf76ebd40a000ee72b2aee83dae7ef3f71832"
-    sha256 cellar: :any_skip_relocation, ventura:        "f07ffc208b3b550d8b5bf3dc66cdf76ebd40a000ee72b2aee83dae7ef3f71832"
-    sha256 cellar: :any_skip_relocation, monterey:       "f07ffc208b3b550d8b5bf3dc66cdf76ebd40a000ee72b2aee83dae7ef3f71832"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4b3d2fd1116c3918fcc34857ddbc55bcef307c06f99a3ff6bca2df1fa154004"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7b32d7709b12e712d990b293bee632b6a0aa2ce53d22e9df0d20adf4f68d24a4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b32d7709b12e712d990b293bee632b6a0aa2ce53d22e9df0d20adf4f68d24a4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b32d7709b12e712d990b293bee632b6a0aa2ce53d22e9df0d20adf4f68d24a4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "efad80ae211eaee22e83546fdb52f3437aadbf438f821e9af92939e0c95792b9"
+    sha256 cellar: :any_skip_relocation, ventura:        "efad80ae211eaee22e83546fdb52f3437aadbf438f821e9af92939e0c95792b9"
+    sha256 cellar: :any_skip_relocation, monterey:       "efad80ae211eaee22e83546fdb52f3437aadbf438f821e9af92939e0c95792b9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b32d7709b12e712d990b293bee632b6a0aa2ce53d22e9df0d20adf4f68d24a4"
   end
 
   depends_on "node"

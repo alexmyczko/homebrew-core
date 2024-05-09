@@ -1,9 +1,10 @@
 class C3c < Formula
   desc "Compiler for the C3 language"
   homepage "https://github.com/c3lang/c3c"
-  url "https://github.com/c3lang/c3c/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "6bc5b9a7c7f9b181700fb9d4e7f79246d09bef7ecb9608a98fc7ea60b9e91b5e"
+  url "https://github.com/c3lang/c3c/archive/refs/tags/v0.5.5.tar.gz"
+  sha256 "ddd58fd47e8dd93e26876ddfcee68452bf316705c8a8f7e9888f189276a97ad6"
   license "LGPL-3.0-only"
+  revision 1
   head "https://github.com/c3lang/c3c.git", branch: "master"
 
   livecheck do
@@ -12,17 +13,18 @@ class C3c < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "59da593b5fed0a0acdc531ed9ea9102332de427be712cd44adf423f05fe63b29"
-    sha256 cellar: :any,                 arm64_ventura:  "604d8aa7d7361540002269c5bb6701af984d67fde0bb9547367a8a3ded53d69c"
-    sha256 cellar: :any,                 arm64_monterey: "3d34e5d9030c63d881c6b01f63d0723823b9ea8eb3a2ee16c4870226070add36"
-    sha256 cellar: :any,                 sonoma:         "db80f839f124bb1b8a5c526878887ae477c6e5ea2e7b3b6c1b76e80a936b507f"
-    sha256 cellar: :any,                 ventura:        "d83d6b6ae747f56ddfe092d7537fcd1d2461fa88eef8116dde1b57f43c38b116"
-    sha256 cellar: :any,                 monterey:       "8ca5d00c2e6f43ff82bcfe323908846235f3e344b0864a38f782a84442eda02f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c3789ee2fe5656d38515b174bff1dd81efde2eef3b98af72f65c32b3d08899f"
+    sha256 cellar: :any,                 arm64_sonoma:   "a77004e70884a4349b254f93f4e1d62540c324db2529f8c963c397d04fc2a277"
+    sha256 cellar: :any,                 arm64_ventura:  "1c6e08be1094c3cd7ce49d9843c29ce7385dfa1ffd89233af79ff37ced053012"
+    sha256 cellar: :any,                 arm64_monterey: "f1eba6d851f89a8c95e9aec69add604da9e0689f3784fc37b81c798bb78e0423"
+    sha256 cellar: :any,                 sonoma:         "e1ccb43aae344db294cb8b246688ee0c7d0831c7c9e8a17f41516793dcc554f0"
+    sha256 cellar: :any,                 ventura:        "b3de2bf58e3af77f89aa0f2e6c7ea9f53d9d318d3f3471d0ef856acc2e3c186d"
+    sha256 cellar: :any,                 monterey:       "412bfde4a57752a14456717b13f59256161ddfbd1fa6c37e9aa5b31963de0173"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "90b971c5f5fecbf62dc3c26b1ecb0d1356648971b4c0379d4df88358ee379ac9"
   end
 
   depends_on "cmake" => :build
   depends_on "llvm"
+  depends_on "z3"
   depends_on "zstd"
 
   uses_from_macos "curl"

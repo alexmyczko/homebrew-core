@@ -1,9 +1,8 @@
 class Groovysdk < Formula
   desc "SDK for Groovy: a Java-based scripting language"
-  # TODO: remove `groovy-raw-#{version}-raw.jar` workaround when bump
   homepage "https://www.groovy-lang.org/"
-  url "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-4.0.19.zip"
-  sha256 "b14670abfe74d2d79aca091cfecab5629b5c662b8d0310c42a143f342520b541"
+  url "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-4.0.21.zip"
+  sha256 "983dd01aae4380a3d9fb28a691755418a39b4763d71cbe8447c9d253cb5f1134"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +11,13 @@ class Groovysdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e728b6cf436aab6d6397bf89f0a9245897bdfc47c54905b72d5b9929d15b14d8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e728b6cf436aab6d6397bf89f0a9245897bdfc47c54905b72d5b9929d15b14d8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e728b6cf436aab6d6397bf89f0a9245897bdfc47c54905b72d5b9929d15b14d8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a47569a72627c89f7d44d98c350c4fec6725b766b69252e9442fab2e61b612b2"
-    sha256 cellar: :any_skip_relocation, ventura:        "a47569a72627c89f7d44d98c350c4fec6725b766b69252e9442fab2e61b612b2"
-    sha256 cellar: :any_skip_relocation, monterey:       "a47569a72627c89f7d44d98c350c4fec6725b766b69252e9442fab2e61b612b2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e728b6cf436aab6d6397bf89f0a9245897bdfc47c54905b72d5b9929d15b14d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
+    sha256 cellar: :any_skip_relocation, sonoma:         "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
+    sha256 cellar: :any_skip_relocation, ventura:        "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
+    sha256 cellar: :any_skip_relocation, monterey:       "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
   end
 
   depends_on "openjdk"
@@ -28,9 +27,6 @@ class Groovysdk < Formula
   def install
     # We don't need Windows' files.
     rm_f Dir["bin/*.bat"]
-
-    # workaround to fix startup issue, see discussions in https://issues.apache.org/jira/browse/GROOVY-11328
-    rm_f "lib/groovy-raw-#{version}-raw.jar"
 
     prefix.install_metafiles
     bin.install Dir["bin/*"]

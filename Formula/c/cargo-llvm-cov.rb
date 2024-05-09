@@ -2,32 +2,26 @@ class CargoLlvmCov < Formula
   desc "Cargo subcommand to easily use LLVM source-based code coverage"
   homepage "https://github.com/taiki-e/cargo-llvm-cov"
   # cannot use github tarball due to https://github.com/taiki-e/cargo-llvm-cov/pull/152#issuecomment-1107055622
-  url "https://static.crates.io/crates/cargo-llvm-cov/cargo-llvm-cov-0.6.6.crate"
-  sha256 "0d9cdbe03784499ef34137f06c8ef23390907712afe72f44df24df8cbcfd8043"
+  url "https://static.crates.io/crates/cargo-llvm-cov/cargo-llvm-cov-0.6.9.crate"
+  sha256 "137c054c19f1134aabe426018c3d8718ff5cfe679ba895f3f0a869eccf8b380b"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/taiki-e/cargo-llvm-cov.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4f63ae65ebbf45854c15599e1f75b529e342e0a62701c651e6056c70c16a22d0"
-    sha256 cellar: :any,                 arm64_ventura:  "d9311ee7707ff0ced996c11c1acb0d53b8ab1b19de44defd6228ca896cb12a34"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "406431cec7e896c9f8230c50ef1dc44e46eb387654cd1e7ae31cc856045c3b63"
-    sha256 cellar: :any,                 sonoma:         "2f3740c0d25079afe73f9c7597e6933e48c16a2b245154f75d9f28e38e7b62d7"
-    sha256 cellar: :any,                 ventura:        "b055d1233f7748d8f95cf08f96cc7c304f7a72277037a23426c6bb456ec66ae8"
-    sha256 cellar: :any_skip_relocation, monterey:       "f08c95e786fd05db788d76fc2755fe55f95c2ef88b5fc8aa11b6af3ee2189710"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0d1d13ffd95380764841566880b41e7deeb01328a132b6fada8e63e5c48aafbd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "248b2e966708b5498e1f5471b70c69cc9a3a39afa6cfdeaf7d2124d3193823d1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e85b08c4c6c35a7751860d94d43269cbd0d1288637bd407933f0f7e64141f48b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fa0f27ebc3e2a863e0e363f05e7f086e30b85604b421c46ce65c4714f7a53c13"
+    sha256 cellar: :any_skip_relocation, sonoma:         "5b251fd14c28599d9b959f192d3f489d44cde1545ba81c17d11213c80e535a22"
+    sha256 cellar: :any_skip_relocation, ventura:        "76ff088a4a018c1d2aba546fb21a607e5c2c2e5d0291d37a234c4435f3115917"
+    sha256 cellar: :any_skip_relocation, monterey:       "eea85e9d4b7db6b5f4fb7c5e39d34945e8da5fa28121434fc53618d16e24a908"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ea8b52628afed55adf45feca5059ae8a604a7d789f4d84807d58dc00f235510f"
   end
 
   depends_on "rust" => :build
   depends_on "rustup-init" => :test
-  depends_on "llvm"
 
   def install
-    system "tar", "--strip-components", "1", "-xzvf", "cargo-llvm-cov-#{version}.crate" unless build.head?
-    system "cargo", "install", *std_cargo_args(root: libexec)
-    llvm_bin = Formula["llvm"].opt_bin
-    (bin/"cargo-llvm-cov").write_env_script libexec/"bin/cargo-llvm-cov",
-      LLVM_COV:      llvm_bin/"llvm-cov",
-      LLVM_PROFDATA: llvm_bin/"llvm-profdata"
+    system "cargo", "install", *std_cargo_args
   end
 
   test do
@@ -38,7 +32,7 @@ class CargoLlvmCov < Formula
     system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
     ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
 
-    system "cargo", "new", "hello_world", "--bin"
+    system "cargo", "new", "hello_world", "--lib"
     cd "hello_world" do
       system "cargo", "llvm-cov", "--html"
     end

@@ -7,6 +7,11 @@ class Ksync < Formula
   license "Apache-2.0"
   head "https://github.com/ksync/ksync.git", branch: "master"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
     rebuild 1
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9225ba6ae709cf6a380d536a065b68e9ceefb59f0529db7e100fc824119acdcc"
@@ -39,7 +44,7 @@ class Ksync < Formula
       -X #{project}/pkg/ksync.VersionString=#{tap.user}
       -X #{project}/pkg/ksync.GoVersion=go#{Formula["go"].version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "#{project}/cmd/ksync"
+    system "go", "build", *std_go_args(ldflags:), "#{project}/cmd/ksync"
   end
 
   test do

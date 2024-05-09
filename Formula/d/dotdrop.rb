@@ -6,21 +6,20 @@ class Dotdrop < Formula
   url "https://files.pythonhosted.org/packages/21/1c/e9dcccd0a92ea4b9c0ba821e4a5e61dabc408695476d4b736060c050f940/dotdrop-1.14.0.tar.gz"
   sha256 "677361af37aef575acd5233de3a8b1b3d8b7bcf1f3587946d089e344503aa24d"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 3
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "62ad1cb5fcc16c45ffc33f49653e366c5a77f52dda65c11b3ad2cb84ccbe3406"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "06a055cf779fd9ff2b316f393730180f837f18ff1721a85bd2adc5ab06f8cc9f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5185984fa11361d6f19598d4c43bb0afc467a2ede261a232ebe22c4bd6165f56"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3a3eaa96fb4d807c4f70ea83eaa64d08c9005ece1527fe2a28538c0c2182ef45"
-    sha256 cellar: :any_skip_relocation, ventura:        "673605868b588d94be8a774d9240527a6510dd998bc207db5b6657a0c34be951"
-    sha256 cellar: :any_skip_relocation, monterey:       "f1a7e2d45d89c2cc5842b9e51b2e7c9bbf8a4b67c8435f5f760e099db7bb0e9d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "986cd015ace2abc28f6c2317c5708cadf98de286a5338f3be23f6ae7d1011a4c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e273a0bc9f8c7a8095b614f9d09cf0a7d86ecd268532d2d3ad2ff99cbef722eb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9556c994bf878a5bcf77c640a20f741813e4a158803543a0514d9496d3efa105"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "68876e51a1ad982d9f6d0dc02fe459ee35e7efe3aa4af5edf04376f034d305bd"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1184df39795a8d6192ec66d96240523e3b837ac04283f79aedc92f9a88a4872f"
+    sha256 cellar: :any_skip_relocation, ventura:        "692957ad6ba02c40e93d09d13a8cbe07d756dbd80d73fc963fdc84092812f0b9"
+    sha256 cellar: :any_skip_relocation, monterey:       "e30601434519a4a3fb1f545aa6390d6576384fcbda89bef71e90ff80a0089985"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2df9256a4f58fd93fb840ab4d4eec5a0b03dee576dfff324edc90ac91b63fe99"
   end
 
+  depends_on "certifi"
   depends_on "libmagic"
-  depends_on "python-certifi"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
@@ -39,13 +38,13 @@ class Dotdrop < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
@@ -54,8 +53,8 @@ class Dotdrop < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "python-magic" do
@@ -89,6 +88,10 @@ class Dotdrop < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
   end
 

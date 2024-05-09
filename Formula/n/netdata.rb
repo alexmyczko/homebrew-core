@@ -4,7 +4,7 @@ class Netdata < Formula
   url "https://github.com/netdata/netdata/releases/download/v1.44.3/netdata-v1.44.3.tar.gz"
   sha256 "50df30a9aaf60d550eb8e607230d982827e04194f7df3eba0e83ff7919270ad2"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 3
 
   livecheck do
     url :stable
@@ -12,13 +12,13 @@ class Netdata < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "79c38dce759badf4bfdac7ff666a1d36d4953e0ebd9ac5d02b5b3671efdb58b3"
-    sha256 arm64_ventura:  "a2da8ac4c4ac79e9f6ee4c33c9b2ad9b15346ed3d052b8a956b8d4c93ed69e80"
-    sha256 arm64_monterey: "f1bc6d901e1798c214f942310d1d0759dc627cfbb3b3cffaa56bec8ee038f103"
-    sha256 sonoma:         "e68211a419f25bf84b44a1f30bb93b264e5da3bcc2c363537cac56b621c83a80"
-    sha256 ventura:        "a9b579eef702b0a9f99325b1a9aaf8f7eb9eb9e6d80a7a8594f89e0a61f9a5d3"
-    sha256 monterey:       "82338055d5877af06a444db8afe14853bc0a2ed544baa05a66a42ab6d94c5485"
-    sha256 x86_64_linux:   "643f1bdf8c8f0df190cc6c1bb22d1b374e24e3efe7974a46b2090d83d8a50d91"
+    sha256 arm64_sonoma:   "d3eba2c021fd04c673c5006613e8f83a4f2349dfde9a126c793a8a9a4a331375"
+    sha256 arm64_ventura:  "639b287a0d0adf3a1ac48d9ffdc90842c488e285de1c1ac67aa4938516d7fba1"
+    sha256 arm64_monterey: "d02335d1afe69d3f182f4fe9dfa49ca3b28f74880d703f50cf77afa865fa41e2"
+    sha256 sonoma:         "a70a6541ab4b1e2f64ed051e404f59d87ccfb021783e6a09dfde8c19dfa957ec"
+    sha256 ventura:        "59560f5fdeedcc125fd93009cf2e9292f3b1fc1894d9eb89591990078265986a"
+    sha256 monterey:       "83ece0fc0f2daf9ffb04af4f6bad716b731683b51d93705901a7a1862306237c"
+    sha256 x86_64_linux:   "3dc87fda17794790d40e215bba8edfcda09eb61eff88e84d3c01939cf2005d46"
   end
 
   depends_on "autoconf" => :build

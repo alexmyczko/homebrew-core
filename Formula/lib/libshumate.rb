@@ -1,8 +1,8 @@
 class Libshumate < Formula
   desc "Shumate is a GTK toolkit providing widgets for embedded maps"
   homepage "https://gitlab.gnome.org/GNOME/libshumate"
-  url "https://download.gnome.org/sources/libshumate/1.1/libshumate-1.1.3.tar.xz"
-  sha256 "6b8a159ed744fdd15992411662a05cb4187fb55e185111a366e0038d2f0b3543"
+  url "https://download.gnome.org/sources/libshumate/1.2/libshumate-1.2.1.tar.xz"
+  sha256 "1105ee077e2147f2a039cddfa616fa5cb9438883dd940427e11699dcd6549c11"
   license "LGPL-2.1-or-later"
 
   # libshumate doesn't use GNOME's "even-numbered minor is stable" version
@@ -14,13 +14,13 @@ class Libshumate < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "d2b31d7dee8902f8f64878ee97fdd2cf5e198eddc7e8e1fc8d0c3e14c2524fad"
-    sha256 cellar: :any, arm64_ventura:  "51df2ed5cd3c13f37e607a7d214907ba455deba04686a5f95e9d8ecbb5359feb"
-    sha256 cellar: :any, arm64_monterey: "813550578363eaea1445e2c76513c080d3bff84bd397e2a2a06b633c6adf7151"
-    sha256 cellar: :any, sonoma:         "5e7a0c8345f8bbd168915813f8104169f6fc26930206701b68782b29ac39d9a0"
-    sha256 cellar: :any, ventura:        "39ae233ff9461501881fe54de071c48f3b66d4bcfaa728d3019aba3a3cae09e6"
-    sha256 cellar: :any, monterey:       "78d53203ac1687251681abe867cca76dfd630dbddca33b987e45c7af8850a766"
-    sha256               x86_64_linux:   "b05b32c948b161d63d2ae82436e9b38cae49f2b3d7dd90290fd6170373fc0c5e"
+    sha256 cellar: :any, arm64_sonoma:   "a6e17d2b3a62dc36dd3f3e1d1a17744e334faef8cbc7477c3211a63cf4bacb8c"
+    sha256 cellar: :any, arm64_ventura:  "93c3c14fc81e14cf799f7c14c713408cb32082f0d1b1720ba45b8bc8a76a5678"
+    sha256 cellar: :any, arm64_monterey: "4c5ff1c1c8d000ec006ffdba57561d1553807b40a92b78666ab627a792433955"
+    sha256 cellar: :any, sonoma:         "fdeeade5dbaacf169acc3a4c89d3e2dd7f6f65e9b465fafe14029b7b64f7ce80"
+    sha256 cellar: :any, ventura:        "6507d3495a4f605302b9513920eea40da2c83d1247850538e63aef67c1c6d334"
+    sha256 cellar: :any, monterey:       "f66d43340e00e1eb7ccf4857bed50648b16cfd429f9837caa363aba66de57ec7"
+    sha256               x86_64_linux:   "231921ec6cd7e37320e3adff0b6994acdd9fa46e68c1bb6e0975f3db5bbee656"
   end
 
   depends_on "gettext" => :build
@@ -29,10 +29,15 @@ class Libshumate < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
+
   depends_on "cmake"
   depends_on "gi-docgen"
   depends_on "gtk4"
+  depends_on "json-glib"
   depends_on "libsoup"
+  depends_on "protobuf-c"
+
+  uses_from_macos "gperf"
   uses_from_macos "icu4c"
   uses_from_macos "sqlite"
 

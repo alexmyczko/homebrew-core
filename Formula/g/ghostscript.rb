@@ -4,15 +4,15 @@ class Ghostscript < Formula
   license "AGPL-3.0-or-later"
 
   stable do
-    url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10021/ghostpdl-10.02.1.tar.xz"
-    sha256 "01f4b699f031566b04cec495506811866e17896b26847c14e5333fb3adfc0619"
+    url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10030/ghostpdl-10.03.0.tar.xz"
+    sha256 "854fd1958711b9b5108c052a6d552b906f1e3ebf3262763febf347d77618639d"
 
     on_macos do
-      # 1. Make sure shared libraries follow platform naming conventions.
-      # 2. Prevent dependent rebuilds on minor version bumps.
+      # 1. Prevent dependent rebuilds on minor version bumps.
+      # 2. Fix missing pointer dereference
       # Reported upstream at:
       #   https://bugs.ghostscript.com/show_bug.cgi?id=705907
-      #   https://bugs.ghostscript.com/show_bug.cgi?id=705908
+      #   https://bugs.ghostscript.com/show_bug.cgi?id=707649
       patch :DATA
     end
   end
@@ -27,13 +27,14 @@ class Ghostscript < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "40d5580ead459aefe68afa9598cf9a78b2986728b1facd65197dee6d515bb89b"
-    sha256 arm64_ventura:  "c5db66858cd4a9adf1c2550aaecac97e9dc77d909ce383c7237e21e9296ff5eb"
-    sha256 arm64_monterey: "6827f568486864faef458a93639ab434f6ac462851a7174e032920af1560f5fb"
-    sha256 sonoma:         "16c06c980a9042d4cc6bfb25066bbd5115e79844491e52ed9d14b2e70cdc229f"
-    sha256 ventura:        "1bd495710c4e3dd8c82910da392b31bb62031c0367ca33b833a190911bd4cde9"
-    sha256 monterey:       "aa61f407ef7001d70f2999cc41856376ed3e02d816018f1ae6178f921000f693"
-    sha256 x86_64_linux:   "2991d1596604df285d584c401eec3b226a4846adf27cdf32493547e08db5e613"
+    rebuild 1
+    sha256 arm64_sonoma:   "594347d6f46952a38c6a622ebbd4b25e5f35457aec19b3eb9f6492871478d1af"
+    sha256 arm64_ventura:  "f9ca8d8a33c9d18a260ab2d2a4d964e6afe46f7b3b8e3428545a357b2efd1abc"
+    sha256 arm64_monterey: "f5304ddf40c3bd1ad81bb1f223bc4d55d9ce3412878bc3088d4e694e92ef31bb"
+    sha256 sonoma:         "a3bd66ce8138ac5f93756b4c2c1397214a896e1c9c87dde69c061d5fe6641a48"
+    sha256 ventura:        "afa6fd52efcdfb3e9591c80f173362546c807633f03b3975c70f58c554a10e83"
+    sha256 monterey:       "72ceaaae22d5248b4c4cf7190e6d1c7016f4aae6d18def06ee8796fa0f56a20f"
+    sha256 x86_64_linux:   "e377efe1ada9faa1a00e589745997dfa867cdcc3fddc7d5116c1d0f8cb845fa3"
   end
 
   head do
@@ -66,16 +67,6 @@ class Ghostscript < Formula
   resource "fonts" do
     url "https://downloads.sourceforge.net/project/gs-fonts/gs-fonts/8.11%20%28base%2035%2C%20GPL%29/ghostscript-fonts-std-8.11.tar.gz"
     sha256 "0eb6f356119f2e49b2563210852e17f57f9dcc5755f350a69a46a0d641a0c401"
-  end
-
-  # fmemopen is only supported from 10.13 onwards (https://news.ycombinator.com/item?id=25968777).
-  # For earlier versions of MacOS, needs to be excluded.
-  # This should be removed once patch added to next release of leptonica (which is incorporated by ghostscript in
-  # tarballs).
-  patch do
-    url "https://github.com/DanBloomberg/leptonica/commit/848df62ff7ad06965dd77ac556da1b2878e5e575.patch?full_index=1"
-    sha256 "7de1c4e596aad5c3d2628b309cea1e4fc1ff65e9c255fe64de1922b3fd2d60fc"
-    directory "leptonica"
   end
 
   def install
@@ -140,24 +131,18 @@ index 89dfa5a..c907831 100644
  #LDFLAGS_SO=-dynamiclib -flat_namespace
  #LDFLAGS_SO_MAC=-dynamiclib -install_name $(GS_SONAME_MAJOR_MINOR)
  #LDFLAGS_SO=-dynamiclib -install_name $(FRAMEWORK_NAME)
-diff --git a/configure b/configure
-index bfa0985..8de469c 100755
---- a/configure
-+++ b/configure
-@@ -12805,11 +12805,11 @@ case $host in
-     ;;
-     *-darwin*)
-       DYNAMIC_CFLAGS="-fPIC $DYNAMIC_CFLAGS"
--      GS_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(GS_SONAME_MAJOR_MINOR)"
--      PCL_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(PCL_SONAME_MAJOR_MINOR)"
--      XPS_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(XPS_SONAME_MAJOR_MINOR)"
--      PDL_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(GPDL_SONAME_MAJOR_MINOR)"
--      PDF_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(PDF_SONAME_MAJOR_MINOR)"
-+      GS_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(GS_SONAME_MAJOR)"
-+      PCL_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(PCL_SONAME_MAJOR)"
-+      XPS_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(XPS_SONAME_MAJOR)"
-+      PDL_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(GPDL_SONAME_MAJOR)"
-+      PDF_DYNAMIC_LDFLAGS="-dynamiclib -install_name $DARWIN_LDFLAGS_SO_PREFIX\$(PDF_SONAME_MAJOR)"
-       DYNAMIC_LIBS=""
-       SO_LIB_EXT=".dylib"
-     ;;
+diff --git a/pdf/pdf_sec.c b/pdf/pdf_sec.c
+index 565ae80ca..7e8f6719d 100644
+--- a/pdf/pdf_sec.c
++++ b/pdf/pdf_sec.c
+@@ -183,8 +183,8 @@ static int apply_sasl(pdf_context *ctx, char *Password, int Len, char **NewPassw
+          * this easy: the errors we want to ignore are the ones with
+          * codes less than 100. */
+         if ((int)err < 100) {
+-            NewPassword = Password;
+-            NewLen = Len;
++            *NewPassword = Password;
++            *NewLen = Len;
+             return 0;
+         }
+ 

@@ -4,10 +4,10 @@ class QtAT5 < Formula
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
   # NOTE: Use *.diff for GitLab/KDE patches to avoid their checksums changing.
-  url "https://download.qt.io/official_releases/qt/5.15/5.15.12/single/qt-everywhere-opensource-src-5.15.12.tar.xz"
-  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.12/single/qt-everywhere-opensource-src-5.15.12.tar.xz"
-  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.12/single/qt-everywhere-opensource-src-5.15.12.tar.xz"
-  sha256 "93f2c0889ee2e9cdf30c170d353c3f829de5f29ba21c119167dee5995e48ccce"
+  url "https://download.qt.io/official_releases/qt/5.15/5.15.13/single/qt-everywhere-opensource-src-5.15.13.tar.xz"
+  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.13/single/qt-everywhere-opensource-src-5.15.13.tar.xz"
+  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.13/single/qt-everywhere-opensource-src-5.15.13.tar.xz"
+  sha256 "9550ec8fc758d3d8d9090e261329700ddcd712e2dda97e5fcfeabfac22bea2ca"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
   revision 1
 
@@ -17,13 +17,13 @@ class QtAT5 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "477b79171bc49b2d65fc7845bc79e76b897aff8218be9819b0a67d540d443c56"
-    sha256 cellar: :any,                 arm64_ventura:  "e79318b2c052be5de3a1e1263fc8532e8921e3943a0508af29fd2b756a96704e"
-    sha256 cellar: :any,                 arm64_monterey: "859f46f98edd7379cd6daf89c552366b04fa3dc0d11c73ae321c8d1260eaecb4"
-    sha256 cellar: :any,                 sonoma:         "a95d94f054daa27383b171d3eb678a77c84f6ee532a37901bc88fa181abfb7df"
-    sha256 cellar: :any,                 ventura:        "e7e6de94e9d827ed9aba243b86b91eb788a5550d3161e8c744df574c66856f8e"
-    sha256 cellar: :any,                 monterey:       "26154c79137547ed10c35b13fc119b1e0327cd2a93e598583460d0a91cc1724d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b565bbed920aedf31fcac16a2112a0d70a04e25a10c1cbeed667741ad1d535de"
+    sha256 cellar: :any,                 arm64_sonoma:   "3a497f2b6e427f72c52e52e979f655cea54e0d6eddffd1fbf3c4a25bb5eae101"
+    sha256 cellar: :any,                 arm64_ventura:  "a5098835cade678eb6d9193d393c3f7d0cbec5aa4f1833184fba56c13161a097"
+    sha256 cellar: :any,                 arm64_monterey: "02fff8012c9cba1d9a6e79bc500289c79fa1d64b345533b6e5ea5855d322875a"
+    sha256 cellar: :any,                 sonoma:         "5ab138b788d6fa1aeb7f5b1b3c041161efaeb6298771312628a4357fce0dc86f"
+    sha256 cellar: :any,                 ventura:        "2057642d6105bcf0d34c08dc1393be18e41ee36feb5aa48746f7a2d8c7920c28"
+    sha256 cellar: :any,                 monterey:       "f185f54474461f6d408f75a85afb25411b9a06409f2a29b97e3d2e069b7891c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "792f32f138188fca968478186b361ca74b95770afd8066ee19275616d65a6e00"
   end
 
   keg_only :versioned_formula
@@ -120,7 +120,7 @@ class QtAT5 < Formula
     # * tools/metrics/structured/model.py was refactored in Chromium 90
     #   Ref: https://chromium.googlesource.com/chromium/src/+/1219c5a8e1e6d11adb3e098f1a983b8cd8f5932f
     patch do
-      url "https://sources.debian.org/data/main/q/qtwebengine-opensource-src/5.15.15%2Bdfsg-2/debian/patches/python3.11.patch"
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/9758d3dd8ace5aaa9d6720b2e2e8ea1b863658d5/qt5/qtwebengine-py3.11.patch"
       sha256 "652a612144ef4d87b6b2a4098f56ba6db1201e1a241259d0a227123cb0e566a2"
     end
 
@@ -177,14 +177,6 @@ class QtAT5 < Formula
   patch :p0 do
     url "https://raw.githubusercontent.com/macports/macports-ports/56a9af76a6bcecc3d12c3a65f2465c25e05f2559/aqua/qt5/files/patch-qtbase-memory_resource.diff"
     sha256 "87967d685b08f06e91972a6d8c5e2e1ff672be9a2ba1d7d7084eba1413f641d5"
-    directory "qtbase"
-  end
-
-  # CVE-2023-24607
-  # Remove with Qt 5.15.13
-  patch do
-    url "https://download.qt.io/official_releases/qt/5.15/CVE-2023-24607-qtbase-5.15.diff"
-    sha256 "047c0aec35ec7242cab61e514f1ecca61509c7f72597b4702c9d32a4c65581c5"
     directory "qtbase"
   end
 
@@ -331,6 +323,15 @@ class QtAT5 < Formula
       inreplace "qtwebengine/src/3rdparty/chromium/build/config/compiler/BUILD.gn",
                 "fatal_linker_warnings = true",
                 "fatal_linker_warnings = false"
+    end
+
+    # Work around Clang failure in bundled Boost and V8:
+    # error: integer value -1 is outside the valid range of values [0, 3] for this enumeration type
+    if DevelopmentTools.clang_build_version >= 1500
+      args << "QMAKE_CXXFLAGS+=-Wno-enum-constexpr-conversion"
+      inreplace "qtwebengine/src/3rdparty/chromium/build/config/compiler/BUILD.gn",
+                /^\s*"-Wno-thread-safety-attributes",$/,
+                "\\0 \"-Wno-enum-constexpr-conversion\","
     end
 
     ENV.prepend_path "PATH", Formula["python@3.11"].libexec/"bin"

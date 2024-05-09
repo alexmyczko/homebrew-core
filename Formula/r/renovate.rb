@@ -3,29 +3,29 @@ require "language/node"
 class Renovate < Formula
   desc "Automated dependency updates. Flexible so you don't need to be"
   homepage "https://github.com/renovatebot/renovate"
-  url "https://registry.npmjs.org/renovate/-/renovate-37.229.0.tgz"
-  sha256 "a6417d82ac1ee1c104de69f31c7c5722d79a51956d31e8324eeea66af0ca8a7d"
+  url "https://registry.npmjs.org/renovate/-/renovate-37.352.0.tgz"
+  sha256 "74403d431929a68976237c57e3d558b020d9d4d4837159ef5fb71c1ad8d58f79"
   license "AGPL-3.0-only"
 
-  # There are thousands of renovate releases on npm and page the `Npm` strategy
-  # checks is several MB in size and can time out before the request resolves.
-  # This checks the "latest" release, which doesn't have the same issues.
+  # There are thousands of renovate releases on npm and the page the `Npm`
+  # strategy checks is several MB in size and can time out before the request
+  # resolves. This checks the first page of tags on GitHub (to minimize data
+  # transfer).
   livecheck do
-    url "https://registry.npmjs.org/renovate/latest"
-    regex(/v?(\d+(?:\.\d+)+)/i)
-    strategy :json do |json, regex|
-      json["version"]&.scan(regex) { |match| match[0] }
-    end
+    url "https://github.com/renovatebot/renovate/tags"
+    regex(%r{href=["']?[^"' >]*?/tag/v?(\d+(?:\.\d+)+)["' >]}i)
+    strategy :page_match
+    throttle 10
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6563cba248fe877c61c928c869ce4afd040903cca0910c2a2c56a036d6387ebe"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4d7589a17d4bd24d7cb6f1c6226e1a5f71669b76f259cd6d4323fb8e362244e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d200ba36ffed65fcdb15583ca907260f7b61a56becf37ff74448ddbdaa067a33"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0beac8319cd2efed20c6c608e06f6d777a9485d9d4a0ee52c02f5f773d91bb6b"
-    sha256 cellar: :any_skip_relocation, ventura:        "9acebc63b73741c7bce807b9dc7870e9476ad0d8fa457bdf58dfaaa4eddf8acd"
-    sha256 cellar: :any_skip_relocation, monterey:       "2592e0088712d2dd2365f3cb11afd9602005553b5125d8871bb314b8bea1d57b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf3c68eb30c5144f239a924481b1aa151cdae3f008ec3aeaa1c7062f15d23add"
+    sha256                               arm64_sonoma:   "72a5d5ddb2d3d07bfc4aaa94cf9084f7e3708911c52489763c3d060ef6f0b7d9"
+    sha256                               arm64_ventura:  "8b062c8db1647a63458185a6de8373dc96c0dfdfb146cf7e4edc5ffa396aec23"
+    sha256                               arm64_monterey: "939f370136875d1555917c69725fdc5ac488f6d067f4a1df3b8236faefc6a639"
+    sha256                               sonoma:         "7afee52e93f98ce59eb802a8a7059fcde96965f97b3bc0b6cf4595a14e18be40"
+    sha256                               ventura:        "555f52d040350fda632dcae1501e17ab974b56933cc31d3dd06327650954bca6"
+    sha256                               monterey:       "549122cd21a8bb331e5bb6adb53306591b34aea10901e524286d177f5d481875"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b6ae9943cde35d42debfe7597439e57c4dce80fc1921a8055e87d221b9c1216f"
   end
 
   depends_on "node"

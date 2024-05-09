@@ -2,18 +2,18 @@ class Aom < Formula
   desc "Codec library for encoding and decoding AV1 video streams"
   homepage "https://aomedia.googlesource.com/aom"
   url "https://aomedia.googlesource.com/aom.git",
-      tag:      "v3.8.1",
-      revision: "bb6430482199eaefbeaaa396600935082bc43f66"
+      tag:      "v3.9.0",
+      revision: "6cab58c3925e0f4138e15a4ed510161ea83b6db1"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "fc312c24fe4358237a2aa3359440f9c369d69294f5bc430c4335b9d7a05d6fe8"
-    sha256 cellar: :any,                 arm64_ventura:  "c74c13e3945e69a4cb2f6da6155ab9a2ac5922628a87543a6edd34cf7f9c9964"
-    sha256 cellar: :any,                 arm64_monterey: "133e39d2ea6abc7a1bb2f17c8cabfc64f0e46756104ce3cb4b4ecfed66436bc6"
-    sha256 cellar: :any,                 sonoma:         "507d9e5a86a0a2c55b3636312f657cb1a570a59fef4a3279c6785ada1ea48e02"
-    sha256 cellar: :any,                 ventura:        "d3016087ed47320f1bf7c80a93a2f31296bf91221161b40a95b21b1a4f751169"
-    sha256 cellar: :any,                 monterey:       "6e65d1d767ac467a07571635d8f02ba84f9871632d455d9ef1b90a2766157d66"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e5a0094640b70fd32e4ca9a4b5d8f5ccaac1d651f50be8cc34cbcd44155ca742"
+    sha256 cellar: :any,                 arm64_sonoma:   "f51bfcb816a8ee87de0ca4cfee475e2e835e7f5908149d953da3d53d4e2ee254"
+    sha256 cellar: :any,                 arm64_ventura:  "379497d6ad6f8e9723211e301524cf5cb927cef358b2790cd409551415a71d82"
+    sha256 cellar: :any,                 arm64_monterey: "3dad44a10bb050869563dc3e485f7c033bae7dd19f9627c1e744756098f7d3f1"
+    sha256 cellar: :any,                 sonoma:         "e009e72b577e5f9bcb820d226b8fdc494fe1fe9e31b1102d1e97932f27b92297"
+    sha256 cellar: :any,                 ventura:        "27922a50d571a4e91f33f6880f787ec9b37009afe0996dfd8c4b21b614ce82cb"
+    sha256 cellar: :any,                 monterey:       "1f6670b67d4916c879579adfaceafe92d8b9d983f3cbdad666088d4bf0ac9ca5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e28cd906492ddf3e6b06b4b282bb4dc7549b5e0b51e669560c472ce56721df5"
   end
 
   depends_on "cmake" => :build
@@ -23,11 +23,6 @@ class Aom < Formula
 
   on_intel do
     depends_on "yasm" => :build
-  end
-
-  resource "homebrew-bus_qcif_15fps.y4m" do
-    url "https://media.xiph.org/video/derf/y4m/bus_qcif_15fps.y4m"
-    sha256 "868fc3446d37d0c6959a48b68906486bd64788b2e795f0e29613cbb1fa73480e"
   end
 
   def install
@@ -50,16 +45,21 @@ class Aom < Formula
   end
 
   test do
-    resource("homebrew-bus_qcif_15fps.y4m").stage do
-      system "#{bin}/aomenc", "--webm",
-                              "--tile-columns=2",
-                              "--tile-rows=2",
-                              "--cpu-used=8",
-                              "--output=bus_qcif_15fps.webm",
-                              "bus_qcif_15fps.y4m"
-
-      system "#{bin}/aomdec", "--output=bus_qcif_15fps_decode.y4m",
-                              "bus_qcif_15fps.webm"
+    resource "homebrew-bus_qcif_15fps.y4m" do
+      url "https://media.xiph.org/video/derf/y4m/bus_qcif_15fps.y4m"
+      sha256 "868fc3446d37d0c6959a48b68906486bd64788b2e795f0e29613cbb1fa73480e"
     end
+
+    testpath.install resource("homebrew-bus_qcif_15fps.y4m")
+
+    system bin/"aomenc", "--webm",
+                            "--tile-columns=2",
+                            "--tile-rows=2",
+                            "--cpu-used=8",
+                            "--output=bus_qcif_15fps.webm",
+                            "bus_qcif_15fps.y4m"
+
+    system bin/"aomdec", "--output=bus_qcif_15fps_decode.y4m",
+                            "bus_qcif_15fps.webm"
   end
 end

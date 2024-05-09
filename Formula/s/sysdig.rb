@@ -4,14 +4,14 @@ class Sysdig < Formula
   license "Apache-2.0"
 
   stable do
-    url "https://github.com/draios/sysdig/archive/refs/tags/0.35.3.tar.gz"
-    sha256 "c4f896dd1a2821c98176d18e5dd5e13306910d732579d51c5c4b1c03687424c5"
+    url "https://github.com/draios/sysdig/archive/refs/tags/0.36.1.tar.gz"
+    sha256 "e0737ce660637d72859822b5bec835d8e0e3337620a366d0e9c5dc5a1300feb4"
 
-    # Update to value of FALCOSECURITY_LIBS_VERSION found in
-    # https://github.com/draios/sysdig/blob/#{version}/cmake/modules/falcosecurity-libs.cmake
+    # Update to value of FALCOSECURITY_LIBS_VERSION with
+    # VERSION=#{version} && curl -fsSL https://raw.githubusercontent.com/draios/sysdig/$VERSION/cmake/modules/falcosecurity-libs.cmake | grep -o 'set(FALCOSECURITY_LIBS_VERSION "[0-9.]*")' | awk -F'"' '{print $2}'
     resource "falcosecurity-libs" do
-      url "https://github.com/falcosecurity/libs/archive/refs/tags/0.14.2.tar.gz"
-      sha256 "b4ae7bbf3ad031deee4a808145f9fd64b71c537406cc5a92f512823b2e52cdd5"
+      url "https://github.com/falcosecurity/libs/archive/refs/tags/0.15.1.tar.gz"
+      sha256 "8c2596fec3c25e9718a8b357b0504450cd26efbe653b79afcd66a8405f0dc08c"
     end
   end
 
@@ -21,13 +21,13 @@ class Sysdig < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "a35056d5bd65fbd7483ed1f70c116e3a80f5a05cc88849b42cabf861915bca8b"
-    sha256                               arm64_ventura:  "7d1124898340e75c8f39ad7fa8bed179aa7dc899e65c37aa5aa2ce5fcde683a1"
-    sha256                               arm64_monterey: "c398691540b90bd97347e51409a16cad3e79a93823c56af95230b786013e83b7"
-    sha256                               sonoma:         "d507c4bbc8c9d171399508691f4911209a549d56b714ced018e236cf794f1f46"
-    sha256                               ventura:        "a088c6b8dc3d341858dc583dd48974d258dc25941fe5975c4478e2e308219b5d"
-    sha256                               monterey:       "4322c8b9400be1b7ac2f914416db99a96d65ce6f86dbfd843abfa266436d825a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "716ab71398a1d7bc150ad599672fda84f525ef736376866b4216f3e9bba0ed83"
+    sha256                               arm64_sonoma:   "1322caa7aa6fef494981bf7da38f3312d66847d3ead66879f06af6ef44001cfa"
+    sha256                               arm64_ventura:  "6a8c452cbad5a7104cd7d62242f555baa73ab98ee1f45850925e65c27a8633b0"
+    sha256                               arm64_monterey: "1e4ba9fa13133c53dd89c6cff7d388df15d857930d440e0a8baa8bad9e3dc21a"
+    sha256                               sonoma:         "b0d5b710258fd5af046163fa71dbee018b2d5718083059c31e7ae4cbd350ea5b"
+    sha256                               ventura:        "119ca60b608b12581a6f916a01fe27583a32ebec77dc4940b3b80155750a2c31"
+    sha256                               monterey:       "c15df0bf7a412ef735c4d3b8c1b65ea93581ef94138e1474703e19212b119d80"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c013dd520be1ec97ab7677e73e57809802977e1559e043c4932cb0f8a5ad87d3"
   end
 
   head do
@@ -44,13 +44,13 @@ class Sysdig < Formula
   depends_on "c-ares"
   depends_on "jsoncpp"
   depends_on "luajit"
+  depends_on "ncurses" # for `newterm` function
   depends_on "re2"
   depends_on "tbb"
   depends_on "uthash"
   depends_on "yaml-cpp"
 
   uses_from_macos "curl"
-  uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
   on_linux do

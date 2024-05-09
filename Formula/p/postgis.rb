@@ -1,10 +1,10 @@
 class Postgis < Formula
   desc "Adds support for geographic objects to PostgreSQL"
   homepage "https://postgis.net/"
-  url "https://download.osgeo.org/postgis/source/postgis-3.3.4.tar.gz"
-  sha256 "9d41eaef70e811a4fe2f4a431d144c0c57ce17c2c1a3c938ddaf4e5a3813b0d8"
+  url "https://download.osgeo.org/postgis/source/postgis-3.4.2.tar.gz"
+  sha256 "c8c874c00ba4a984a87030af6bf9544821502060ad473d5c96f1d4d0835c5892"
   license "GPL-2.0-or-later"
-  revision 3
+  revision 1
 
   livecheck do
     url "https://download.osgeo.org/postgis/source/"
@@ -12,13 +12,13 @@ class Postgis < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "d8b9b78d03d8c6efb7aa007cb195e902632dafa08efd6e35bf7b18808f0a27b6"
-    sha256 cellar: :any,                 arm64_ventura:  "45911a5010c7da2ba1397669943c2013cfe916ac2094043bdd2a8ad516b196e7"
-    sha256 cellar: :any,                 arm64_monterey: "f97b40b689bee4858084ef8869f9b92b0729dc9f2906288bdd8ef44736a92c24"
-    sha256 cellar: :any,                 sonoma:         "4b6020279b2d01a85bf5c4ffb7d50770d9ebb7a131d04301c4f73ef9aff99417"
-    sha256 cellar: :any,                 ventura:        "4cfb694a77006c5c452530cf48210ae9fa0e82f928cf8166ae3007f32e2b6df2"
-    sha256 cellar: :any,                 monterey:       "c6063ea72dafb168268c8b284eeb778bd2263e7719d55599341c8a23bb74f4ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cc7561185b2260174bbe3c19154fa5b6c447b032d80a9227404c19afb75b65aa"
+    sha256 cellar: :any,                 arm64_sonoma:   "df7ad5bbbbf337a752435d862165fc1dd49e59911a02ce9ccf91be9b51e25652"
+    sha256 cellar: :any,                 arm64_ventura:  "6102f1749b2c92156f43305f3e833f1249676e9d009c768531b6144d318f0832"
+    sha256 cellar: :any,                 arm64_monterey: "62f18df031416926bef4671125911a4d620d912bdad4b19d96292459192a3f33"
+    sha256 cellar: :any,                 sonoma:         "e17c9634f9979a3e70119cca882b0929241e223236ee058c46c523c26994e705"
+    sha256 cellar: :any,                 ventura:        "5ee90c65c47cbe2dfd787de5928eb87dc16c19758e50dc139792106b26b64937"
+    sha256 cellar: :any,                 monterey:       "9b6c1a076a3c88c067bf078d982b8df2fbcccedf236c2fff30d356300ab9d129"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "182a7e064f1fc1856b275af221c54cb67bce77fa63686c69d6446be97e1579df"
   end
 
   head do
@@ -48,12 +48,25 @@ class Postgis < Formula
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     ENV.deparallelize
 
     # C++17 is required.
     ENV.append "CXXFLAGS", "-std=c++17"
 
-    ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
+    # Workaround for: Built-in generator --c_out specifies a maximum edition
+    # PROTO3 which is not the protoc maximum 2023.
+    # Remove when fixed in `protobuf-c`:
+    # https://github.com/protobuf-c/protobuf-c/pull/711
+    ENV["PROTOCC"] = Formula["protobuf"].opt_bin/"protoc"
 
     args = [
       "--with-projdir=#{Formula["proj"].opt_prefix}",
@@ -68,36 +81,19 @@ class Postgis < Formula
     ]
 
     system "./autogen.sh" if build.head?
-    # Fixes config/install-sh: No such file or directory
-    # This is caused by a misalignment between ./configure in postgresql@14 and postgis
-    mv "build-aux", "config"
-    inreplace %w[configure utils/Makefile.in] do |s|
-      s.gsub! "build-aux", "config"
-    end
-    system "./configure", *args
+    # Pretend to install into HOMEBREW_PREFIX to allow PGXS to find PostgreSQL binaries
+    system "./configure", *args, *std_configure_args(prefix: HOMEBREW_PREFIX)
     system "make"
-
-    # Install to a staging directory to circumvent the hardcoded install paths
-    # set by the PGXS makefiles.
-    mkdir "stage"
-    system "make", "install", "DESTDIR=#{buildpath}/stage"
-
-    # Some files are stored in the stage directory with the cellar prefix of
-    # the version of postgresql used to build postgis.  Since we copy these
-    # files into the postgis keg and symlink them to HOMEBREW_PREFIX, postgis
-    # only needs to be rebuilt when there is a new major version of postgresql.
-    postgresql_prefix = postgresql.prefix.realpath
-    postgresql_stage_path = File.join("stage", postgresql_prefix)
-    bin.install (buildpath/postgresql_stage_path/"bin").children
-    doc.install (buildpath/postgresql_stage_path/"share/doc").children
-
-    stage_path = File.join("stage", HOMEBREW_PREFIX)
-    lib.install (buildpath/stage_path/"lib").children
-    share.install (buildpath/stage_path/"share").children
+    # Override the hardcoded install paths set by the PGXS makefiles
+    system "make", "install", "bindir=#{bin}",
+                              "docdir=#{doc}",
+                              "mandir=#{man}",
+                              "pkglibdir=#{lib/postgresql.name}",
+                              "datadir=#{share/postgresql.name}",
+                              "PG_SHAREDIR=#{share/postgresql.name}"
 
     # Extension scripts
     bin.install %w[
-      utils/create_undef.pl
       utils/create_upgrade.pl
       utils/postgis_restore.pl
       utils/profile_intersects.pl

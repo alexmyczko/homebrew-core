@@ -1,9 +1,9 @@
 class ApacheArrowGlib < Formula
   desc "GLib bindings for Apache Arrow"
   homepage "https://arrow.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-15.0.0/apache-arrow-15.0.0.tar.gz"
-  mirror "https://archive.apache.org/dist/arrow/arrow-15.0.0/apache-arrow-15.0.0.tar.gz"
-  sha256 "01dd3f70e85d9b5b933ec92c0db8a4ef504a5105f78d2d8622e84279fb45c25d"
+  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-16.0.0/apache-arrow-16.0.0.tar.gz"
+  mirror "https://archive.apache.org/dist/arrow/arrow-16.0.0/apache-arrow-16.0.0.tar.gz"
+  sha256 "9f4051ae9473c97991d9af801e2f94ae3455067719ca7f90b8137f9e9a700b8d"
   license "Apache-2.0"
   head "https://github.com/apache/arrow.git", branch: "main"
 
@@ -12,13 +12,13 @@ class ApacheArrowGlib < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "b4d94fdc2c605409a32d52c7fb35e8df71b105f4d67b75eac0888c6087fa5e33"
-    sha256 cellar: :any, arm64_ventura:  "2f70b685806d5fbda693c730ff124ecc0426e33e540e1646a8f9bb035bbdb5cc"
-    sha256 cellar: :any, arm64_monterey: "319fccd212ae81c6351e46576c563cae7a31918efd0f626e760b5bc4413e67c3"
-    sha256 cellar: :any, sonoma:         "5a5165cda5791da5af83c7a65b128dc5e0dbf5c10de08e04a141a7094ef84d8e"
-    sha256 cellar: :any, ventura:        "ffa2cf231ee2a184c8b93245ccf0b13c6746348cfbc32c50533a637f13389b91"
-    sha256 cellar: :any, monterey:       "6ce37876938e37612521d6d9e70dd85420b3012c11f893f9cb358323a8646fec"
-    sha256               x86_64_linux:   "58914e7838f943c203cb60a6b211fb2d6140354167880789c7fdcae0c45fae49"
+    sha256 cellar: :any, arm64_sonoma:   "cace9de8228c855a5e9fe1ef5fe1ae353dc6f791854ae3fdd217aa293ddb6868"
+    sha256 cellar: :any, arm64_ventura:  "cbae74218417e72ecad14832117b6888c4ec54200c71529c74533e678be0a505"
+    sha256 cellar: :any, arm64_monterey: "3e6351128d81dc839281f985bfdfd147f0a7ce398f1ae289d8dcdf2b139b1a62"
+    sha256 cellar: :any, sonoma:         "c0ebaa906e9ead64d5301ddd726a7e6dedc13e5734214735d29f18bfd11c9642"
+    sha256 cellar: :any, ventura:        "1af78ad7a4a664f2bc1cb0bb2977ead4006cda6c19f8700bedb3391bcbe3c36a"
+    sha256 cellar: :any, monterey:       "75ef106748e468ab3f8b412516eccf4e454cd07ba81cecd3acfee979dd5c79fd"
+    sha256               x86_64_linux:   "bba98396529bd625f737b240a9f63c173b71533cf4b763a7563508b8528828d2"
   end
 
   depends_on "gobject-introspection" => :build
@@ -31,6 +31,15 @@ class ApacheArrowGlib < Formula
   fails_with gcc: "5"
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     system "meson", "setup", "build", "c_glib", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"

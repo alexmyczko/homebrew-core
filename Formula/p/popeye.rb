@@ -1,18 +1,18 @@
 class Popeye < Formula
   desc "Kubernetes cluster resource sanitizer"
   homepage "https://popeyecli.io"
-  url "https://github.com/derailed/popeye/archive/refs/tags/v0.20.5.tar.gz"
-  sha256 "65bd1d1cc13e48ec44c9be0c45d514fbc06e39ec6b38ebce18f07988a329317c"
+  url "https://github.com/derailed/popeye/archive/refs/tags/v0.21.3.tar.gz"
+  sha256 "9f8f5b46a942ec7fcaf777ec7f16e6d64317cfdc7080e3d637018d778656ee94"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "37cf974e60ce90bcf64ca9b7b83fd9562893608d866dc10b37eb245a7a859d19"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cdbfe1f9c6e54bdcd92a923b08689b1b28165bc5c6e5435a94b450e572f915ff"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c261f62209f2cd502bce06c7cee093f9513e262d59953956c5ef079ee4791422"
-    sha256 cellar: :any_skip_relocation, sonoma:         "12a978dbf6facedc77ee5a73c3db70060ace1736449b51aeaec1e45f80149caa"
-    sha256 cellar: :any_skip_relocation, ventura:        "e0df67d14466568583b6ff5b3abec993781c59431fb39e931c7ed6ee15a53f8a"
-    sha256 cellar: :any_skip_relocation, monterey:       "84a77f63918b99d75d48f235120b40263ccdc69e75421888f642e087544478e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "38eae50bd3ddecde171efc917bae0e531c762ba3b4b532b617cc0be2a3ade5f4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dc9b26b43fc91067ebf4a5c39e0326fa77637ec4f0b3d6cd44e543bb7f2e94fe"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2240a4317ad953f08642deed1e4155aceb921bf2b2b8a6d3adb58b2602b7240c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "73efd455efcb25766afadee9ea50286fe0598cd53adec7b31eacf7e5b4d35d30"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1915c4db3a9e5a51ab8cfad694f5bb93a1b21c5ad4816734edbde9fa5f0d618c"
+    sha256 cellar: :any_skip_relocation, ventura:        "612214672ece1851568821efbabd314cb96cc293c686c9723578dcf333e915fa"
+    sha256 cellar: :any_skip_relocation, monterey:       "45d5ea2df07c4706c6d3cbe1826a58014e6be8384e6c3d155f997276f2ddc05d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "766e4649aabbed1589d86a72a8f9f53bcdf5139195f71aac9ea871f4a573ce78"
   end
 
   depends_on "go" => :build
@@ -24,7 +24,7 @@ class Popeye < Formula
       -X github.com/derailed/popeye/cmd.commit=#{tap.user}
       -X github.com/derailed/popeye/cmd.date=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"popeye", "completion")
   end

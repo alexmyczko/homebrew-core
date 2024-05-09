@@ -1,19 +1,19 @@
 class Mold < Formula
   desc "Modern Linker"
   homepage "https://github.com/rui314/mold"
-  url "https://github.com/rui314/mold/archive/refs/tags/v2.4.1.tar.gz"
-  sha256 "c9853d007d6a1b4f3e36b7314346751f4cc91bc43c76e30db51709b53b44dd68"
+  url "https://github.com/rui314/mold/archive/refs/tags/v2.31.0.tar.gz"
+  sha256 "3dc3af83a5d22a4b29971bfad17261851d426961c665480e2ca294e5c74aa1e5"
   license "MIT"
   head "https://github.com/rui314/mold.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "77ddcffc5ffe11fc781d1a582a4a97778113e06668aeee8523fc8c976abe7641"
-    sha256 cellar: :any,                 arm64_ventura:  "e057822890f96a03c1a76d3faca2194ed6ec46a651d22df1645be2d9b3d0d50b"
-    sha256 cellar: :any,                 arm64_monterey: "f2bffcb90d3f84b07dc14549e3b50418d60e9e87d06181318dd8ef6a45ac498c"
-    sha256 cellar: :any,                 sonoma:         "a89b1c3a64cf824272e250210b326d337f7d08ee07bc5ffa6e2bd540ed34ed2a"
-    sha256 cellar: :any,                 ventura:        "232fbcaf5b77b3f66294f95d117e717f8baa213f14ca93bebbf92c52837db41e"
-    sha256 cellar: :any,                 monterey:       "fe54b5458aee2311d9623867bc3f89bdebb199b1ba41f83327505912e8883326"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e51d461f687464568438074864a690af5ff60798d4e544cac0e96eb0193752c6"
+    sha256 cellar: :any,                 arm64_sonoma:   "4a64a25ef4b524f2cbfe6821abdaa280879f6327ec4e0d19b9c582bd6a2fabb4"
+    sha256 cellar: :any,                 arm64_ventura:  "918774ff34535713f5eac0f1b509dda35925a4c433ed538f6dd2ff8f9bd66985"
+    sha256 cellar: :any,                 arm64_monterey: "8ae225975e63a32c184d661c3e1e64f1bde34521a4adbf625ac9b00e62c3f8e3"
+    sha256 cellar: :any,                 sonoma:         "5c5007ec331eb52688fd00b2a6e79924c684b96124348d30515acd04642fe1c7"
+    sha256 cellar: :any,                 ventura:        "148eb81205e333ded65414f4e0d26924129e338aa7a9919fd78897290b8db91c"
+    sha256 cellar: :any,                 monterey:       "1cb906510fb8c543915821ff1d24ee4ca3d8b47ac62d50806ba8a21bbf0e82aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f914c726542d61c4b387819304036869765cd221b5868338edcf3415003c0db"
   end
 
   depends_on "cmake" => :build

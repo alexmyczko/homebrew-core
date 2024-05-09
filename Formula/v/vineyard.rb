@@ -3,23 +3,23 @@ class Vineyard < Formula
 
   desc "In-memory immutable data manager. (Project under CNCF)"
   homepage "https://v6d.io"
-  url "https://github.com/v6d-io/v6d/releases/download/v0.21.3/v6d-0.21.3.tar.gz"
-  sha256 "69448e39ae2564de91814e02cc9451b0644454eeef4b767fbebc39baa00d5f2f"
+  url "https://github.com/v6d-io/v6d/releases/download/v0.22.1/v6d-0.22.1.tar.gz"
+  sha256 "16aea4dc63830925c2d8cd89dc36580ff80dd7610793d56ae5d0d09972cf2fcc"
   license "Apache-2.0"
+  revision 2
 
   bottle do
-    sha256                               arm64_sonoma:   "5315c845bee5839a224695cdcad1660834248777695e87a08c2f7bea3e98ece1"
-    sha256                               arm64_ventura:  "228e97516b22895fc044f57ba82ce59b74967e8732dfc6e5a0baa73b2698e98b"
-    sha256                               arm64_monterey: "d96e38d3fd713df2a7cd745689684d5de8af88a88bfa35eca9e22ba3c06ab139"
-    sha256                               sonoma:         "17cac10f18d81b77ebfacfa06f3ae96c8e330fd4640f2dc3cec54afea80e5f0b"
-    sha256                               ventura:        "6c6569a19fc141a14213d68355a858756dc25672391e4153bb81044f30c8562e"
-    sha256                               monterey:       "3b6cf0972ff3ea4179a18e5b4c1cb6839d85ce35de85d2c01cc94e914fd6fd8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "614f9dd258f1cd6fd0666f69496b7003b8d21a4adebffe50fa4d902671ec4bec"
+    sha256                               arm64_sonoma:   "a4f8b5541f33cb0a9a5bd1f41b5d81c7a8a8590b8a3cbbcef0cbcf6307615490"
+    sha256                               arm64_ventura:  "96f2f8f3b86bce950c28a2c0f948fb98bfcab1c0459495d1d5e421e97eb2c939"
+    sha256                               arm64_monterey: "9965f4fdef2f105ca748848c39449e28a67c9e42e51427dedd71b83b778729da"
+    sha256                               sonoma:         "dfbd0bb4fa61088e35d18328ba3912f03467a7aa55dea52f6242117d7d3a287b"
+    sha256                               ventura:        "fe0c0add7804dc4f3fd0aa373017335e694ff588be5dd033312ecac2d052ce7e"
+    sha256                               monterey:       "6e178815c0381a4599f02bff432b81bd748db76edb2681c58ff56c2a284915be"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21687a67cea86a289a735e17bd524f9901d8eb423e51437461f4eabcc32950d2"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "llvm" => [:build, :test]
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12" => :build
   depends_on "apache-arrow"
   depends_on "boost"
@@ -37,8 +37,21 @@ class Vineyard < Formula
 
   fails_with gcc: "5"
 
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
+    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
+  end
+
+  # Backport fix for API changes in `apache-arrow` 16+.
+  patch do
+    url "https://github.com/v6d-io/v6d/commit/e8b8c828f54e16163c98a9b91068f3344608431a.patch?full_index=1"
+    sha256 "b105216ad518dc581a9b9eb45398d7f87f63ba9728b3e3690aaef172a33ff3d2"
+  end
+
   def install
     python = "python3.12"
+    venv = virtualenv_create(libexec, python)
+    venv.pip_install resources
     # LLVM is keg-only.
     ENV.prepend_path "PYTHONPATH", Formula["llvm"].opt_prefix/Language::Python.site_packages(python)
 
@@ -49,7 +62,7 @@ class Vineyard < Formula
     system "cmake", "-S", ".", "-B", "build",
                     "-DCMAKE_CXX_STANDARD=17",
                     "-DCMAKE_CXX_STANDARD_REQUIRED=TRUE",
-                    "-DPYTHON_EXECUTABLE=#{which(python)}",
+                    "-DPYTHON_EXECUTABLE=#{venv.root}/bin/python",
                     "-DUSE_EXTERNAL_ETCD_LIBS=ON",
                     "-DUSE_EXTERNAL_REDIS_LIBS=ON",
                     "-DUSE_EXTERNAL_HIREDIS_LIBS=ON",

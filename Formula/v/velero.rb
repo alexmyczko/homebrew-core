@@ -1,18 +1,18 @@
 class Velero < Formula
   desc "Disaster recovery for Kubernetes resources and persistent volumes"
   homepage "https://velero.io/"
-  url "https://github.com/vmware-tanzu/velero/archive/refs/tags/v1.13.0.tar.gz"
-  sha256 "c2de1ef61f849026f25de80eee2109c05393ad72c7ef7dbde63f49acdc89ce02"
+  url "https://github.com/vmware-tanzu/velero/archive/refs/tags/v1.13.2.tar.gz"
+  sha256 "e292c4427d801b426a53e24cff10aed16de5bcbf2a5207edfee30d8c4d363135"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ea296bf9590e660103909e784e459a04042a6a76f3cd80244d34429addf309a7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ef6717596c5fdc9bb857e22936b180f5a8285c789232d596f900910eebdd4caf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "12b8a88fe5c8c208cc6a63a99c8118ff267975049dab3054e075c0f7cbc705c8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "07fcc7302b7950db2c7f992ed371786a9608d0c073e519706190fe85561ffa6e"
-    sha256 cellar: :any_skip_relocation, ventura:        "387c94010cf6192f5dd8bd8637505b3819c9758a3123fb1d236f679e18517df2"
-    sha256 cellar: :any_skip_relocation, monterey:       "6eb724be21560e4f0fda449bb7ef4aed3c0e101cc9b300a9bc98643b2ca3e39c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7e088bfc7f5002c4c3db4f50f16aa678e5033162ec8dcb9d4722c23b1a45def7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4e0ff8caec98eec0c4d7e95493514c485966559fc798fb6d8d8346890c1238c1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e9e8ecd38140f9e644987bea9813d2230cfc188d428a18eb48ee4d744a6445a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "89a9f4763bcc6697812b97b3e17bbde0d3b1f65400b111ca3d9da463f9682137"
+    sha256 cellar: :any_skip_relocation, sonoma:         "889cecb24d3457c0eee9b24bf1eab74ce8950f8da1843cb8fd603616841472f7"
+    sha256 cellar: :any_skip_relocation, ventura:        "43efeee70ae3efd92a8d9fdedad4f1fef71298549b3a29e5a16e1faef317bd7a"
+    sha256 cellar: :any_skip_relocation, monterey:       "005a04a88ec90c19dd30d543be767b4e1a32738da80dd14c6e3a8f07e0c0c69f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e0717eca296753715d45bfe1ffd5e046ad7de764350eae9b5e1b8ae3d621aba"
   end
 
   depends_on "go" => :build
@@ -22,7 +22,7 @@ class Velero < Formula
       -s -w
       -X github.com/vmware-tanzu/velero/pkg/buildinfo.Version=v#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "-installsuffix", "static", "./cmd/velero"
+    system "go", "build", *std_go_args(ldflags:), "-installsuffix", "static", "./cmd/velero"
 
     generate_completions_from_executable(bin/"velero", "completion")
   end

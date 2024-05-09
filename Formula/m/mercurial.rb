@@ -3,8 +3,8 @@
 class Mercurial < Formula
   desc "Scalable distributed version control system"
   homepage "https://mercurial-scm.org/"
-  url "https://www.mercurial-scm.org/release/mercurial-6.6.3.tar.gz"
-  sha256 "f75d6a4a75823a1b7d713a4967eca2f596f466e58fc6bc06d72642932fd7e307"
+  url "https://www.mercurial-scm.org/release/mercurial-6.7.3.tar.gz"
+  sha256 "00196944ea92738809317dc7a8ed7cb21287ca0a00a85246e66170955dcd9031"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -13,33 +13,20 @@ class Mercurial < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "d92c862d6b5612d078a3ef2fefcd1ecdcb9c9a100f902518bf699c6d8b033e8f"
-    sha256 arm64_ventura:  "2477e57e8fbb4d4fd0f409c31a6b80b6663dcc100888b49b7d7c5269cfbcd2c1"
-    sha256 arm64_monterey: "da31970b030c26477431980b3085c18acd42225c7a9744446bff123032e5e82d"
-    sha256 sonoma:         "a0c9620e11ccdd92da233962c90a0fef655eb80b27f687b13d97a582a9a78114"
-    sha256 ventura:        "33b88488d1e7c6fc87bc3417b8370b0b0d9926127754766ee2ebfb0bad5a4c01"
-    sha256 monterey:       "3e6efb9d181302ac99430178ef1539e0b477d99c50b6247254d60f9840c83168"
-    sha256 x86_64_linux:   "8836c9c39893f239d97fbf3b1894a4afa4a2a5622a81e9109e4e89f8fcb94ffc"
+    sha256 arm64_sonoma:   "e3fad805f06988769ae9178e818ab2a9ef9c8ccedbd5f89c7383bcbf64ba829c"
+    sha256 arm64_ventura:  "f0105793e8412b46760cf2538a3f991428632786db9c9e92d84837502b48d18a"
+    sha256 arm64_monterey: "8a435f73dd1f45b57a721bb391776155d0ccee0a3134c2086845f520879a4917"
+    sha256 sonoma:         "7d81c00cfb9bade68d92d476a0b72d2544f8117933baea06324dd87180d8516a"
+    sha256 ventura:        "a87e0f527f50ebcbad816d3ed2811286d7baf6a63735d7cd2f3a88bed6fe80ee"
+    sha256 monterey:       "7ee5172c238d6e7a965eb2e6cecb38befab9b0119a66303f08b91395c4077769"
+    sha256 x86_64_linux:   "59ecaa63c0ff0a230427d4af458a9d22a7b7bb0192e0db6bf8d029b546c65bff"
   end
 
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12"
 
   def install
-    ENV["HGPYTHON3"] = "1"
-    ENV["PYTHON"] = python3 = which("python3.12")
-
-    # Homebrew's python "prefix scheme" patch tries to install into
-    # HOMEBREW_PREFIX/{lib,bin}, which fails due to sandbox. As workaround,
-    # manually set the installation paths to behave like prior python versions.
-    setup_install_args = %W[
-      --install-lib="#{prefix/Language::Python.site_packages(python3)}"
-      --install-scripts="#{bin}"
-      --install-data="#{prefix}"
-    ]
-    inreplace "Makefile", / setup\.py .* --prefix="\$\(PREFIX\)"/, "\\0 #{setup_install_args.join(" ")}"
-
-    system "make", "install-bin", "PREFIX=#{prefix}"
+    python3 = "python3.12"
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
 
     # Install chg (see https://www.mercurial-scm.org/wiki/CHg)
     system "make", "-C", "contrib/chg", "install", "PREFIX=#{prefix}", "HGPATH=#{bin}/hg", "HG=#{bin}/hg"
@@ -78,6 +65,12 @@ class Mercurial < Formula
   end
 
   test do
-    system "#{bin}/hg", "init"
+    touch "foobar"
+    system bin/"hg", "init"
+    system bin/"hg", "add", "foobar"
+    system bin/"hg", "--config", "ui.username=brew", "commit", "-m", "initial commit"
+    assert_equal "foobar\n", shell_output("#{bin}/hg locate")
+    # Check for chg
+    assert_match "initial commit", shell_output("#{bin}/chg log")
   end
 end

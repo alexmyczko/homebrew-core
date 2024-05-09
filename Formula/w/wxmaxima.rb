@@ -1,8 +1,8 @@
 class Wxmaxima < Formula
   desc "Cross platform GUI for Maxima"
   homepage "https://wxmaxima-developers.github.io/wxmaxima/"
-  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-23.12.0.tar.gz"
-  sha256 "abec636e96474adf6451e81728b16afaa83ed1a70b86a695fa083ecec65aaae1"
+  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-24.05.0.tar.gz"
+  sha256 "21dc8715b71372dc35743486307254a5a0285f35a6acbc68b894d432c4f14c98"
   license "GPL-2.0-or-later"
   head "https://github.com/wxMaxima-developers/wxmaxima.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Wxmaxima < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3389d145b4c41a69ee6154a5b89ccf1b33938046c6a3c4c7b62891d16e6c0ec2"
-    sha256 arm64_ventura:  "e475bc0bb93506345dfd5646d478c73ddc9f9b12b7178c2b8f329cb59d579739"
-    sha256 arm64_monterey: "96a47686631c9d0d54d66e53ba2bd2b639607b0ef90e472eb661809ce3e6cfcc"
-    sha256 sonoma:         "93beca1e64db35b18695d9b95f39faf8da5d735b917ee91517d99b1694a38b8b"
-    sha256 ventura:        "8d3c0085ade32975df48151021395acbdcb356d4fa664937fc2fa9367711948b"
-    sha256 monterey:       "8f005c78e73f559b4b4ecab2ad72d11cd8812f695aa71282c3365f3089f298e3"
+    sha256 arm64_sonoma:   "ec022b089287e461e12f5f49601a2fa261a5082ae2ab8d27dfd39c920c8a63bf"
+    sha256 arm64_ventura:  "a62433474bbe7929439116f5153a9863e65b8b5d3537de8fb8493c5595412753"
+    sha256 arm64_monterey: "c7c49e7d663adc19885e070e4c548dfe45b52c6117eff9d2492e0fb630914e90"
+    sha256 sonoma:         "f726e02b227c56529d36bf5ea0a0624d389d1b2d9968ff158e359b7686f8bdae"
+    sha256 ventura:        "ecaad820ffc769fb4d1277e1834d70bbc4e4c14934e1cc1d5f530b6a782f38e3"
+    sha256 monterey:       "78b9a77bc9ede9dc2860455a6711204eb761b444e02ec66524c6851d9a3bfc2d"
   end
 
   depends_on "cmake" => :build
@@ -72,6 +72,7 @@ class Wxmaxima < Formula
     # Error: Unable to initialize GTK+, is DISPLAY set properly
     return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
-    assert_match "algebra", shell_output("#{bin}/wxmaxima --help 2>&1")
+    assert_equal "wxMaxima #{version}", shell_output(bin/"wxmaxima --version 2>&1").chomp
+    assert_match "extra Maxima arguments", shell_output("#{bin}/wxmaxima --help 2>&1", 1)
   end
 end

@@ -3,18 +3,18 @@ require "language/node"
 class Asyncapi < Formula
   desc "All in one CLI for all AsyncAPI tools"
   homepage "https://github.com/asyncapi/cli"
-  url "https://registry.npmjs.org/@asyncapi/cli/-/cli-1.5.17.tgz"
-  sha256 "d4299ea1df6f312818702da32be52318d65b4e23e37064c82ed9b90b323316ec"
+  url "https://registry.npmjs.org/@asyncapi/cli/-/cli-1.12.1.tgz"
+  sha256 "228243a194621fcf9eabb760fba4d4d792f0d5afcb4cd10b7a6ac6fa38fafc03"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b86c45b6e5cbc7af75c22e5390b8f4188a15f845215eb6be451c6d44f568d0c3"
-    sha256 cellar: :any,                 arm64_ventura:  "b86c45b6e5cbc7af75c22e5390b8f4188a15f845215eb6be451c6d44f568d0c3"
-    sha256 cellar: :any,                 arm64_monterey: "b86c45b6e5cbc7af75c22e5390b8f4188a15f845215eb6be451c6d44f568d0c3"
-    sha256 cellar: :any,                 sonoma:         "d499c0294af54f8b0e0e8905e191a085a899c16676e1917d2151ba88ebec5d97"
-    sha256 cellar: :any,                 ventura:        "d499c0294af54f8b0e0e8905e191a085a899c16676e1917d2151ba88ebec5d97"
-    sha256 cellar: :any,                 monterey:       "d499c0294af54f8b0e0e8905e191a085a899c16676e1917d2151ba88ebec5d97"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c6afe86d31e93e3746c268d5b9a9c9cfb9f39eb929f3fc01551ef554bbfaa204"
+    sha256 cellar: :any,                 arm64_sonoma:   "e8932e53dbe80e160a4ebc6d460b6091762a00668855d8437bb4bbec2304a677"
+    sha256 cellar: :any,                 arm64_ventura:  "c381d563160721be6214d7c87d85085e1a1c18329d512d615c5d9f5adfabd46a"
+    sha256 cellar: :any,                 arm64_monterey: "43abd3d8352be6ebb37ef5efa006208aa866bdad7010ced1ea619581c274cfc3"
+    sha256 cellar: :any,                 sonoma:         "a39fb00d6d2f2c75cca01b734c026363f92ce031b4a7f94182cc72143f480ccb"
+    sha256 cellar: :any,                 ventura:        "51fa29dae9bb407f0d9085f8291eef1aa3a2f9def48bb57f40ce9b7c942d1f51"
+    sha256 cellar: :any,                 monterey:       "e9bbb0a140d2dc26b58dd3ce03aaf4b0b3321d6600747a574d29279337a33945"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eac978db54a4ff61ca0a60a1bc52bf81935b3714f528765561760e23b96c5537"
   end
 
   depends_on "node"
@@ -22,10 +22,6 @@ class Asyncapi < Formula
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
     bin.install_symlink Dir["#{libexec}/bin/*"]
-
-    # Delete native binaries installed by npm, as we dont support `musl` for a `libc` implementation
-    node_modules = libexec/"lib/node_modules/@asyncapi/cli/node_modules"
-    (node_modules/"@swc/core-linux-x64-musl/swc.linux-x64-musl.node").unlink if OS.linux?
 
     # Replace universal binaries with their native slices
     deuniversalize_machos

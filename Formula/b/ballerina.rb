@@ -1,8 +1,8 @@
 class Ballerina < Formula
   desc "Programming Language for Network Distributed Applications"
   homepage "https://ballerina.io"
-  url "https://dist.ballerina.io/downloads/2201.8.5/ballerina-2201.8.5-swan-lake.zip"
-  sha256 "7656a658a78ae4a62bca8a3d7203dbd00422eed4abdd09daf068109ee09ca9c4"
+  url "https://dist.ballerina.io/downloads/2201.9.0/ballerina-2201.9.0-swan-lake.zip"
+  sha256 "e89d6b2102b9c16b898f9652bc917f32bbb6e5ddd40d554fe3f732bb292c07e7"
   license "Apache-2.0"
 
   # The Downloads and Installation Options pages don't include any version
@@ -18,7 +18,7 @@ class Ballerina < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "8d398a59bf927d93a815fc40aefa32cc04faab9a084812a2c2fddc1b9a1ac1d4"
+    sha256 cellar: :any_skip_relocation, all: "4e066774e422aa72322e53af2cec52964d761a814b06ef786229eb133ebd962b"
   end
 
   depends_on "openjdk"

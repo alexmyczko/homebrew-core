@@ -1,22 +1,20 @@
 class PythonArgcomplete < Formula
   desc "Tab completion for Python argparse"
   homepage "https://kislyuk.github.io/argcomplete/"
-  url "https://files.pythonhosted.org/packages/f0/a2/ce706abe166457d5ef68fac3ffa6cf0f93580755b7d5f883c456e94fab7b/argcomplete-3.2.2.tar.gz"
-  sha256 "f3e49e8ea59b4026ee29548e24488af46e30c9de57d48638e24f54a1ea1000a2"
+  url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"
+  sha256 "fd03ff4a5b9e6580569d34b273f741e85cd9e072f3feeeee3eba4891c70eda62"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2328c24c6ad6c34bc6cd1e8978ba9b56d614505a6f95b217c2e24ed961142def"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "60f23e1139b099d8ea2b446c304c3892878c982445ec53f6f39bbeef80a97f17"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f804aa13a4f8048326bf8125f29f06bdc683c71f8c616f126da5c0aad9f1bf8a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "95ab4f36f087bd784f876b64ac1c9f086964bd0551a4ff86e7405d50f02f08ab"
-    sha256 cellar: :any_skip_relocation, ventura:        "c7d7dc6b7196c915863a60727077e84316c9fffd162d88e5a5de364e2c5e6977"
-    sha256 cellar: :any_skip_relocation, monterey:       "d45b8b1429462e607a92f24076d0c1ea3e992ce1e11084db4aedcc5bdbefce1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23f5813e59516c0e40910ca03968b7aa7d908775231ee9539ca34cc857bae6d4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "08ecddcc6ecfc2a1ec110d8efa624fc79c318a6a9bdb2edcc14f01ce2fc09c12"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "08ecddcc6ecfc2a1ec110d8efa624fc79c318a6a9bdb2edcc14f01ce2fc09c12"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "08ecddcc6ecfc2a1ec110d8efa624fc79c318a6a9bdb2edcc14f01ce2fc09c12"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3a5567dc2589a6c49ef16044772068e4525e0e9cab27f1e69120df38608ed157"
+    sha256 cellar: :any_skip_relocation, ventura:        "3a5567dc2589a6c49ef16044772068e4525e0e9cab27f1e69120df38608ed157"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a5567dc2589a6c49ef16044772068e4525e0e9cab27f1e69120df38608ed157"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5c0dc8fc3dfd26c42c588f409d0a2e2bd4ca7180291917b3af5e5f124eb40240"
   end
 
-  depends_on "python-setuptools" => :build
-  depends_on "python-setuptools-scm" => :build
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
 
@@ -27,7 +25,7 @@ class PythonArgcomplete < Formula
   def install
     pythons.each do |python|
       python_exe = python.opt_libexec/"bin/python"
-      system python_exe, "-m", "pip", "install", *std_pip_args, "."
+      system python_exe, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
     end
 
     # Bash completions are not compatible with Bash 3 so don't use v1 directory.

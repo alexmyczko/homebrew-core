@@ -1,19 +1,19 @@
 class Deno < Formula
   desc "Secure runtime for JavaScript and TypeScript"
   homepage "https://deno.com/"
-  url "https://github.com/denoland/deno/releases/download/v1.41.1/deno_src.tar.gz"
-  sha256 "32f9d6c7c6b9b3a010999a721a1024f7ad3b8a95d0dc1cf9c56d60dd8a362880"
+  url "https://github.com/denoland/deno/releases/download/v1.43.1/deno_src.tar.gz"
+  sha256 "bc5083a6ee27b98c37698367ea5df7de1edf71732304f15bbb295b869881fb26"
   license "MIT"
   head "https://github.com/denoland/deno.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "7606e3d2be21d361ecd04468a7f2af1e870c61e48d7eacc132798757a7dd3e28"
-    sha256 cellar: :any,                 arm64_ventura:  "c81e4e9e7cbd4e92153902a035057fc57dd712bb613dad798724d1e0a1f94f15"
-    sha256 cellar: :any,                 arm64_monterey: "48c14e99267187184487d424ce97e3769713b38e547a3ed06a23331ecb203176"
-    sha256 cellar: :any,                 sonoma:         "3befb44e93fd122c164db42d532e77e2df9e06a4fc9a11284336b026bd431f99"
-    sha256 cellar: :any,                 ventura:        "9b61e81bd202a9ea09ee89f54988b58a183591c9e12105b6678b4d85109d2da8"
-    sha256 cellar: :any,                 monterey:       "5781f92307bc4fd06d773fadc6d7c98f79ac6cdd7eaccf014483a986b468a0c2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "07e9b925614bfd32d8a7d8ed284ea10287f485d757a0475b9f06e5286dab532e"
+    sha256 cellar: :any,                 arm64_sonoma:   "0568a3e99dd37e33b64da21a09b34e92c7e0fe3ff1c6d4f8e6475e0eb0805f5e"
+    sha256 cellar: :any,                 arm64_ventura:  "4ad4abc4aac22b2d3c8242751bf88d676c631dface47909e88fdcb5e829a0ccc"
+    sha256 cellar: :any,                 arm64_monterey: "ac1816d632a101d374fb200b3925129bc4eb528290f269b0115cf204aa37a81f"
+    sha256 cellar: :any,                 sonoma:         "79ff67b2b76cf10f8f5ae4fdf429d35ed9d9b1821dc1ca184dacc6bafaffc55f"
+    sha256 cellar: :any,                 ventura:        "4a28740900f608b050797388b4daaf57a3044ad4a6852a88f7c7ac0fe8fa9440"
+    sha256 cellar: :any,                 monterey:       "9cebce1565d4c58871a16c26bf76f438a45095651512bf060bc9aae939887bb9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "12735fa70b3a9724963cbd44ea0e70ce00b7f73314cd27ea24eb93d519411ba4"
   end
 
   depends_on "cmake" => :build
@@ -45,23 +45,23 @@ class Deno < Formula
   # Use the version of `v8` crate at: https://github.com/denoland/deno/blob/v#{version}/Cargo.lock
   # Search for 'name = "v8"' (without single quotes).
   resource "rusty_v8" do
-    url "https://static.crates.io/crates/v8/v8-0.83.2.crate"
-    sha256 "9f6c8a960dd2eb74b22eda64f7e9f3d1688f82b80202828dc0425ebdeda826ef"
+    url "https://static.crates.io/crates/v8/v8-0.91.0.crate"
+    sha256 "03bdee44e85d6235cff99e1ed5b1016c53822c70d1cce3d51f421b27a125a1e8"
   end
 
   # Find the v8 version from the last commit message at:
   # https://github.com/denoland/rusty_v8/commits/v#{rusty_v8_version}/v8
   # Then, use the corresponding tag found in https://github.com/denoland/v8/tags
   resource "v8" do
-    url "https://github.com/denoland/v8/archive/refs/tags/12.1.285.27-denoland-ef1375169ab459a6e021.tar.gz"
-    sha256 "0bb511390000cdc21397f59db510991829e07fa51b5ad9dedde19253f3d4490f"
+    url "https://github.com/denoland/v8/archive/refs/tags/12.4.254.15-denoland-56e8ed235a276af20600.tar.gz"
+    sha256 "20461f7d08842e9a6bdc10a0e526416c96558c8e6866b99533a9638f7f335311"
   end
 
   # Use the version of `deno_core` crate at: https://github.com/denoland/deno/blob/v#{version}/Cargo.lock
   # Search for 'name = "deno_core"' (without single quotes).
   resource "deno_core" do
-    url "https://github.com/denoland/deno_core/archive/refs/tags/0.265.0.tar.gz"
-    sha256 "0d78824acfae0014b011e596637ac6a9c1b503822c7c65ccde66780846d05ba6"
+    url "https://github.com/denoland/deno_core/archive/refs/tags/0.278.0.tar.gz"
+    sha256 "8b462869dfb66d1e0141b7d37a1ccd659902432df7ccae8d439419b1aa6b1f20"
   end
 
   # To find the version of gn used:
@@ -77,11 +77,7 @@ class Deno < Formula
   def install
     # Work around files missing from crate
     # TODO: Remove this at the same time as `rusty_v8` + `v8` resources
-    (buildpath/"../rusty_v8").mkpath
-    resource("rusty_v8").stage do |r|
-      system "tar", "-C", buildpath/"../rusty_v8",
-                    "--strip-components", "1", "-xzvf", "v8-#{r.version}.crate"
-    end
+    resource("rusty_v8").stage buildpath/"../rusty_v8"
     resource("v8").stage do
       cp_r "tools/builtins-pgo", buildpath/"../rusty_v8/v8/tools/builtins-pgo"
     end

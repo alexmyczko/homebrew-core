@@ -1,8 +1,8 @@
 class Bazel < Formula
   desc "Google's own build tool"
   homepage "https://bazel.build/"
-  url "https://github.com/bazelbuild/bazel/releases/download/7.0.2/bazel-7.0.2-dist.zip"
-  sha256 "dea2b90575d43ef3e41c402f64c2481844ecbf0b40f8548b75a204a4d504e035"
+  url "https://github.com/bazelbuild/bazel/releases/download/7.1.2/bazel-7.1.2-dist.zip"
+  sha256 "9cf6ed2319c816919d97015eef6d0c5942cd1aed48e03c73ba0815d953ed61ab"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class Bazel < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dabf0e6eab916c01e2a9264a6c32a566df53f58a44a8ef665ed6f849dc496ef7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dabf0e6eab916c01e2a9264a6c32a566df53f58a44a8ef665ed6f849dc496ef7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "552da03ecda450d46f27f74c87454cf79140d281a5a0466d30044fc9b8b44281"
-    sha256 cellar: :any_skip_relocation, sonoma:         "aab5f163fb5514fe91aedd32b54dab6959cfe6559ef93b880929c0cf4bc52089"
-    sha256 cellar: :any_skip_relocation, ventura:        "aab5f163fb5514fe91aedd32b54dab6959cfe6559ef93b880929c0cf4bc52089"
-    sha256 cellar: :any_skip_relocation, monterey:       "ed0f0ed911a8b7d7a731633bc8860bd04d424bc07c6560aab6a67be95214851a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1ef7f93af5c07c56d728eae61d70a140ccef16cd99390d276fd381dcf27bc9f3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f025c6dd7d2410bb3a822dd4f36532f37496e6eae564be1ea4357e42156bd484"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f3aa923acb4fc06096fa0b9212871483f8167c1921d98a06b4e5d43c410b2e7b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0ed1779eba7b6b57e4a1c1042a0e99ae4ddd992a2b277d5a8f33b3bf7dd507f8"
+    sha256 cellar: :any_skip_relocation, ventura:        "19606ce2fdfb988bbe96469b606a41e9f3654aa35bd38e9903b40e088b29b0cc"
+    sha256 cellar: :any_skip_relocation, monterey:       "b285fe8b08b7047d72124d41458001daaf9970c05f24f5591ab4687ca96f286c"
   end
 
   depends_on "python@3.12" => :build

@@ -1,9 +1,9 @@
 class Octave < Formula
   desc "High-level interpreted language for numerical computing"
   homepage "https://www.gnu.org/software/octave/index.html"
-  url "https://ftp.gnu.org/gnu/octave/octave-8.4.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/octave/octave-8.4.0.tar.xz"
-  sha256 "6f9ad73a3ee4291b6341d6c0f5e5c85d6e0310376e4991b959a6d340b3ffa8a8"
+  url "https://ftp.gnu.org/gnu/octave/octave-9.1.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/octave/octave-9.1.0.tar.xz"
+  sha256 "ed654b024aea56c44b26f131d31febc58b7cf6a82fad9f0b0bf6e3e9aa1a134b"
   license "GPL-3.0-or-later"
   revision 3
 
@@ -15,13 +15,13 @@ class Octave < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "8513ee411d2d48fcb610c69daac8cf22bd1b51e535a3267016f4e2a609d9365a"
-    sha256 arm64_ventura:  "eace73dde75e6ad9ecb8418bc56cd3f91034938e57151e049943adbf68c885ec"
-    sha256 arm64_monterey: "f3ab089400763ebe16928ee90e4fc0738e65f4f57d0562b3ec5078ba6bb5d4c9"
-    sha256 sonoma:         "17a730fd9c5672555c00e9ead6de6066fe18ff508e5ebfeb362b2b241986e936"
-    sha256 ventura:        "8a262dc5d4dc7396b440370e24f99c9d048793f7c0076e25889e0caa4930d015"
-    sha256 monterey:       "8a7c7eb5b939cfc9f87bf6f3afb759b48c88fc8751009455e5d9f232b032c3d9"
-    sha256 x86_64_linux:   "4e603d72e3a2127b7b239c581f2338ac56f05b37e5210f675e77fbcadee7a437"
+    sha256 arm64_sonoma:   "c29b8f0818e07b37d63281e835ff45e1f7b4ff02cbdc0bccea0ec049440c420b"
+    sha256 arm64_ventura:  "a1859c825d5a66d53166834b6aa61712e1b398354a63c98df6b01802554c89f7"
+    sha256 arm64_monterey: "4166853a3d44678ec71f693b756cf5c458436e194734e93e9872b50b1dc525fb"
+    sha256 sonoma:         "a4ce56d9c9e42e6b5f62c5ec7020f1c80f388e49e053aa7704bf70c5185ad6b3"
+    sha256 ventura:        "ab016eb74e0920f212585361e16b7df92be85c2ebbf53148178ae825abb07f48"
+    sha256 monterey:       "3e9a1a26d9226a3fbd3465939da7c7bbd89ac4e3e4d3fd55064d895bb250d6a9"
+    sha256 x86_64_linux:   "fff83d8cff5076d827214dc3f6860b965cf49b056be8fc2b676680b288f7ba89"
   end
 
   head do
@@ -35,7 +35,10 @@ class Octave < Formula
   end
 
   # Complete list of dependencies at https://wiki.octave.org/Building
+  depends_on "autoconf" => :build # for the patches
+  depends_on "automake" => :build # for the patches
   depends_on "gnu-sed" => :build # https://lists.gnu.org/archive/html/octave-maintainers/2016-09/msg00193.html
+  depends_on "libtool" => :build # for the patches
   depends_on "openjdk" => :build
   depends_on "pkg-config" => :build
   depends_on "arpack"
@@ -60,9 +63,7 @@ class Octave < Formula
   depends_on "qhull"
   depends_on "qrupdate"
   depends_on "qscintilla2"
-  # Stuck on qt@5
-  # https://octave.discourse.group/t/transition-octave-to-qt6/3139/15
-  depends_on "qt@5"
+  depends_on "qt"
   depends_on "rapidjson"
   depends_on "readline"
   depends_on "suite-sparse"
@@ -83,6 +84,20 @@ class Octave < Formula
 
   fails_with gcc: "5"
 
+  # Fix build for Qt 6.7.0
+  # https://hg.savannah.gnu.org/hgweb/octave/rev/f428a432ed4f
+  patch do
+    url "https://hg.savannah.gnu.org/hgweb/octave/raw-rev/f428a432ed4f"
+    sha256 "a9dd08ffecff5b310039b14847e8012e150de9b71337adc0955b0e668eea1d37"
+  end
+
+  # Fix opengl-partial-update bug causing crashes on figure() and plot() with Qt 6.7.0
+  # https://hg.savannah.gnu.org/hgweb/octave/rev/317fa0e5c8de
+  patch do
+    url "https://hg.savannah.gnu.org/hgweb/octave/raw-rev/317fa0e5c8de"
+    sha256 "909dc65614d0ef2520c35c5f8d4f78c451b189b2673e837f4f21c18a776273f0"
+  end
+
   def install
     # Default configuration passes all linker flags to mkoctfile, to be
     # inserted into every oct/mex build. This is unnecessary and can cause
@@ -91,33 +106,21 @@ class Octave < Formula
               /%OCTAVE_CONF_OCT(AVE)?_LINK_(DEPS|OPTS)%/,
               '""'
 
-    # SUNDIALS 6.4.0 and later needs C++14 for C++ based features
-    # Configure to use gnu++14 instead of c++14 as octave uses GNU extensions
-    ENV.append "CXX", "-std=gnu++14"
-
-    # Qt 5.12 compatibility
-    # https://savannah.gnu.org/bugs/?55187
-    ENV["QCOLLECTIONGENERATOR"] = "qhelpgenerator"
-    # These "shouldn't" be necessary, but the build breaks without them.
-    # https://savannah.gnu.org/bugs/?55883
-    ENV["QT_CPPFLAGS"]="-I#{Formula["qt@5"].opt_include}"
-    ENV.append "CPPFLAGS", "-I#{Formula["qt@5"].opt_include}"
-    ENV["QT_LDFLAGS"]="-F#{Formula["qt@5"].opt_lib}"
-    ENV.append "LDFLAGS", "-F#{Formula["qt@5"].opt_lib}"
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["qt"].opt_libexec/"lib/pkgconfig" if OS.mac?
 
     system "./bootstrap" if build.head?
-    args = ["--prefix=#{prefix}",
-            "--disable-dependency-tracking",
-            "--disable-silent-rules",
-            "--enable-shared",
-            "--disable-static",
-            "--with-hdf5-includedir=#{Formula["hdf5"].opt_include}",
-            "--with-hdf5-libdir=#{Formula["hdf5"].opt_lib}",
-            "--with-java-homedir=#{Formula["openjdk"].opt_prefix}",
-            "--with-x=no",
-            "--with-blas=-L#{Formula["openblas"].opt_lib} -lopenblas",
-            "--with-portaudio",
-            "--with-sndfile"]
+    args = [
+      "--disable-silent-rules",
+      "--enable-shared",
+      "--disable-static",
+      "--with-hdf5-includedir=#{Formula["hdf5"].opt_include}",
+      "--with-hdf5-libdir=#{Formula["hdf5"].opt_lib}",
+      "--with-java-homedir=#{Formula["openjdk"].opt_prefix}",
+      "--with-x=no",
+      "--with-blas=-L#{Formula["openblas"].opt_lib} -lopenblas",
+      "--with-portaudio",
+      "--with-sndfile",
+    ]
 
     if OS.linux?
       # Explicitly specify aclocal and automake without versions
@@ -134,7 +137,7 @@ class Octave < Formula
       system "aclocal"
     end
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make", "all"
 
     # Avoid revision bumps whenever fftw's, gcc's or OpenBLAS' Cellar paths change
@@ -151,6 +154,7 @@ class Octave < Formula
   end
 
   test do
+    ENV["LC_ALL"] = "en_US.UTF-8"
     system bin/"octave", "--eval", "(22/7 - pi)/pi"
     # This is supposed to crash octave if there is a problem with BLAS
     system bin/"octave", "--eval", "single ([1+i 2+i 3+i]) * single ([ 4+i ; 5+i ; 6+i])"
@@ -171,5 +175,7 @@ class Octave < Formula
       mkoctfile ('-v', '-std=c++11', '-L#{lib}/octave/#{version}', args{:}, 'oct_demo.cc');
       assert(oct_demo, 42)
     EOS
+    ENV["QT_QPA_PLATFORM"] = "minimal"
+    system bin/"octave", "--gui"
   end
 end

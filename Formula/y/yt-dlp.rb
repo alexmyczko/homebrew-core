@@ -1,21 +1,21 @@
 class YtDlp < Formula
   include Language::Python::Virtualenv
 
-  desc "Fork of youtube-dl with additional features and fixes"
+  desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/a9/a7/d8536993aed7569c5221f532e3ba01b09d5bdc893df3ef4e5b05d01582c4/yt-dlp-2023.12.30.tar.gz"
-  sha256 "a11862e57721b0a0f0883dfeb5a4d79ba213a2d4c45e1880e9fd70f8e6570c38"
+  url "https://files.pythonhosted.org/packages/52/85/af44c30f0cc5d94ebbce365f8ee40eea6e9d7a1d26d50f16e3766ca8410c/yt_dlp-2024.4.9.tar.gz"
+  sha256 "7ee90572b4d313b582b99c89e4eccf779b57ff54edc331873c6b3fba77faa8b0"
   license "Unlicense"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bfcd87ac2e89838e68d42073b8c02b7a754f3a34be9cb28f5fc048c4e349a586"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e53c6d854ecf66d7f2d905af33e574339f2aaf97e1503edc0498e40b13efb582"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f13c55eacea7bf25a5d90d7b3b290a1174488e1ef417693e3090c64de962f099"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9346dc6618d8803a18a58f61f8de1e64926108b9fb4a27f5f3c11401ff9d520a"
-    sha256 cellar: :any_skip_relocation, ventura:        "6cb2551f738c25f8e96bce76a5f46026157f4e3ff36f36aefe530472d89e6b7c"
-    sha256 cellar: :any_skip_relocation, monterey:       "b62280bc570cb657456698b1375a2de454639ac4826d576e3079d3ce23b5202f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "176b50c93b539d27a994e28919d8f2781edf572163cebe2b0586cc68e0cb3b29"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6a62c50f8b025430a3d24c3e71f578fe0f1621e36e9a3453ef0d8c20a8d38642"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1119d348452eed057adfb373ec265d5bec0bec1882ad5d8858068d84ea024a09"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "13104118842e21ae42e52030c80d7c25c507b37e1d53b92c3a14f6bb5d009d8f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "aed735dcbc238344e7d19bf28a2c97816cc48cadbf4a899c35cef290a8cc2a84"
+    sha256 cellar: :any_skip_relocation, ventura:        "031811f4256499239512b5a730beb2bbe4a435ff719029ff1a82b228f99c4c0c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a2104dd5337a3eb8ff34833f9fc587a07f40a462d1a9190328048a5901523a08"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e8b325c9bd2313cdd4a1c47c46eebcfcda82608d0259c2695fb6387d249dd453"
   end
 
   head do
@@ -28,7 +28,7 @@ class YtDlp < Formula
     end
   end
 
-  depends_on "python-certifi"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "brotli" do
@@ -42,8 +42,8 @@ class YtDlp < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "mutagen" do
@@ -72,7 +72,7 @@ class YtDlp < Formula
   end
 
   def install
-    system "gmake", "pypi-files" if build.head?
+    system "gmake", "lazy-extractors", "pypi-files" if build.head?
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
     bash_completion.install libexec/"share/bash-completion/completions/yt-dlp"

@@ -4,16 +4,16 @@ class EtcdCppApiv3 < Formula
   url "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/archive/refs/tags/v0.15.4.tar.gz"
   sha256 "4516ecfa420826088c187efd42dad249367ca94ea6cdfc24e3030c3cf47af7b4"
   license "BSD-3-Clause"
-  revision 4
+  revision 6
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "dc871d0e5d6aa8e53ecdef18853fb51ed85222501fa34a3536587d4622817786"
-    sha256 cellar: :any,                 arm64_ventura:  "e7346847d95a2a10392c2afb85353781eb000b29562692e1c87f1baea5deedb6"
-    sha256 cellar: :any,                 arm64_monterey: "e66de126e4b948fb07da4fe681e3c30398054038ee6d9f0b7c37c74bdd48a9eb"
-    sha256 cellar: :any,                 sonoma:         "4c48f85dc12dac13549d6e1b5222497dfad4eb05eed24e27d5a55c8ab750c305"
-    sha256 cellar: :any,                 ventura:        "01cd4784a6f403c35a3bc985aa94cc59e894816da4b084619cf881e032266d0c"
-    sha256 cellar: :any,                 monterey:       "488e7a1c8ca745ed56283e1d489bb7bad0871e352f369e560f998c59b9fedae0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e7524f606768dcbe2078d65435702e565e9e887e05034b1c7f58911874b7869a"
+    sha256 cellar: :any,                 arm64_sonoma:   "a8c4eeaa7336bb1891f535402d6066e9aa50d64df4a5791232e92f7305c37562"
+    sha256 cellar: :any,                 arm64_ventura:  "c15fe98c1ee8424f895622da927268c1075c633966c0170a847f59ee3dbf8813"
+    sha256 cellar: :any,                 arm64_monterey: "4303c948a3a1a1e4d85103236a3249a10332e44e63fbd40d8908dfcc795ffd7d"
+    sha256 cellar: :any,                 sonoma:         "a79145ece811eff98f7835b1dc2e309115278307cbe7cba0935129117bddbe48"
+    sha256 cellar: :any,                 ventura:        "65b7057f20d25fe286231d0110bac45101538fa032845a7ea9c1c28c8dd6a55c"
+    sha256 cellar: :any,                 monterey:       "e90ee70548881679f99c789fdd7e678802c7a9db093a6305baed2e6e5d41fcd3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6cbd3426ba1d1376d02e041af6b3debd94d80fbd66e4f03d60cc328ed9bb2b9"
   end
 
   depends_on "cmake" => :build

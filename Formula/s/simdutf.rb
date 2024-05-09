@@ -1,10 +1,9 @@
 class Simdutf < Formula
   desc "Unicode conversion routines, fast"
   homepage "https://github.com/simdutf/simdutf"
-  url "https://github.com/simdutf/simdutf/archive/refs/tags/v4.0.9.tar.gz"
-  sha256 "599e6558fc8d06f8346e5f210564f8b18751c93d83bce1a40a0e6a326c57b61e"
+  url "https://github.com/simdutf/simdutf/archive/refs/tags/v5.2.8.tar.gz"
+  sha256 "2706f1bef85a6d8598f82defd3848f1c5100e2e065c5d416d993118b53ea8d77"
   license any_of: ["Apache-2.0", "MIT"]
-  revision 1
   head "https://github.com/simdutf/simdutf.git", branch: "master"
 
   livecheck do
@@ -13,12 +12,12 @@ class Simdutf < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "30ae77fd9c7b734d37224f5bb8173a32aba41768bac101850890c3a0092502a2"
-    sha256 cellar: :any, arm64_ventura:  "e5e60e1dfeb33ce8b29e1c08d24a40506b868af14b6d63361b5e842d74c4fea5"
-    sha256 cellar: :any, arm64_monterey: "06653c5301b485806317f1591adc77898bb9dd2a149b8f02530ea0e141132ac7"
-    sha256 cellar: :any, sonoma:         "c0d1896d49ee43f6052fb63c962fd9d4e4e9442346186c314a2d8bb6d1a9e74a"
-    sha256 cellar: :any, ventura:        "6b6f3bf0abca1d2ac8f62dcd6e469137084978aeac40b3855a20d43e6d2fe721"
-    sha256 cellar: :any, monterey:       "4627515faf3b6fc858265a558ede91f4df3f4e60c3894c29e86cdd6026a6a51a"
+    sha256 cellar: :any, arm64_sonoma:   "88e01c7d1d6e13554c0a0b1402fb2725af01989b48562b1132b8872fa0cafe93"
+    sha256 cellar: :any, arm64_ventura:  "7af24734a478f1f412e63c6f1f2b1ed9237472d007db2c132b4a33fe64055338"
+    sha256 cellar: :any, arm64_monterey: "c60db767114e135842c8aabf15e356d814fdab89cf1c188d98bc315d4a3dd785"
+    sha256 cellar: :any, sonoma:         "f65c3304820ca11fd6ca601b1834d615ef6f2df8e64caee6d8ac7b18e2f478d1"
+    sha256 cellar: :any, ventura:        "c88fe1cf89b912243d3213fdf1abe66decd747237c9120fc5750d65a72c88b20"
+    sha256 cellar: :any, monterey:       "6e093a7e2de161fa8fba90d187fc3edfc4e0051d22d4f9df534c0b0925961478"
   end
 
   depends_on "cmake" => :build
@@ -27,11 +26,20 @@ class Simdutf < Formula
 
   uses_from_macos "python" => :build
 
+  # https://github.com/simdutf/simdutf/blob/v#{version}/benchmarks/base64/CMakeLists.txt#L5
+  resource "base64" do
+    url "https://github.com/aklomp/base64/archive/refs/tags/v0.5.2.tar.gz"
+    sha256 "723a0f9f4cf44cf79e97bcc315ec8f85e52eb104c8882942c3f2fba95acc080d"
+  end
+
   def install
+    (buildpath/"base64").install resource("base64")
+
     args = %W[
       -DBUILD_SHARED_LIBS=ON
       -DCMAKE_INSTALL_RPATH=#{rpath}
       -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+      -DFETCHCONTENT_SOURCE_DIR_BASE64=#{buildpath}/base64
       -DPython3_EXECUTABLE=#{which("python3")}
       -DSIMDUTF_BENCHMARKS=ON
     ]

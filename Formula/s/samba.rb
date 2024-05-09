@@ -4,10 +4,9 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.19.5.tar.gz"
-  sha256 "0e2405b4cec29d0459621f4340a1a74af771ec7cffedff43250cad7f1f87605e"
+  url "https://download.samba.org/pub/samba/stable/samba-4.20.1.tar.gz"
+  sha256 "f93c3af5295340d08106c7c0dcfb85e4f85057dfd14587aa8817beb31aff88f7"
   license "GPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url "https://www.samba.org/samba/download/"
@@ -15,15 +14,16 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "21f41972a750d87b66cea6e46accd29f96d9149365707a80063f7de7cdb37431"
-    sha256 arm64_ventura:  "ad00adbd52bc052e9ca0a9e3ef6de476ad50311899f30747b083e843e9492a6e"
-    sha256 arm64_monterey: "4657e914d78764c69ea75bcca9c0356d876e8b22eb108f3fc846321109d50279"
-    sha256 sonoma:         "a91d08c0b82653d3bc111f359e877aec954ab84f5717f2a9cd7090f359e15116"
-    sha256 ventura:        "6a54d6c10a3df771c24c578fb0dc1cdc3cb6bea7e7bd902b5e8c4416bcc0ee69"
-    sha256 monterey:       "5dd5b3574a0eb4cd5bbcf3aac502fbb47ebd60b0b567dd4446a21681e85200df"
-    sha256 x86_64_linux:   "46392ec306d82242ae202cf9eb1df626b79bb8a8e7059ed9de83de36919d5d55"
+    sha256 arm64_sonoma:   "20eeb850b7e75e0b5252ecf99fd8f14870cd38f2381773475803a7e35034c17a"
+    sha256 arm64_ventura:  "25d7fb0ad8ef747616e4d6c005c83fe9e1b307495831a2dc14b9c8226912a045"
+    sha256 arm64_monterey: "ff16e04708332f45eed54718f5615ce950475c6a75f1c7436341410247eff046"
+    sha256 sonoma:         "bcbb203cad56c748b5fca90c162ee84a1cb6c68a2824b6192cc58fcca802c9fc"
+    sha256 ventura:        "6a6acbce49400e6cb08b919894d5f38df9f50473b377c7f5ad91a92bd2963175"
+    sha256 monterey:       "915988436e97c695141262f11f841ece87471e1b7f6775aa1f342d1f7dd8cbdc"
+    sha256 x86_64_linux:   "719b254af0047272eb8209449383edf9ae54504c78fcea77de316862d4634358"
   end
 
+  depends_on "bison" => :build
   depends_on "cmocka" => :build
   depends_on "pkg-config" => :build
   depends_on "gnutls"
@@ -36,7 +36,6 @@ class Samba < Formula
   depends_on "readline"
   depends_on "talloc"
 
-  uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
   uses_from_macos "python" => :build # configure requires python3 binary

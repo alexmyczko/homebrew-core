@@ -1,9 +1,9 @@
 class TomcatAT9 < Formula
   desc "Implementation of Java Servlet and JavaServer Pages"
   homepage "https://tomcat.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-9/v9.0.86/bin/apache-tomcat-9.0.86.tar.gz"
-  mirror "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.86/bin/apache-tomcat-9.0.86.tar.gz"
-  sha256 "24c493727d8a5e4aa83ff65a952834c7f828c478c5adbe88d0bfd15e9883999a"
+  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz"
+  mirror "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz"
+  sha256 "cb8aed230aa2f15cc5c2439b044dd88d6ec8900e46d81ee63c4d1090c0937e32"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,13 @@ class TomcatAT9 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "5d6a909bb48203c5a2a73c339cbf732d06adc355f55ef1a3ec3f4c75417bdfac"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4791c85cadaa704672615bcf3022ac9b7fc8b96bbd01296232e45b96b7f015a0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "14dc7b2b13c80ab6366ac26fbecaba102d145c85592d884bf2b8990abbc69806"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6502bdefe0b3dd2443d34b5e204203ce86f78fb989a708d28863aaf5be3d3429"
+    sha256 cellar: :any_skip_relocation, sonoma:         "87f5dfe88df091fa6969e9bac65e8f276c2e7ec5ff1d79641502b161125e943c"
+    sha256 cellar: :any_skip_relocation, ventura:        "06e9b099ab691b202bb15d008764a243db0f22c09c6f79f04bcc4b53356d09ee"
+    sha256 cellar: :any_skip_relocation, monterey:       "778010b92f56709990a566491f0d6cdc9e52246d103edfabb1386e3dac35758d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "56c4618876ab1bab344c996a183a427b0acd5572ed6c97ace37630655dd17802"
   end
 
   keg_only :versioned_formula

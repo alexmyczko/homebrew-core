@@ -1,8 +1,8 @@
 class PcscLite < Formula
   desc "Middleware to access a smart card using SCard API"
   homepage "https://pcsclite.apdu.fr/"
-  url "https://pcsclite.apdu.fr/files/pcsc-lite-2.0.3.tar.bz2"
-  sha256 "f42ee9efa489e9ff5d328baefa26f9c515be65021856e78d99ad1f0ead9ec85d"
+  url "https://pcsclite.apdu.fr/files/pcsc-lite-2.2.1.tar.xz"
+  sha256 "625edcd6cf4b45af015eb5b6b75ea47f8914e892774c67e1079c9553c8665a57"
   license all_of: ["BSD-3-Clause", "GPL-3.0-or-later", "ISC"]
 
   livecheck do
@@ -11,38 +11,43 @@ class PcscLite < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b1ae0239f4908676ed19b992bde79fffe2927574f5e1810d0e46c70e531a8933"
-    sha256 cellar: :any,                 arm64_ventura:  "5d1ce03b6fffc94b02219ab98db9e7a85827c7822fb272f4ca4d096ce1d98128"
-    sha256 cellar: :any,                 arm64_monterey: "d30fb5e5f1995d37cc14adaf400465c7a7fc3830f6aa4b2924435c1f2cc18d58"
-    sha256 cellar: :any,                 sonoma:         "93e1e47038adde366e7d61327108b31edce28cd9af23960b3ea867d64c8cb683"
-    sha256 cellar: :any,                 ventura:        "2a126c16b0a2ea95eb30ae226afb3bb56061fa3f644644be0086780d42ae5fb3"
-    sha256 cellar: :any,                 monterey:       "f4f13043335be66731c21f58a947038050fb0b362aa3a637c74549a86547a458"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e5545739260e973f79bccfa3590e64e7cf56642d2dd2d877a5485c6e36064d00"
+    sha256 cellar: :any, arm64_sonoma:   "4746e8e5d5bc6b4e84b88bcfe76c493be021d37f980dc9de4616c8e1224f4735"
+    sha256 cellar: :any, arm64_ventura:  "ae992e1ae3729d118e11ba5f3fb7101b510f2eb3e50a4c933e9fd22cde79bd3b"
+    sha256 cellar: :any, arm64_monterey: "0900c7618e1d9bb11cbca8a52e7072b1653560a66e08093d5d8949d7cacab0f9"
+    sha256 cellar: :any, sonoma:         "64e7a271bf448a3cb6a380ddbf720c417824ed989770b530f3637db111996b42"
+    sha256 cellar: :any, ventura:        "ebbb24fd91fb7faa82f1a7571e2e42af56401928ed41c9476e30ad053e694b29"
+    sha256 cellar: :any, monterey:       "cb6ab4879a15b3b822fbfdea9928e8e7514ccaf81879a4ff0916f3659f624585"
+    sha256               x86_64_linux:   "5cc5c4935944015f5cd1662ad6a51d752c20751c84a8abc1482bc97fc924a45c"
   end
 
   keg_only :shadowed_by_macos, "macOS provides PCSC.framework"
 
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
+  depends_on "pkg-config" => :build
+
   uses_from_macos "flex" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
     depends_on "libusb"
+    depends_on "systemd" # for libudev
   end
 
   def install
     args = %W[
-      --disable-dependency-tracking
-      --disable-silent-rules
-      --prefix=#{prefix}
-      --sysconfdir=#{etc}
-      --disable-libsystemd
-      --disable-polkit
+      -Dlibsystemd=false
+      -Dlibudev=false
+      -Dpolkit=false
+      -Dipcdir=#{var}/run
+      -Dsysconfdir=#{etc}
+      -Dsbindir=#{sbin}
     ]
 
-    args << "--disable-udev" if OS.linux?
+    args << "-Dlibudev=false" if OS.linux?
 
-    system "./configure", *args
-    system "make", "install"
+    system "meson", "setup", "build", *args, *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   test do

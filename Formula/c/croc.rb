@@ -1,19 +1,19 @@
 class Croc < Formula
   desc "Securely send things from one computer to another"
   homepage "https://github.com/schollz/croc"
-  url "https://github.com/schollz/croc/archive/refs/tags/v9.6.13.tar.gz"
-  sha256 "5362ae8433ebd4fda9efcd853b4b8959992cf5f531ef0958ea6ed969f2eafa7b"
+  url "https://github.com/schollz/croc/archive/refs/tags/v9.6.15.tar.gz"
+  sha256 "ca118155cdf3ceb7496928b1c76387ba74f39b774372d30543e6cbd23d2c0a97"
   license "MIT"
   head "https://github.com/schollz/croc.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "641b16579e55de1f8cca1b69bfbc227b1ae64f220e637b218196bc2afc20f48e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4d61db4fdd22bd5a4258f150261df1d960374bb18fb30dae0c4013b51ade058"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ae282db3d380cfc8c891a59ab698087fb3a964ff300f4c0724e212b5d58945c4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "43e6a85e9142dda4b7738b0b10a970fe93917eec8e3910944447de2845239bc9"
-    sha256 cellar: :any_skip_relocation, ventura:        "32f1828df2f6653afd03bc45b9876dd4ea397fd38cc6f5f392ff68b4657b0f6d"
-    sha256 cellar: :any_skip_relocation, monterey:       "1ee527bc6a5fd7c8b1c035ea5b705e3519db0f5e443f581fc465e28c321c3073"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b70c87c0deaeafb8605992d95659f7df22df74ff31ed8683e20f878aa63caee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c6e7cd5f01893567ade07728525562bc82169df3726ef6b00dc559f868c1dbad"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "59370de024a5301e8f66bddb247c9775e03554fe0bd5a629990bd665c97c65f8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b6fcd5a24500c927a692141be69e8e7c4f0dd584deeb152367114708b3748afc"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c2466517bcc89f8465b01cd2437d4d0be116cde6459f48599e915fd4ac78cc93"
+    sha256 cellar: :any_skip_relocation, ventura:        "44d29b9d33ed7b909730d6523fbbb38924b11e85f4cdf4b881f8c87e5cef7cca"
+    sha256 cellar: :any_skip_relocation, monterey:       "b359184b91e95b4a3ad7c4feae77b0de183daeefaf1671b7ca1ff25490ad6b92"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e65b2f6f2b44197a0ba60c528d369773b2457d66edfa6cee33cc7382c885a5b2"
   end
 
   depends_on "go" => :build
@@ -28,12 +28,12 @@ class Croc < Formula
     fork do
       exec bin/"croc", "relay", "--ports=#{port}"
     end
-    sleep 1
+    sleep 3
 
     fork do
       exec bin/"croc", "--relay=localhost:#{port}", "send", "--code=homebrew-test", "--text=mytext"
     end
-    sleep 1
+    sleep 3
 
     assert_match shell_output("#{bin}/croc --relay=localhost:#{port} --overwrite --yes homebrew-test").chomp, "mytext"
   end

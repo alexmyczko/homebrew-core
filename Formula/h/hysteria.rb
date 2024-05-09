@@ -1,19 +1,20 @@
 class Hysteria < Formula
   desc "Feature-packed proxy & relay tool optimized for lossy, unstable connections"
   homepage "https://hysteria.network/"
-  url "https://github.com/apernet/hysteria/archive/refs/tags/app/v2.2.4.tar.gz"
-  sha256 "efd15d2ad1fc13a42d0e4a75f5c7396b1219e9923a10ccef2c6f45251266c9a5"
+  url "https://github.com/apernet/hysteria/archive/refs/tags/app/v2.4.3.tar.gz"
+  sha256 "7bc27f917e86293f3a23a7e14d4583f31b02669f76c81fcce48bb014daf52b6a"
   license "MIT"
   head "https://github.com/apernet/hysteria.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bfc1c39a5880bc281286e4b43a970b38ffc0a72ac224398441a67a481270ac9f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f633ae121d10561417f8484591d5cf47c7979f61346110a931304323d2860206"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2ad3715ec8073b370a1ec8416ac40c64c01a0efa1dc16da73de53c36b305d33f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4299f61e9b0588fb72a0e089233fa90ad7691d3dce5303ba83978b7cfe97e474"
-    sha256 cellar: :any_skip_relocation, ventura:        "b7102bc70707e0b8810df93d924c5f16aeb9134f11dd8da9415767546b3cb236"
-    sha256 cellar: :any_skip_relocation, monterey:       "b789b4d75f3e8ffc7564b6e4f52c3410818274142557a3e79da299f0a7c98d47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f09f47c450a5d2d650857a945fefa089052464fc5b3d0a5854cd321499bc4862"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "12ce60e98c5c1f25583cf298dc2e70d9eea7f610e2d42d2bc77e954c84a9bfaf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fb18a76dc0e64770fac70dbd6591a1849b44845fc574261336861f85b34b4140"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "941ab800db9594e64f18a1f58e4ce16e1d7c9d28257cb939325b23fbc76fa97d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "cfcf47cb173d255ed0c48d57614c3d4fa5eec9fbdc9f1899d257ab5c1ce81fae"
+    sha256 cellar: :any_skip_relocation, ventura:        "677d6d9e731f29f108cba392521f3780b87335a66c7b715f367461bea9abc4f3"
+    sha256 cellar: :any_skip_relocation, monterey:       "391c09dd98eb0129ba0acd4846e816697f9ec292099bce830d6de1bb06a4ee07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3c19f03a51206906daaecb838c526687134d0dcb2991ba3d32d953a026cb2d2"
   end
 
   depends_on "go" => :build
@@ -28,13 +29,13 @@ class Hysteria < Formula
       -X github.com/apernet/hysteria/app/cmd.appPlatform=#{OS.kernel_name.downcase}
       -X github.com/apernet/hysteria/app/cmd.appArch=#{Hardware::CPU.arch}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./app"
+    system "go", "build", *std_go_args(ldflags:), "./app"
 
     generate_completions_from_executable(bin/"hysteria", "completion")
   end
 
   service do
-    run [opt_bin/"hysteria", "--config", etc/"hysteria/config.json"]
+    run [opt_bin/"hysteria", "--config", etc/"hysteria/config.yaml"]
     run_type :immediate
     keep_alive true
   end

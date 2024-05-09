@@ -1,22 +1,19 @@
 class RustupInit < Formula
   desc "Rust toolchain installer"
   homepage "https://github.com/rust-lang/rustup"
-  url "https://github.com/rust-lang/rustup/archive/refs/tags/1.26.0.tar.gz"
-  sha256 "6f20ff98f2f1dbde6886f8d133fe0d7aed24bc76c670ea1fca18eb33baadd808"
+  url "https://github.com/rust-lang/rustup/archive/refs/tags/1.27.1.tar.gz"
+  sha256 "f5ba37f2ba68efec101198dca1585e6e7dd7640ca9c526441b729a79062d3b77"
   license any_of: ["Apache-2.0", "MIT"]
-  revision 1
   head "https://github.com/rust-lang/rustup.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "23448f34076addfcb95eed04ba2bafcea32a25b57442e24baf1a92572ca0a9b4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2f83c1f987e10419ba71eaf6546249763c2cdc0ff0ec6ea08f9be56c675c1aa5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "47ac8dd8c8bde9ef120cc83c221c6cb199a9865e7b95f991e37938ba7c5e9460"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "32ce314ca621607de3b0648729779a021f8b84f1c83348daa72c30c747394681"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e614a8ac90ec6811c649b32510987acc8e65222054359addba46d6b17af0c367"
-    sha256 cellar: :any_skip_relocation, ventura:        "08b7293cdfa169876f17ed0fce082a27d8def0f6196a1797077c5db7eab91d35"
-    sha256 cellar: :any_skip_relocation, monterey:       "ae7610b4babb0b4cdfb7aad014ccef60901859197498b7e24cd6f3b8d833e9a1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9b1190e54377eade02a31d104e27793f4b752a3017f27f1579258531190f7e35"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "163975e8261a925c4c6082d937b9e1712f116ca6da619768fd309894885c6a60"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1248c64af2a4c08f32d39ef40c4c65472f4d7cf9c447deeb7bc74fd6c8d1195b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cbbac142b00f35868ca7e34d2a5aa0e9922db072f38efd9fbb68d0bd4d4b4be2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a7018b1fe83019ab4c5925c79248bfd56b690ee65f7a2d9ff3eb6ef392a7aca9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c9b11990998ed99fbedca4e8aadcb65d953f0f0711ce72620274b1b4d800c68f"
+    sha256 cellar: :any_skip_relocation, ventura:        "a847079013df936ee23ee50e4bd4a4cabcec0e6fcbd3512efb11eabe3d514dd4"
+    sha256 cellar: :any_skip_relocation, monterey:       "e0e14890c70d0c103753a2861cda3b44092471acdec51b14ce0c7ffa1b10261d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5d9ff7b986a355cb60bff64754c0cb7213361a48e02991e246d8f7b242f38de9"
   end
 
   depends_on "rust" => :build

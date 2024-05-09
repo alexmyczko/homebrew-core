@@ -4,7 +4,7 @@ class Opencv < Formula
   url "https://github.com/opencv/opencv/archive/refs/tags/4.9.0.tar.gz"
   sha256 "ddf76f9dffd322c7c3cb1f721d0887f62d747b82059342213138dc190f28bc6c"
   license "Apache-2.0"
-  revision 4
+  revision 8
 
   livecheck do
     url :stable
@@ -12,13 +12,13 @@ class Opencv < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "46907a863f7da0753d7fc9a0f520812e0b2862a0b2de9a2b979869e40cf8897f"
-    sha256 arm64_ventura:  "d8603d86a9bd722270c9127ceaef5f383d93f9faae881e0003da028840ecea82"
-    sha256 arm64_monterey: "62e3390cb68e14fefa4565abb76a3122c1d9ab494134e5b1a45f29a971864559"
-    sha256 sonoma:         "737afa356f39ac15c89b86a0d9b862ffb02d832a7c26f5d36410a78661c3a35b"
-    sha256 ventura:        "cee970f2df0d6ce227722986f34248eeffb0da499edef90d16b777b7afaa508b"
-    sha256 monterey:       "134140241c68fe9257f3fe63e69c958b4f600638acc476ff25397a9632ecae29"
-    sha256 x86_64_linux:   "ca91ec6dc7d92604805f820eb595e47506112b740e64db3e07d5e572d027eea6"
+    sha256 arm64_sonoma:   "090ebc969b6b8d6b762411ebe2a3a37c949675cd019634adfd56074dcc4e77e6"
+    sha256 arm64_ventura:  "9441ad114eb196a74de361476d4e96c3d90af0e6dd43c563e45a76ca803e1710"
+    sha256 arm64_monterey: "5b94af737251cc5fcf8b58b796e3a9ea71dc6a417c72553269b22dc0da4eb03e"
+    sha256 sonoma:         "a76ff6bb248a01fbaaf8986901ea23f3a55abbf62f6235d4a046c85567b6ad17"
+    sha256 ventura:        "f6cf46a78caa12136a993c731974a17550d325bcead252e7e9527564f5ce426a"
+    sha256 monterey:       "e2714b5b4118ec01e9ea20454ce55e83d6aafada64d4f9697231c44aab7166dd"
+    sha256 x86_64_linux:   "4be13033bc84ac92db64b49beea9ef6f0dcfd846b455d80b8f7276cbb3807391"
   end
 
   depends_on "cmake" => :build
@@ -26,7 +26,7 @@ class Opencv < Formula
   depends_on "python-setuptools" => :build
   depends_on "ceres-solver"
   depends_on "eigen"
-  depends_on "ffmpeg"
+  depends_on "ffmpeg@6"
   depends_on "glog"
   depends_on "harfbuzz"
   depends_on "jpeg-turbo"
@@ -60,6 +60,18 @@ class Opencv < Formula
 
   def python3
     "python3.12"
+  end
+
+  # Patch for DNN module to work with OpenVINO API 2.0(enabled starting OV 2022.1 release)
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a10057a843de773896a50e9b18f4559a8bbc4d27/opencv/openvino-api2.0.patch"
+    sha256 "08f918fa762715d0fbc558baee9867be8f059ee3008831dc0a09af63404a9048"
+  end
+
+  # Patch for G-API to work with OpenVINO API 2.0(enabled starting OV 2022.1 release)
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a10057a843de773896a50e9b18f4559a8bbc4d27/opencv/gapi-openvino-api2.0.patch"
+    sha256 "b67aa8882559858824c5841ba3d0746078273be081540b0d339c0ff58dc9452d"
   end
 
   def install

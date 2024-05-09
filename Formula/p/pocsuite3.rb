@@ -9,19 +9,19 @@ class Pocsuite3 < Formula
   head "https://github.com/knownsec/pocsuite3.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "e57d2304e95dfd73e81689f277c15dc5e1b0a3e5ba82be63b0a1e73e11292cb9"
-    sha256 cellar: :any,                 arm64_ventura:  "292810d4b3cbf2bd9b3a8f0282f9cbc9e7c703f15fded3c0c763637f0d85c311"
-    sha256 cellar: :any,                 arm64_monterey: "9d2a39b318d0733c75f34bbcc1c62acbc3ab7a15fee6ac62b6a7357d8d573a83"
-    sha256 cellar: :any,                 sonoma:         "24a581de3b06e070708bf300b6242ccfb141124a87cf3ed2e706250f5ebc11df"
-    sha256 cellar: :any,                 ventura:        "85414de6bbd90aa81595f83608672720ce418aa32f0b835b8dd6a169e11572e6"
-    sha256 cellar: :any,                 monterey:       "451a727190abfddab624829b1aeadb111d2947baefbd90e34b8789047f40846e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4a5c015b4b69ee7849396f19a63242a4d67862287c620dde616a16f56b2ada6f"
+    rebuild 3
+    sha256 cellar: :any,                 arm64_sonoma:   "0097bbfa0460a7eec73479e08c33c94ba268aafb4f0e43c9459098e00f2e95b2"
+    sha256 cellar: :any,                 arm64_ventura:  "5e25bb42134c7486f2c934098233519e30350477e3c7cb694f7639def9a514c2"
+    sha256 cellar: :any,                 arm64_monterey: "1949f056cc986cdb183e963d16e1e3da9fa66563921eaf5bfe4f5d9ee32504ea"
+    sha256 cellar: :any,                 sonoma:         "3c331ff7f40c0f30e6ac6d5289d5b249119bad59947e1dd82f77b9b0ae527ad8"
+    sha256 cellar: :any,                 ventura:        "67fc63c747f39b6de26ce91035550b16890facfcf6680cac63e24985d47bc31b"
+    sha256 cellar: :any,                 monterey:       "a86db8287d28584b755d16f53bd64c27119c2713bc5d56078cc51b007e71df44"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "50787f97c315d308e1b3deafeb19d318269aaf689b73fc2428c5844b17be6c88"
   end
 
+  depends_on "certifi"
+  depends_on "cryptography"
   depends_on "libyaml"
-  depends_on "python-certifi"
-  depends_on "python-cryptography"
   depends_on "python@3.12"
 
   uses_from_macos "libffi"
@@ -63,8 +63,8 @@ class Pocsuite3 < Formula
   end
 
   resource "faker" do
-    url "https://files.pythonhosted.org/packages/e3/4a/e6d8a070e5eb2528495df3fa88226afd5275dc6af67d81148f6172fe5577/Faker-23.2.1.tar.gz"
-    sha256 "f07b64d27f67b62c7f0536a72f47813015b3b51cd4664918454011094321e464"
+    url "https://files.pythonhosted.org/packages/31/4b/22a48749ffaf4d478192769d783233c37f00f0005d349dc6cf4da7003e3a/Faker-24.1.0.tar.gz"
+    sha256 "4fb0c16c71ad35d278a5fa7a4106a5c26c2b2b5c5efc47c1d67635db90b6071e"
   end
 
   resource "idna" do
@@ -113,8 +113,8 @@ class Pocsuite3 < Formula
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "pyyaml" do
@@ -155,6 +155,18 @@ class Pocsuite3 < Formula
   resource "wcwidth" do
     url "https://files.pythonhosted.org/packages/6c/63/53559446a878410fc5a5974feb13d31d78d752eb18aeba59c7fef1af7598/wcwidth-0.2.13.tar.gz"
     sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
+  end
+
+  # Drop setuptools dep: https://github.com/knownsec/pocsuite3/pull/420
+  patch do
+    url "https://github.com/knownsec/pocsuite3/commit/cddfbdb6b7df51f985abe8db7ecd24d5d3b5a92a.patch?full_index=1"
+    sha256 "b1aff714f6002b46c2687354ce51ce0f917d5d13beb20fb175f3927f673f9163"
+  end
+
+  # Fix SyntaxWarning's: https://github.com/knownsec/pocsuite3/pull/420
+  patch do
+    url "https://github.com/knownsec/pocsuite3/commit/2505bc8b1501866b9193398575c5653614e131f4.patch?full_index=1"
+    sha256 "656929162b5ddd99ae7d98a4580e9dab8914bf0c66f23ab1d7aacb0c2b13a84c"
   end
 
   def install

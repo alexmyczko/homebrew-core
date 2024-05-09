@@ -1,20 +1,29 @@
 class Bear < Formula
   desc "Generate compilation database for clang tooling"
   homepage "https://github.com/rizsotto/Bear"
-  url "https://github.com/rizsotto/Bear/archive/refs/tags/3.1.3.tar.gz"
-  sha256 "8314438428069ffeca15e2644eaa51284f884b7a1b2ddfdafe12152581b13398"
   license "GPL-3.0-or-later"
-  revision 14
+  revision 17
   head "https://github.com/rizsotto/Bear.git", branch: "master"
 
+  stable do
+    url "https://github.com/rizsotto/Bear/archive/refs/tags/3.1.3.tar.gz"
+    sha256 "8314438428069ffeca15e2644eaa51284f884b7a1b2ddfdafe12152581b13398"
+
+    # Backport fix for Protobuf 26
+    patch do
+      url "https://github.com/rizsotto/Bear/commit/4d9d4525cd3d1ad11761c79ca71645946f48e07c.patch?full_index=1"
+      sha256 "be8ffbcb8f7562d70e16f724d2a91cffbd7e0b28b564dcafe46510a4b248bdea"
+    end
+  end
+
   bottle do
-    sha256 arm64_sonoma:   "3ec34cc26bd378a03f7a8d39bfc2938e95daeaf8a676f9a1f40cfd326a65ab4b"
-    sha256 arm64_ventura:  "1b064cc7045d50a698e4bb465fe2c58709d214a3badedd54b41fdc6d68e46ddc"
-    sha256 arm64_monterey: "261ca31154f098b16e2f21d55bccefd687a6f2dae19a628e1c3bdc573c98cd96"
-    sha256 sonoma:         "c9ecd1ebd249cdd2e2011773c124d81ea481b2c57a47794bb1935cb50fc94c50"
-    sha256 ventura:        "81ea06357e17422b77d77535a5ff741584494f8244fabba25b3ad25237bd9972"
-    sha256 monterey:       "a2a7f3efb0ddd9e078267994c655fa64a028584283408511f37accad899682ff"
-    sha256 x86_64_linux:   "c3c726b8136dc30eeed749124b13325c009f4c1f9d3499ba1ba75da696dad71e"
+    sha256 arm64_sonoma:   "1a78bff5e557ce160afa533464a19a092581a75d95ec989d55787a92de5537ea"
+    sha256 arm64_ventura:  "842cb5b766ac3539e6023fc55583371b7fc727794a9be205be7750d3fb7823df"
+    sha256 arm64_monterey: "2fbf1ef2a61d14ee72e112a68f04c203b3a71e347a2cb773193cbf1169e07e41"
+    sha256 sonoma:         "2b62ffa223000525ece13d0de4e5f590309a810d3da183f6065cbcd0af4b7ae8"
+    sha256 ventura:        "11a3b09160b6c7d6d21aa34d563755d0cae1e0c3e36ac2b42abdbe5bf7afc66a"
+    sha256 monterey:       "e7a3927e5a6215a52adf488755b25ef091b8031174ab309d8e42cf430251b362"
+    sha256 x86_64_linux:   "9e2728f567277a7b2cf0753be737efb998888b3755ca4dfb64a918e41f1f9f41"
   end
 
   depends_on "cmake" => :build

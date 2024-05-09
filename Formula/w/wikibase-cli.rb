@@ -3,18 +3,18 @@ require "language/node"
 class WikibaseCli < Formula
   desc "Command-line interface to Wikibase"
   homepage "https://github.com/maxlath/wikibase-cli#readme"
-  url "https://registry.npmjs.org/wikibase-cli/-/wikibase-cli-17.0.8.tgz"
-  sha256 "b11b6d750fa55d7e1792a1cc6342ccdc7a6dc9b6c3c74463613f7a47998228cb"
+  url "https://registry.npmjs.org/wikibase-cli/-/wikibase-cli-18.0.2.tgz"
+  sha256 "f74d919035444bafac6e667aa9f5332e4dbc87f09c0d92737667f6fe7188e42b"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9e405ac55f9588961116e78b25be987cdaa9728864911dab31333cbb1d9d0c97"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9e405ac55f9588961116e78b25be987cdaa9728864911dab31333cbb1d9d0c97"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9e405ac55f9588961116e78b25be987cdaa9728864911dab31333cbb1d9d0c97"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bd22f3d07509458bda8b65883c96950616e367568a71e00c89c5f5670f7ffd77"
-    sha256 cellar: :any_skip_relocation, ventura:        "bd22f3d07509458bda8b65883c96950616e367568a71e00c89c5f5670f7ffd77"
-    sha256 cellar: :any_skip_relocation, monterey:       "bd22f3d07509458bda8b65883c96950616e367568a71e00c89c5f5670f7ffd77"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9e405ac55f9588961116e78b25be987cdaa9728864911dab31333cbb1d9d0c97"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6c5c0bd448b371201e9b3d17d62f8d5208e34c1826f4c962dc2c8127e1c0baf6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6c5c0bd448b371201e9b3d17d62f8d5208e34c1826f4c962dc2c8127e1c0baf6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6c5c0bd448b371201e9b3d17d62f8d5208e34c1826f4c962dc2c8127e1c0baf6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b5e81d472edfffe7a891fbe7f532069aa17f5a120d9b75970a46c2043cb0b2b1"
+    sha256 cellar: :any_skip_relocation, ventura:        "b5e81d472edfffe7a891fbe7f532069aa17f5a120d9b75970a46c2043cb0b2b1"
+    sha256 cellar: :any_skip_relocation, monterey:       "b5e81d472edfffe7a891fbe7f532069aa17f5a120d9b75970a46c2043cb0b2b1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c5c0bd448b371201e9b3d17d62f8d5208e34c1826f4c962dc2c8127e1c0baf6"
   end
 
   depends_on "node"

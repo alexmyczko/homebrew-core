@@ -3,19 +3,19 @@ class Cekit < Formula
 
   desc "Container Evolution Kit"
   homepage "https://cekit.io"
-  url "https://files.pythonhosted.org/packages/c4/cc/a948fb7fc87bb974f55b37da024734166d4981a4f43958f1efc84d2b1e3d/cekit-4.10.0.tar.gz"
-  sha256 "83909f20463073aeb2d5f56295b7446c39ea4605fe8640ccfb521c618c5663e6"
+  url "https://files.pythonhosted.org/packages/2b/e8/f6f756156e26ee85221306123f60b2f1162a0d988a0e59f195d0631ed21f/cekit-4.11.0.tar.gz"
+  sha256 "5dc7ce15f903c2de20b119a18086c042a28ed0c72ef7f1d5956fa20cef2cfc32"
   license "MIT"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "473ea6afdb211d88f5ef500d863eba46deee43ea76e3d34ee04ca51876ae5a2a"
-    sha256 cellar: :any,                 arm64_ventura:  "f528f533601a6a0958a55d7b015f510cfc1493fa1afab94799249b4905e59f78"
-    sha256 cellar: :any,                 arm64_monterey: "a19bbe1bcf354f6aaa52b2280cb76c6dd0a1798204910050a9919e6dabd1c719"
-    sha256 cellar: :any,                 sonoma:         "042e65bb6c9034b0713998480d0d98e981dca158558693f5b9de26b40d30490c"
-    sha256 cellar: :any,                 ventura:        "d45a491d8fb943bf1ca2b7761bac0ed9929802a62f266ffccb36385ee065c5e6"
-    sha256 cellar: :any,                 monterey:       "53b69f7cd4e471adff3df3dcbc1f64ebbb5613934f35f683b26490350ea69259"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "20a6fec4e02cc2f79ca541be59ad3797d5fd66494b5931390b66afbafab56d17"
+    sha256 cellar: :any,                 arm64_sonoma:   "b8235b830c8e7dd338bfb42addb9d3179c7c4c5e0d0bc824848c6737fcecde19"
+    sha256 cellar: :any,                 arm64_ventura:  "4d642b65175a079ec2fbbbe6995b36c20d88e7d0f1eb08e3ab5f46a1de1091db"
+    sha256 cellar: :any,                 arm64_monterey: "7c62ef670fcb1882b695ca3bfe512bed8b93d53e83028f178cf722146fef0d7a"
+    sha256 cellar: :any,                 sonoma:         "c51087d0cfdebdc15940a74e4b7e9029702ce5fad7c7b66726fb3ebee0e7705b"
+    sha256 cellar: :any,                 ventura:        "2df927b4342a7beb27459be00101679edb3e8312a22f05589f604657f99869f6"
+    sha256 cellar: :any,                 monterey:       "23c0e0e1b0b26aabf17bbf9a6b13763f354b56663e87acff67f2b548e8ce07f9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0be4586c211fa17bd04756b6ee38e730a8f0dfbe59786e748494fa148c0a24ec"
   end
 
   depends_on "libyaml"
@@ -37,8 +37,8 @@ class Cekit < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
@@ -46,14 +46,9 @@ class Cekit < Formula
     sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
-  resource "odcs" do
-    url "https://files.pythonhosted.org/packages/2c/d8/f5cad90fc6db4a0a26bf072a504a6badf58e411eb568952d7faf864f0bc2/odcs-0.8.0.tar.gz"
-    sha256 "2910f002acc52f851c761798bb4448daaa0ced85b80a448891ac171a0b016c8a"
-  end
-
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "pykwalify" do
@@ -62,8 +57,8 @@ class Cekit < Formula
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "pyyaml" do
@@ -87,6 +82,10 @@ class Cekit < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
 
     generate_completions_from_executable(bin/"cekit", shells: [:fish, :zsh], shell_parameter_format: :click)

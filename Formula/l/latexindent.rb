@@ -1,18 +1,18 @@
 class Latexindent < Formula
   desc "Add indentation to LaTeX files"
   homepage "https://latexindentpl.readthedocs.io"
-  url "https://github.com/cmhughes/latexindent.pl/archive/refs/tags/V3.23.6.tar.gz"
-  sha256 "0a9a3fbc907a95deb8c1481f2b5906f866210764203d0dec5a84089737451e14"
+  url "https://github.com/cmhughes/latexindent.pl/archive/refs/tags/V3.24.tar.gz"
+  sha256 "8941f224b58d7929ae9665a67d7eb53a5c2b278283a727ffa4603182dbcac0d3"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ef6a0385c6cc714ac38a2d2eefa188352b9f2f4f9587da762b1a17af3b82cb4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a65ded0411e39a91a617d425d43a7c683d837ebc6224d3034593ec91ffdf334e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3b71493dd24a92d8367956a21ad2f952ee0c5533f63554a4fa0082d3ca0f0410"
-    sha256 cellar: :any_skip_relocation, sonoma:         "101bb0d3b5637ede147c5f83426dd2b5ca6a336f07a903fc4c76c421db4f4ab7"
-    sha256 cellar: :any_skip_relocation, ventura:        "1fc06eae2b311c459491cc4f28a381e9b6aef218d65d48111b7fa4cf2766f181"
-    sha256 cellar: :any_skip_relocation, monterey:       "9210f1a54c9ebcbc04591b0dbefc6a47fbc62260d8c0867a73864cae9d7954a1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c2d401416e352a5130d0d3b1f1a914f1429e66e54d264d7cc449ec5043c4d94"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7c42570a7e5d4b95fd624724f881b97c7902101c54a5b2f8fcb9cb600d4fc61c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cb7d06d8e2260e927c93a7d13a9b7c43cf3efbd8949a5e84d2418fa120054b95"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2558df75d9a042be2eb7467476bdcddceffb34ba288378b82cc79a59d1320d60"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bf4e292787fe003d55004e22c33cfbec321b5c4a8d8478d15f34cdd8d9fa6db5"
+    sha256 cellar: :any_skip_relocation, ventura:        "1e9c146cae4bb93e9e7b5ed1df12acfd1253d78012e2b4143905755299365cec"
+    sha256 cellar: :any_skip_relocation, monterey:       "598c35d085049ddc516ddc40effc3685d73319a01544e04d4e3622c1fdd9d8d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6db5a884c7a64c11fecec57e82430f755c14f76b14d5ca45aa949933da9bd7b6"
   end
 
   depends_on "perl"
@@ -25,8 +25,8 @@ class Latexindent < Formula
   end
 
   resource "B::Hooks::EndOfScope" do
-    url "https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-0.26.tar.gz"
-    sha256 "39df2f8c007a754672075f95b90797baebe97ada6d944b197a6352709cb30671"
+    url "https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-0.28.tar.gz"
+    sha256 "edac77a17fc36620c8324cc194ce1fad2f02e9fcbe72d08ad0b2c47f0c7fd8ef"
   end
 
   resource "Class::Data::Inheritable" do
@@ -160,8 +160,8 @@ class Latexindent < Formula
   end
 
   resource "Variable::Magic" do
-    url "https://cpan.metacpan.org/authors/id/V/VP/VPIT/Variable-Magic-0.63.tar.gz"
-    sha256 "ba4083b2c31ff2694f2371333d554c826aaf24b4d98d03e48b5b4a43a2a0e679"
+    url "https://cpan.metacpan.org/authors/id/V/VP/VPIT/Variable-Magic-0.64.tar.gz"
+    sha256 "9f7853249c9ea3b4df92fb6b790c03a60680fc029f44c8bf9894dccf019516bd"
   end
 
   resource "XString" do

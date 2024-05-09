@@ -1,8 +1,8 @@
 class Proto < Formula
   desc "Pluggable multi-language version manager"
   homepage "https://moonrepo.dev/proto"
-  url "https://github.com/moonrepo/proto/archive/refs/tags/v0.31.2.tar.gz"
-  sha256 "063fbdb4a6cd0aada47d1b81fec720145bd9b418b350fb487960087312557f47"
+  url "https://github.com/moonrepo/proto/archive/refs/tags/v0.35.0.tar.gz"
+  sha256 "9aa9c0f23c77356f8357dc131f974355e227b94d66046596f946d7ce2674978f"
   license "MIT"
   head "https://github.com/moonrepo/proto.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Proto < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bed489610b9024591063601c95171416fddea2b472ac0f6fc3627e25e30dec41"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d5135f49bbacc209fc16cf9fe42b61be0dc99e95631f0216a48083a72b25a1fa"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cd120d5cbaa7a8cc475a12f85f17a542bccc1f60e4441590ac1329a796ba5769"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ddc7501c7199c3c33f75b1d2cc43fb381481f4897e5df04b97f4c0356c7e5ac7"
-    sha256 cellar: :any_skip_relocation, ventura:        "2abd80cc15cb39f0008c8624bf457c63f37ce699806b3294bf7fc2cef49e1bcc"
-    sha256 cellar: :any_skip_relocation, monterey:       "b7d66bd1584fabe5df9e0ed1d8a97f6e1afe090f662ed4b6abd5aef85607ac51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4384329fd3e206dbed9b4c42a2c9e9dd2e476b2886f10d258350beef763fb885"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "116b42ed2f31fe5e782ac54c108cfe7de96417bef01c96279234430b440ca06d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e28b16adc3494da9551115cc5001ccb1a49bd9d6ffd39ba9faf51439022973a5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "05e7af02c8d3422e9527d7476c5488a1e30d632993bd4152b5c3e30400a9c65e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "96df1c0b992eae588a9a93e755be0a3bae18912bb9eff750be5c8d72c88ac6b3"
+    sha256 cellar: :any_skip_relocation, ventura:        "daf028adea6f0134359edfe0148ce63e5714c171343297ac9818a7507bfb738c"
+    sha256 cellar: :any_skip_relocation, monterey:       "88e8a53e52d977866f1159b2140811f604af7a9c281027105a9979ea43421fb0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "608e7d90f0717f11ce302856b21965da739c430bfbbfd780cf08c0670f51dc01"
   end
 
   depends_on "pkg-config" => :build
@@ -35,10 +35,13 @@ class Proto < Formula
     bin.each_child do |f|
       basename = f.basename
 
+      # shimming proto-shim would break any shims proto itself creates,
+      # it luckily works fine without PROTO_LOOKUP_DIR
       next if basename.to_s == "proto-shim"
 
       (libexec/"bin").install f
-      (bin/basename).write_env_script libexec/"bin"/basename, PROTO_INSTALL_DIR: opt_prefix/"bin"
+      # PROTO_LOOKUP_DIR is necessary for proto to find its proto-shim binary
+      (bin/basename).write_env_script libexec/"bin"/basename, PROTO_LOOKUP_DIR: opt_prefix/"bin"
     end
   end
 

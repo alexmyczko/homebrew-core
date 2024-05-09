@@ -1,18 +1,18 @@
 class Libqalculate < Formula
   desc "Library for Qalculate! program"
   homepage "https://qalculate.github.io/"
-  url "https://github.com/Qalculate/libqalculate/releases/download/v4.9.0/libqalculate-4.9.0.tar.gz"
-  sha256 "6130ed28f7fb8688bccede4f3749b7f75e4a000b8080840794969d21d1c1bf0f"
+  url "https://github.com/Qalculate/libqalculate/releases/download/v5.1.1/libqalculate-5.1.1.tar.gz"
+  sha256 "04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256                               arm64_sonoma:   "0f99ad0f94ddebd4aaca03a496f4fb1e96ed057979a43fc342c4801ac47355d2"
-    sha256                               arm64_ventura:  "f6cb74899726e0321342c15e7e8a715b4232e8857dd377cce92bc9588ee05efd"
-    sha256                               arm64_monterey: "9c53c5155574c6de801f101666ab208b59771b5236583d47774eae05442d79f2"
-    sha256                               sonoma:         "7a3e569a4090cdaf095422154b0c6145827db3ab6ab16c2145e68784383584df"
-    sha256                               ventura:        "b92d0ba3aad9e324d4a8b0ca82f7c39fea1143b2feff34d4decf01a4288d4fc0"
-    sha256                               monterey:       "8d465af76147e1dfb212d9d4904e3f7ecda9638e2f5e3f3353c82e228d5ac89a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63b56ded239d7cee990c892690b27efd0a89363fddd57a58dd260bca9662e9c7"
+    sha256                               arm64_sonoma:   "f65ed22e56d35f6829a6d5ba455e2426c87dd77030f8cb806f5190a7840210e2"
+    sha256                               arm64_ventura:  "971273eec57ab268934f9580e9db7ab98bb562adbfd4d17f376b0879aabf7cb2"
+    sha256                               arm64_monterey: "91229982032f778a2c34798c44148daabd92002366e2925ba389b7ac8c02c138"
+    sha256                               sonoma:         "7827cf0466d469e327d16c8a923884b5d64179bb31b1e5332b8e19c20c138d91"
+    sha256                               ventura:        "3b7be18f85591732b4ee2f36135d4567d154c1fc27005835a5553ed2e649e3e7"
+    sha256                               monterey:       "4e62c351526c42d8c2ee79f80a7786e368639354e96ee2a01135a947b7763865"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d8f117178cb6ed7d7d21f3bc6e63cf2b916a7f0fe78d432d939a0b4d9754cce"
   end
 
   depends_on "intltool" => :build

@@ -1,18 +1,18 @@
 class Pint < Formula
   desc "Prometheus rule linter/validator"
   homepage "https://cloudflare.github.io/pint/"
-  url "https://github.com/cloudflare/pint/archive/refs/tags/v0.54.0.tar.gz"
-  sha256 "a43c5a64efe709615d5125ae53f1a92550c1d8b16578490ca5846e5c392e0578"
+  url "https://github.com/cloudflare/pint/archive/refs/tags/v0.58.1.tar.gz"
+  sha256 "35730442f4e38ab92f2f5dd98413a1a32e88b0a11bdee349e634bcc2509d32b3"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0661ea9f14f09871cf56a8a615086a586db5998451129902345c7c2a50dc30ab"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bfbc62ef546466f88ec2bb3acfe970cc6a6f30e5ab7c4c7caccbd5c313c0e59f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "629751edffac646dbdb950e69225c59eb1b7d55921d30254cd2c4653a56329db"
-    sha256 cellar: :any_skip_relocation, sonoma:         "23e934c2ce7404d387ccbbfbe242a9f49e4a63505f271856728e413b865c4633"
-    sha256 cellar: :any_skip_relocation, ventura:        "799bf5323a8847dd013c9839931eaa27ca06b97ae75a44e7aa0d53adc110ef58"
-    sha256 cellar: :any_skip_relocation, monterey:       "66aa787ef0e50c06f110fe20d33a2ae186c61bbc3473e5a24cf244bc9eff03eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c1bab285d6d88eee18723f74ed009cf86d80741b049967f11aecd738304e7716"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1263f7f67102591f7fb36e1f03613abae775152c0f7934fd79dfa76e1a994f76"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2976ac8fcf80a0d477daf584f485932914a11a809164bd502638d813a0b6404c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d304aaa1696d3c4fde4e0098d77810fd74f13d99630d4541fcac99bc3dea896d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e056e05fcf0bed4ebbbc15f4eac109ee3911836e0c01ec37ef6510f518f1462b"
+    sha256 cellar: :any_skip_relocation, ventura:        "2a9b1c37d29ff3c10268ff9e90afe592b3f2d994674d558294a7820cc660ecad"
+    sha256 cellar: :any_skip_relocation, monterey:       "ee44d4fd31200c623f34fe8869996d1583c872c99865d2be441a5410025b13f1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "499a1b4901ab08892d0f68acbd2abb5d16ab1e937e49acc98591800e04e62217"
   end
 
   depends_on "go" => :build
@@ -23,7 +23,7 @@ class Pint < Formula
       -X main.version=#{version}
       -X main.commit=#{tap.user}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/pint"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/pint"
 
     pkgshare.install "docs/examples"
   end
@@ -46,7 +46,7 @@ class Pint < Formula
 
     output = shell_output("#{bin}/pint -n lint #{testpath}/test.yaml 2>&1")
     assert_match "level=INFO msg=\"Loading configuration file\" path=.pint.hcl", output
-    assert_match "level=INFO msg=\"Problems found\" Warning=4", output
+    assert_match "level=INFO msg=\"Problems found\" Warning=6", output
 
     assert_match version.to_s, shell_output("#{bin}/pint version")
   end

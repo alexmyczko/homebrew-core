@@ -3,27 +3,28 @@ class Commitizen < Formula
 
   desc "Defines a standard way of committing rules and communicating it"
   homepage "https://commitizen-tools.github.io/commitizen/"
-  url "https://files.pythonhosted.org/packages/ae/4a/e6ae63dac0daf8884d1163a348aa7f5373d1cdeb8b498b6b0636d9d6ee8b/commitizen-3.16.0.tar.gz"
-  sha256 "1269619d383d12809f436ff196fb786a3d49fc50987562e6e566cd9c2908735c"
+  url "https://files.pythonhosted.org/packages/61/12/061e06fda5745421e5de4a8e0d09a21960f2e63e89f6603d8edc923eb906/commitizen-3.25.0.tar.gz"
+  sha256 "65c9c5114ac2ded5ab1e1a75c2540adc27ae7291ed2db9290f9ed208178d1e99"
   license "MIT"
+  revision 1
   head "https://github.com/commitizen-tools/commitizen.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2af57c5aed486870e9ab3549645e92542f2415e06a2c3032b947a4f9fc8571cb"
-    sha256 cellar: :any,                 arm64_ventura:  "97919d7fa896f20c6ae37e3a0db4f9683139d702d25292e5af6796e9c3f8c35b"
-    sha256 cellar: :any,                 arm64_monterey: "ff250fcf77dc360300a32ba63b277955501728dd4638bd0840fe3837b4a05bd6"
-    sha256 cellar: :any,                 sonoma:         "4eb6d981fad11b1af5c637e4e9e7dfac92b4e66bba32f6b38f966e77ab75a549"
-    sha256 cellar: :any,                 ventura:        "178fefb2e21457f4be2b6ec01c9fb858a207188974870fd53decf30f896307bb"
-    sha256 cellar: :any,                 monterey:       "3b1a6bd841542d91c9619d4df8248543b4165148c76497ac6ee021f1e2f326a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "52368e9c1b179787695e57ece46909084570a8014736d0d4114f8e44db6bbc52"
+    sha256 cellar: :any,                 arm64_sonoma:   "7ab439b5d2a2cb2fac7414cc5b69f8512f527e51e1416d8d00f14fb8ac3ca1d6"
+    sha256 cellar: :any,                 arm64_ventura:  "13e748755b1b7d4f9ab266a6995fdac3fe707c539eda7f2bdca60ffeb56d89a4"
+    sha256 cellar: :any,                 arm64_monterey: "656f86df7b388046bea1fff71a7cb1ced388c2127a03371090398296064e4677"
+    sha256 cellar: :any,                 sonoma:         "c116bab42d1a7b5d55909ea114b4c5b4559bc7f9c10717bd1f9454b8852dd798"
+    sha256 cellar: :any,                 ventura:        "b0706b37cbd5ccd09afb1b25792268a8620313fabb78bd0ffb07813ede25cf97"
+    sha256 cellar: :any,                 monterey:       "d6ce4d07cc3fc090803385936cf39212b5394d8e013fd9a760660cb01100d10f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6d118d4f64ba60d9115a119f94966d51d8084658b251f69d33a9db1cc89f692d"
   end
 
   depends_on "libyaml"
   depends_on "python@3.12"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/f0/a2/ce706abe166457d5ef68fac3ffa6cf0f93580755b7d5f883c456e94fab7b/argcomplete-3.2.2.tar.gz"
-    sha256 "f3e49e8ea59b4026ee29548e24488af46e30c9de57d48638e24f54a1ea1000a2"
+    url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"
+    sha256 "fd03ff4a5b9e6580569d34b273f741e85cd9e072f3feeeee3eba4891c70eda62"
   end
 
   resource "charset-normalizer" do
@@ -37,18 +38,18 @@ class Commitizen < Formula
   end
 
   resource "decli" do
-    url "https://files.pythonhosted.org/packages/2e/9c/b76485e6120795c8b632707bafb4a9a4a2b75584ca5277e3e175c5d02225/decli-0.6.1.tar.gz"
-    sha256 "ed88ccb947701e8e5509b7945fda56e150e2ac74a69f25d47ac85ef30ab0c0f0"
+    url "https://files.pythonhosted.org/packages/3d/a0/a4658f93ecb589f479037b164dc13c68d108b50bf6594e54c820749f97ac/decli-0.6.2.tar.gz"
+    sha256 "36f71eb55fd0093895efb4f416ec32b7f6e00147dda448e3365cf73ceab42d6f"
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/90/b4/206081fca69171b4dc1939e77b378a7b87021b0f43ce07439d49d8ac5c84/importlib_metadata-7.0.1.tar.gz"
-    sha256 "f238736bb06590ae52ac1fab06a3a9ef1d8dce2b7a35b5ab329371d6c8f5d2cc"
+    url "https://files.pythonhosted.org/packages/a0/fc/c4e6078d21fc4fa56300a241b87eae76766aa380a23fc450fc85bb7bf547/importlib_metadata-7.1.0.tar.gz"
+    sha256 "b78938b926ee8d5f020fc4772d487045805a55ddbad2ecf21c6d60938dc7fcd2"
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
@@ -57,8 +58,8 @@ class Commitizen < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "prompt-toolkit" do
@@ -82,8 +83,8 @@ class Commitizen < Formula
   end
 
   resource "tomlkit" do
-    url "https://files.pythonhosted.org/packages/df/fc/1201a374b9484f034da4ec84215b7b9f80ed1d1ea989d4c02167afaa4400/tomlkit-0.12.3.tar.gz"
-    sha256 "75baf5012d06501f07bee5bf8e801b9f343e7aac5a92581f20f80ce632e6b5a4"
+    url "https://files.pythonhosted.org/packages/7d/49/4c0764898ee67618996148bdba4534a422c5e698b4dbf4001f7c6f930797/tomlkit-0.12.4.tar.gz"
+    sha256 "7ca1cfc12232806517a8515047ba66a19369e71edf2439d0f5824f91032b6cc3"
   end
 
   resource "wcwidth" do
@@ -92,8 +93,8 @@ class Commitizen < Formula
   end
 
   resource "zipp" do
-    url "https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz"
-    sha256 "84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"
+    url "https://files.pythonhosted.org/packages/3e/ef/65da662da6f9991e87f058bc90b91a935ae655a16ae5514660d6460d1298/zipp-3.18.1.tar.gz"
+    sha256 "2884ed22e7d8961de1c9a05142eb69a247f120291bc0206a00a7642f09b5b715"
   end
 
   def install

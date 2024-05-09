@@ -18,8 +18,8 @@ class Jrnl < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc36a6efe3bb34278cdcaea83dafb134a9180249776d76f695a98a5907888f3e"
   end
 
+  depends_on "cryptography"
   depends_on "libyaml"
-  depends_on "python-cryptography"
   depends_on "python@3.12"
 
   uses_from_macos "expect" => :test
@@ -100,6 +100,10 @@ class Jrnl < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
   end
 

@@ -1,19 +1,19 @@
 class Pspg < Formula
   desc "Unix pager optimized for psql"
   homepage "https://github.com/okbob/pspg"
-  url "https://github.com/okbob/pspg/archive/refs/tags/5.8.1.tar.gz"
-  sha256 "57f086f91927e0c1c2cfe1660049d7bed03b075c742a40c16bea5702a22169d0"
+  url "https://github.com/okbob/pspg/archive/refs/tags/5.8.6.tar.gz"
+  sha256 "ed7c1d43c813b2415d5ce0099ae34381c10f82f211de10a4d8ed0ffcf4f2a938"
   license "BSD-2-Clause"
   head "https://github.com/okbob/pspg.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "ef2bc0ffad7bb57b4220fcf8ddb9226d21ac5fc648adda3bfa04b22af6dfb92f"
-    sha256 cellar: :any,                 arm64_ventura:  "7c4dc14773eb6506e4b788a23d101f28ef47fe428b14cb1a7b8411342ddfdd5c"
-    sha256 cellar: :any,                 arm64_monterey: "ba00565370dd4de9afe386610cfbc3ed6731bc800a8f98e31c4c960811d08b4e"
-    sha256 cellar: :any,                 sonoma:         "b4dd92fed169cbf6f981eb59f2269344cb13fedec7984a2ea13339ae5ef69af4"
-    sha256 cellar: :any,                 ventura:        "49a82e9d5af29f66a4c32dc0d51d950b8ee57b0d5c58126be12131c79e552882"
-    sha256 cellar: :any,                 monterey:       "861925772db8db223d1d4488c3cfdbf29a1821342ee7de86cd87e4aa49879657"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b8490c60ea454502f10057bbd00aa32a1a380e9bf85afd732fec8e31abfefff"
+    sha256 cellar: :any,                 arm64_sonoma:   "4351375f0fce202cea717331d3a12fc0910267967e9e4d30e5e2f2da62524d0c"
+    sha256 cellar: :any,                 arm64_ventura:  "c39a47f68739022f17a1debad4a47c031a7759bcd477a3e729199a2809efcc06"
+    sha256 cellar: :any,                 arm64_monterey: "09283444adc192dd9ee08dac08a90e86b6a6f891f303f6212da6c690ef2be49d"
+    sha256 cellar: :any,                 sonoma:         "91051c3a305020451a22676e92e64f58dc95e5a940def7f5cb5b3c80187893cb"
+    sha256 cellar: :any,                 ventura:        "127ac58b81dfda2c0dbccd302b4e63b77e616a3b3cf017a2ff3df2d05f154275"
+    sha256 cellar: :any,                 monterey:       "9550d859de103cd5e6e334e09ff1387b2436e11d8c654cf62a7bca7cb63cba69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7f263cbb1c75fe1b0fc0c02e170f95af535b1011584f7dc405c23008e41e7842"
   end
 
   depends_on "libpq"
